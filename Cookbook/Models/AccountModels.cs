@@ -25,6 +25,13 @@ namespace Cookbook.Models
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int UserId { get; set; }
         public string UserName { get; set; }
+        
+        //custom additions
+
+        //admin vs. regular user
+        public string UserType { get; set; }
+
+
     }
 
     public class RegisterExternalLoginModel
