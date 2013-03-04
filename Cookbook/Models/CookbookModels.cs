@@ -7,7 +7,6 @@ namespace Cookbook.Models
 {
     public class Cookbook
     {
-        public int CookbookID { get; set; }
         public int UserID { get; set; }
 
         //your own uploaded recipes
@@ -27,17 +26,31 @@ namespace Cookbook.Models
         public int UserID { get; set; }
 
         public string Title { get; set; }
-        public List<string> Ingredients { get; set; }
+
+        //look up ingredient by name
+        public Dictionary<string, Ingredient> Ingredients { get; set; }
+        
         public string Instructions { get; set; }
 
         public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }
 
-        public List<string> PhotoAlbum { get; set; }
+        public List<Image> PhotoAlbum { get; set; }
 
         public HashSet<string> Tags { get; set; }
 
-        public List<Comment> Comments { get; set; }
+        //look up comment by comment ID
+        public Dictionary<int, Comment> Comments { get; set; }
+        public int FavoriteCount { get; set; }
+        public string Favoriters { get; set; }
+        public int LikeCount { get; set; }
+        public string Likers { get; set; }
+    }
+
+    public class Ingredient
+    {
+        public string Quantity { get; set; }
+        public string IngredientName { get; set; }
     }
 
     public class BlogPost
@@ -47,16 +60,20 @@ namespace Cookbook.Models
 
         public string Title { get; set; }
         public string Post { get; set; }
+        public List<Image> PhotoAlbum { get; set; }
 
         public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }
 
         public HashSet<string> Tags { get; set; }
 
-        public List<Comment> Comments { get; set; }
+        //look up comment by comment ID
+        public Dictionary<int, Comment> Comments { get; set; }
+        public string Likers { get; set; }
+        public int LikeCount { get; set; }
     }
 
-    public class ImagePost
+    public class Image
     {
         public int ImageID { get; set; }
         public int UserID { get; set; }
@@ -75,7 +92,7 @@ namespace Cookbook.Models
         public int CommentID { get; set; }
         public int UserID { get; set; }
         public string Content { get; set; }
-        public string DateCreated { get; set; }
+        public DateTime DateCreated { get; set; }
     }
 
 }

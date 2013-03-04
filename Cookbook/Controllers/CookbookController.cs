@@ -47,17 +47,17 @@ namespace Cookbook.Controllers
         }
 
         //postId must be the ID of either a blog post or recipe post
-        public ActionResult UploadImage(string postId, ImagePost image)
+        public ActionResult UploadImage(string postId, Image image)
         {
             return View();
         }
 
-        public ActionResult EditImage(ImagePost image)
+        public ActionResult EditImage(string postId, Image image)
         {
             return View();
         }
 
-        public ActionResult DeleteImage(ImagePost image)
+        public ActionResult DeleteImage(string postId, Image image)
         {
             return View();
         }
@@ -67,28 +67,27 @@ namespace Cookbook.Controllers
         //-----------------
 
         //add another user's recipe to your cookbook
-        public ActionResult AddRecipe(Recipe recipe)
+        public ActionResult FavoriteRecipe(Recipe recipe)
         {
             return View();
         }
 
-        //share another user's post onto your cookbook
-        public ActionResult SharePost(BlogPost post)
+        public ActionResult AddComment(int postID, int commentID)
         {
             return View();
         }
 
-        public ActionResult AddComment(BlogPost post, Comment comment)
+        public ActionResult DeleteComment(int postID, int commentID)
+        {
+            return View();
+        }
+        
+        public ActionResult LikePost(int postID)
         {
             return View();
         }
 
-        public ActionResult AddComment(Recipe recipe, Comment comment)
-        {
-            return View();
-        }
-
-        public ActionResult DeleteComment(Comment comment)
+        public ActionResult Report(int id)
         {
             return View();
         }
