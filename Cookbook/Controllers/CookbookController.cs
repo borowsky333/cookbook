@@ -8,8 +8,27 @@ namespace Cookbook.Controllers
 {
     public class CookbookController : Controller
     {
+        CookbookDBModelsDataContext db = new CookbookDBModelsDataContext();
+
+
+        //redirect if not logged in
         public ActionResult Index()
         {
+
+            //var myRecipes =
+            //    (from recipes in db.Recipes
+            //     where recipes.RecipeID == 1
+            //     select recipes).Take(20);
+            
+
+            //Recipe newRecipe = new Recipe();
+
+            //newRecipe.Title = "My Recipe";
+            //newRecipe.Instructions = "INSTRUCTION!";
+
+            //db.Recipes.InsertOnSubmit(newRecipe);
+            //db.SubmitChanges();
+
             return View();
         }
 

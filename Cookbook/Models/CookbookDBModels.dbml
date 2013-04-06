@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="aspnet-Cookbook-20130302154948" Class="CookbookDBModelsDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=(LocalDb)\v11.0;AttachDbFilename=|DataDirectory|\aspnet-Cookbook-20130302154948.mdf;Initial Catalog=aspnet-Cookbook-20130302154948;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="aspnet_Cookbook_20130302154948ConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.BlogPost" Member="BlogPosts">
+    <Type Name="BlogPost">
+      <Column Name="BlogPostId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(150) NOT NULL" CanBeNull="false" />
+      <Column Name="Post" Type="System.String" DbType="NVarChar(4000) NOT NULL" CanBeNull="false" />
+      <Column Name="DateCreated" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateModified" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="LikeCount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="BlogPost_BlogPost_Comment" Member="BlogPost_Comments" ThisKey="BlogPostId" OtherKey="BlogPostId" Type="BlogPost_Comment" />
+      <Association Name="BlogPost_BlogPost_Image" Member="BlogPost_Images" ThisKey="BlogPostId" OtherKey="BlogPostId" Type="BlogPost_Image" />
+      <Association Name="BlogPost_BlogPost_Liker" Member="BlogPost_Likers" ThisKey="BlogPostId" OtherKey="BlogPostId" Type="BlogPost_Liker" />
+      <Association Name="BlogPost_BlogPost_Tag" Member="BlogPost_Tags" ThisKey="BlogPostId" OtherKey="BlogPostId" Type="BlogPost_Tag" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BlogPost_Comment" Member="BlogPost_Comments">
+    <Type Name="BlogPost_Comment">
+      <Column Name="BlogPostId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CommentId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="BlogPost_BlogPost_Comment" Member="BlogPost" ThisKey="BlogPostId" OtherKey="BlogPostId" Type="BlogPost" IsForeignKey="true" />
+      <Association Name="Comment_BlogPost_Comment" Member="Comment" ThisKey="CommentId" OtherKey="CommentId" Type="Comment" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BlogPost_Image" Member="BlogPost_Images">
+    <Type Name="BlogPost_Image">
+      <Column Name="BlogPostId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ImageId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="BlogPost_BlogPost_Image" Member="BlogPost" ThisKey="BlogPostId" OtherKey="BlogPostId" Type="BlogPost" IsForeignKey="true" />
+      <Association Name="Image_BlogPost_Image" Member="Image" ThisKey="ImageId" OtherKey="ImageId" Type="Image" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BlogPost_Liker" Member="BlogPost_Likers">
+    <Type Name="BlogPost_Liker">
+      <Column Name="BlogPostId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="BlogPost_BlogPost_Liker" Member="BlogPost" ThisKey="BlogPostId" OtherKey="BlogPostId" Type="BlogPost" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BlogPost_Tag" Member="BlogPost_Tags">
+    <Type Name="BlogPost_Tag">
+      <Column Name="BlogPostId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Tag" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
+      <Association Name="BlogPost_BlogPost_Tag" Member="BlogPost" ThisKey="BlogPostId" OtherKey="BlogPostId" Type="BlogPost" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Comment" Member="Comments">
+    <Type Name="Comment">
+      <Column Name="CommentId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Content" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="DateCreated" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="Comment_BlogPost_Comment" Member="BlogPost_Comments" ThisKey="CommentId" OtherKey="CommentId" Type="BlogPost_Comment" />
+      <Association Name="Comment_Recipe_Comment" Member="Recipe_Comments" ThisKey="CommentId" OtherKey="CommentId" Type="Recipe_Comment" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Image" Member="Images">
+    <Type Name="Image">
+      <Column Name="ImageId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ImageUrl" Type="System.String" DbType="NVarChar(150) NOT NULL" CanBeNull="false" />
+      <Column Name="ImageTitle" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="ImageDescription" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="DateCreated" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateModified" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="Image_BlogPost_Image" Member="BlogPost_Images" ThisKey="ImageId" OtherKey="ImageId" Type="BlogPost_Image" />
+      <Association Name="Image_Recipe_Image" Member="Recipe_Images" ThisKey="ImageId" OtherKey="ImageId" Type="Recipe_Image" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Ingredient" Member="Ingredients">
+    <Type Name="Ingredient">
+      <Column Name="IngredientId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="RecipeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Quantity" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Association Name="Recipe_Ingredient" Member="Recipe" ThisKey="RecipeId" OtherKey="RecipeID" Type="Recipe" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Recipe" Member="Recipes">
+    <Type Name="Recipe">
+      <Column Name="RecipeID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(150) NOT NULL" CanBeNull="false" />
+      <Column Name="Instructions" Type="System.String" DbType="NVarChar(4000) NOT NULL" CanBeNull="false" />
+      <Column Name="DateCreated" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateModified" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="FavoriteCount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="LikeCount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Recipe_Ingredient" Member="Ingredients" ThisKey="RecipeID" OtherKey="RecipeId" Type="Ingredient" />
+      <Association Name="Recipe_Recipe_Comment" Member="Recipe_Comments" ThisKey="RecipeID" OtherKey="RecipeId" Type="Recipe_Comment" />
+      <Association Name="Recipe_Recipe_Favoriter" Member="Recipe_Favoriters" ThisKey="RecipeID" OtherKey="RecipeId" Type="Recipe_Favoriter" />
+      <Association Name="Recipe_Recipe_Image" Member="Recipe_Images" ThisKey="RecipeID" OtherKey="RecipeId" Type="Recipe_Image" />
+      <Association Name="Recipe_Recipe_Liker" Member="Recipe_Likers" ThisKey="RecipeID" OtherKey="RecipeId" Type="Recipe_Liker" />
+      <Association Name="Recipe_Recipe_Tag" Member="Recipe_Tags" ThisKey="RecipeID" OtherKey="RecipeID" Type="Recipe_Tag" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Recipe_Comment" Member="Recipe_Comments">
+    <Type Name="Recipe_Comment">
+      <Column Name="RecipeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CommentId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Comment_Recipe_Comment" Member="Comment" ThisKey="CommentId" OtherKey="CommentId" Type="Comment" IsForeignKey="true" />
+      <Association Name="Recipe_Recipe_Comment" Member="Recipe" ThisKey="RecipeId" OtherKey="RecipeID" Type="Recipe" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Recipe_Favoriter" Member="Recipe_Favoriters">
+    <Type Name="Recipe_Favoriter">
+      <Column Name="RecipeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Recipe_Recipe_Favoriter" Member="Recipe" ThisKey="RecipeId" OtherKey="RecipeID" Type="Recipe" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Recipe_Image" Member="Recipe_Images">
+    <Type Name="Recipe_Image">
+      <Column Name="RecipeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ImageId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Image_Recipe_Image" Member="Image" ThisKey="ImageId" OtherKey="ImageId" Type="Image" IsForeignKey="true" />
+      <Association Name="Recipe_Recipe_Image" Member="Recipe" ThisKey="RecipeId" OtherKey="RecipeID" Type="Recipe" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Recipe_Liker" Member="Recipe_Likers">
+    <Type Name="Recipe_Liker">
+      <Column Name="RecipeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Recipe_Recipe_Liker" Member="Recipe" ThisKey="RecipeId" OtherKey="RecipeID" Type="Recipe" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Recipe_Tag" Member="Recipe_Tags">
+    <Type Name="Recipe_Tag">
+      <Column Name="RecipeID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Tag" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
+      <Association Name="Recipe_Recipe_Tag" Member="Recipe" ThisKey="RecipeID" OtherKey="RecipeID" Type="Recipe" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>
