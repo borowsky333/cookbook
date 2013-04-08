@@ -118,7 +118,7 @@ sub {
 }
 
 img {
-  width: auto\9;
+  width: auto;
   height: auto;
   max-width: 100%;
   vertical-align: middle;
@@ -6500,4 +6500,46 @@ i[class^="icon-"] {
 
 .affix {
   position: fixed;
+}
+
+.recipeLeftSide {
+    text-align: center;
+    border-top: 5px solid black;
+    border-left: 5px solid black;
+    border-bottom: 5px solid black;
+    border-right: 5px solid black;
+    border-top-left-radius: 40px;
+    border-bottom-left-radius: 40px;
+    height: 250px;
+    
+
+}
+
+.recipeRightSide {
+    
+    border-top: 5px solid black;
+    border-right: 5px solid black;
+    border-bottom: 5px solid black;
+    border-left: 5px solid black;
+    border-top-right-radius: 40px;
+    border-bottom-right-radius: 40px;
+    height: 250px;
+    padding: 5px 5px 5px 5px;
+    overflow: hidden;
+    
+
+    
+}
+
+.recipeImage {
+    width: 180px;
+    height: 180px;
+}
+
+.recipeTitle {
+    text-align: center;
+}
+
+.recipeObject {
+    margin-bottom: 10px;
 }

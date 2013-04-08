@@ -8,7 +8,7 @@ namespace Cookbook.Controllers
 {
     public class CookbookController : Controller
     {
-        CookbookDBModelsDataContext db = new CookbookDBModelsDataContext();
+        //CookbookDBModelsDataContext db = new CookbookDBModelsDataContext();
 
 
         //redirect if not logged in
