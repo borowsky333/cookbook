@@ -9,7 +9,7 @@ namespace Cookbook
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
+                        "~/Scripts/jquery-1.9.1.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
                         "~/Scripts/jquery-ui-{version}.js"));
@@ -26,8 +26,8 @@ namespace Cookbook
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                             "~/Scripts/bootstrap.js"));
             bundles.Add(new StyleBundle("~/Content/bootstrapcss").Include(
-                            "~/Content/bootstrap-responsive.min.css",
-                            "~/Content/bootstrap.min.css"));
+                            "~/Content/bootstrap-responsive.css",
+                            "~/Content/bootstrap.css"));
         }
     }
 }
