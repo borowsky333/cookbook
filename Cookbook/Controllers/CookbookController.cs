@@ -3,39 +3,75 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using Cookbook.Models;
 namespace Cookbook.Controllers
 {
+    [Authorize]
     public class CookbookController : Controller
     {
-        //CookbookDBModelsDataContext db = new CookbookDBModelsDataContext();
+        CookbookDBModelsDataContext db = new CookbookDBModelsDataContext();
 
 
         //redirect if not logged in
         public ActionResult Index()
         {
-
-            //var myRecipes =
-            //    (from recipes in db.Recipes
-            //     where recipes.RecipeID == 1
-            //     select recipes).Take(20);
-            
-
-            //Recipe newRecipe = new Recipe();
-
-            //newRecipe.Title = "My Recipe";
-            //newRecipe.Instructions = "INSTRUCTION!";
-
-            //db.Recipes.InsertOnSubmit(newRecipe);
-            //db.SubmitChanges();
+            ViewBag.MyRecipes = GetMyRecipes();
+            ViewBag.MyPosts = GetMyPosts();
 
             return View();
         }
 
-        //upload own recipe
-        public ActionResult UploadRecipe(Recipe recipe)
+        public List<Recipe> GetMyRecipes()
+        {
+            int currentUserId = (int)Membership.GetUser().ProviderUserKey;
+            var recipes = (from allRecipes in db.Recipes
+                          where allRecipes.UserID == currentUserId
+                          select allRecipes).Take(20).ToList();
+            return recipes;
+        }
+
+        public List<BlogPost> GetMyPosts()
+        {
+            int currentUserId = (int)Membership.GetUser().ProviderUserKey;
+            var posts = (from allPosts in db.BlogPosts
+                         where allPosts.UserId == currentUserId
+                         select allPosts).Take(20).ToList();
+            return posts;
+        }
+        public ActionResult UploadRecipe()
         {
             return View();
+        }
+
+
+        [HttpPost]
+        public ActionResult UploadRecipe(UploadRecipeModel newRecipe)
+        {
+            Recipe recipeEntry = new Recipe();
+            recipeEntry.Title = newRecipe.Title;
+            recipeEntry.Instructions = newRecipe.Instructions;
+            
+            //TODO: need logic for adding tags to tag table.
+            recipeEntry.DateCreated = DateTime.Now;
+
+            recipeEntry.DateModified = DateTime.Now;
+            recipeEntry.UserID = (int)Membership.GetUser().ProviderUserKey;
+
+            db.Recipes.InsertOnSubmit(recipeEntry);
+            db.SubmitChanges();
+
+            var tags = newRecipe.Tags.Split(',').ToList();
+            foreach (var tag in tags)
+            {
+                Recipe_Tag newTag = new Recipe_Tag();
+                newTag.RecipeID = recipeEntry.RecipeID;
+                newTag.Tag = tag.Trim();
+                db.Recipe_Tags.InsertOnSubmit(newTag);
+            }
+            db.SubmitChanges();
+
+            return RedirectToAction("Index");
         }
 
         //edit own recipe
@@ -49,10 +85,40 @@ namespace Cookbook.Controllers
             return View();
         }
 
-        //upload a blog post
-        public ActionResult UploadPost(BlogPost post)
+
+        public ActionResult UploadPost()
         {
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult UploadPost(UploadBlogPostModel newPost)
+        {
+            BlogPost post = new BlogPost();
+            post.Title = newPost.Title;
+            post.Post = newPost.Post;
+
+            //TODO: need logic for adding tags to tag table.
+            post.DateCreated = DateTime.Now;
+
+            post.DateModified = DateTime.Now;
+            post.UserId = (int)Membership.GetUser().ProviderUserKey;
+
+            db.BlogPosts.InsertOnSubmit(post);
+            db.SubmitChanges();
+
+
+            var tags = newPost.Tags.Split(',').ToList();
+            foreach (var tag in tags)
+            {
+                BlogPost_Tag newTag = new BlogPost_Tag();
+                newTag.BlogPostId = post.BlogPostId;
+                newTag.Tag = tag.Trim();
+                db.BlogPost_Tags.InsertOnSubmit(newTag);
+            }
+            db.SubmitChanges();
+
+            return RedirectToAction("Index");
         }
 
         public ActionResult EditPost(BlogPost post)
