@@ -12,20 +12,15 @@
 
     <fieldset>
         <legend>Upload Recipe</legend>
-        <ul>
-            <li>
                 @Html.LabelFor(m => m.Title)
                 @Html.TextBoxFor(m => m.Title)
-            </li>
-            <li>
+<br />
                 @Html.LabelFor(m => m.Instructions)
                 @Html.TextBoxFor(m => m.Instructions)
-            </li>
-            <li>
+<br />
                 @Html.LabelFor(m => m.Tags)
                 @Html.TextBoxFor(m => m.Tags)
-            </li>
-        </ul>
+<br />
         <input type="submit" value="Upload Recipe" />
     </fieldset>
 

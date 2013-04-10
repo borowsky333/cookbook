@@ -38,31 +38,20 @@ namespace Cookbook.Models
         public string Tags { get; set; }
     }
 
-    //    public class Ingredient
-    //    {
-    //        public string Quantity { get; set; }
-    //        public string IngredientName { get; set; }
-    //    }
 
-    //    public class BlogPost
-    //    {
-    //        public int BlogPostID { get; set; }
-    //        public int UserID { get; set; }
+    public class UploadBlogPostModel
+    {
+        [Required]
+        [Display(Name = "Post Title")]
+        public string Title { get; set; }
+        [Required]
+        [Display(Name = "Post")]
+        public string Post { get; set; }
+        [Required]
+        [Display(Name = "Tags")]
+        public string Tags { get; set; }
 
-    //        public string Title { get; set; }
-    //        public string Post { get; set; }
-    //        public List<Image> PhotoAlbum { get; set; }
-
-    //        public DateTime DateCreated { get; set; }
-    //        public DateTime DateModified { get; set; }
-
-    //        public HashSet<string> Tags { get; set; }
-
-    //        //look up comment by comment ID
-    //        public Dictionary<int, Comment> Comments { get; set; }
-    //        public string Likers { get; set; }
-    //        public int LikeCount { get; set; }
-    //    }
+    }
 
     //    public class Image
     //    {

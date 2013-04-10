@@ -16,21 +16,6 @@ namespace Cookbook.Controllers
         //redirect if not logged in
         public ActionResult Index()
         {
-
-            //var myRecipes =
-            //    (from recipes in db.Recipes
-            //     where recipes.RecipeID == 1
-            //     select recipes).Take(20);
-            
-
-            //Recipe newRecipe = new Recipe();
-
-            //newRecipe.Title = "My Recipe";
-            //newRecipe.Instructions = "INSTRUCTION!";
-
-            //db.Recipes.InsertOnSubmit(newRecipe);
-            //db.SubmitChanges();
-
             return View();
         }
 
@@ -71,10 +56,29 @@ namespace Cookbook.Controllers
             return View();
         }
 
-        //upload a blog post
-        public ActionResult UploadPost(BlogPost post)
+
+        public ActionResult UploadPost()
         {
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult UploadPost(BlogPost newPost)
+        {
+            BlogPost post = new BlogPost();
+            post.Title = newPost.Title;
+            post.Post = newPost.Post;
+
+            //TODO: need logic for adding tags to tag table.
+            post.DateCreated = DateTime.Now;
+
+            post.DateModified = DateTime.Now;
+            post.UserId = (int)Membership.GetUser().ProviderUserKey;
+
+            db.BlogPosts.InsertOnSubmit(post);
+            db.SubmitChanges();
+
+            return RedirectToAction("Index");
         }
 
         public ActionResult EditPost(BlogPost post)
