@@ -49,3 +49,5 @@ C:\Users\Lauren\Documents\GitHub\cookbook\Cookbook\obj\Debug\Cookbook.dll
 C:\Users\Lauren\Documents\GitHub\cookbook\Cookbook\obj\Debug\Cookbook.pdb
 C:\Users\Lauren\Documents\GitHub\cookbook\Cookbook\bin\AWS.Extensions.dll
 C:\Users\Lauren\Documents\GitHub\cookbook\Cookbook\bin\AWS.Extensions.xml
+C:\Users\Lauren\Documents\GitHub\cookbook\Cookbook\bin\AWSSDK.dll
+C:\Users\Lauren\Documents\GitHub\cookbook\Cookbook\bin\AWSSDK.xml

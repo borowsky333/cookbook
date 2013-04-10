@@ -54,7 +54,7 @@ namespace Cookbook.Controllers
         {
             WebSecurity.Logout();
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "NewsFeed");
         }
 
         //
@@ -81,7 +81,7 @@ namespace Cookbook.Controllers
                 {
                     WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
                     WebSecurity.Login(model.UserName, model.Password);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "NewsFeed");
                 }
                 catch (MembershipCreateUserException e)
                 {
@@ -337,7 +337,7 @@ namespace Cookbook.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "NewsFeed");
             }
         }
 

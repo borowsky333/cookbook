@@ -22,7 +22,7 @@ namespace Cookbook.Models
 	using System;
 	
 	
-	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="aspnet-Cookbook-20130302154948")]
+	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="DefaultConnection")]
 	public partial class CookbookDBModelsDataContext : System.Data.Linq.DataContext
 	{
 		
@@ -47,8 +47,8 @@ namespace Cookbook.Models
     partial void DeleteRecipe(Recipe instance);
     #endregion
 		
-		public CookbookDBModelsDataContext() : 
-				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["aspnet_Cookbook_20130302154948ConnectionString"].ConnectionString, mappingSource)
+		public CookbookDBModelsDataContext() :
+        base(global::System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
