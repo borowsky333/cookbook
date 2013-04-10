@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿<div class="container">
     <div class="row-fluid recipeObject">
         <div class="span4 offset2 recipeLeftSide">
@@ -260,3 +261,10 @@
         </div>
     </div>
 </div>
+=======
+﻿@{
+    ViewBag.Title = "News Feed";
+}
+
+<h4> Coming soon!</h4>
+>>>>>>> 09ad91819c2446fa6a15e02a8877173f6f8b91bb

@@ -3,9 +3,15 @@
     ViewBag.Title = "Manage Account";
 }
 
+<<<<<<< HEAD
 <div class="well span8 offset2">
 
     <h1 style="text-align: center;">@ViewBag.Title</h1>
+=======
+<h1>@ViewBag.Title</h1>
+
+<p class="alert-success">@ViewBag.StatusMessage</p>
+>>>>>>> 09ad91819c2446fa6a15e02a8877173f6f8b91bb
 
     <p style="text-align: center;" class="alert-success">@ViewBag.StatusMessage</p>
 
