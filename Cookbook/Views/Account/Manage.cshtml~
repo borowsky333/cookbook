@@ -1,0 +1,39 @@
+﻿@model Cookbook.Models.LocalPasswordModel
+@{
+    ViewBag.Title = "Manage Account";
+}
+
+<<<<<<< HEAD
+<div class="well span8 offset2">
+
+    <h1 style="text-align: center;">@ViewBag.Title</h1>
+=======
+<h1>@ViewBag.Title</h1>
+
+<p class="alert-success">@ViewBag.StatusMessage</p>
+>>>>>>> 09ad91819c2446fa6a15e02a8877173f6f8b91bb
+
+    <p style="text-align: center;" class="alert-success">@ViewBag.StatusMessage</p>
+
+    <p style="text-align: center;">You're logged in as <strong>@User.Identity.Name</strong>.</p>
+    <br />
+    <br />
+
+    @if (ViewBag.HasLocalPassword)
+    {
+        @Html.Partial("_ChangePasswordPartial")
+    }
+    else
+    { 
+        @Html.Partial("_SetPasswordPartial")
+    }
+
+    @*<section id="externalLogins">
+        @Html.Action("RemoveExternalLogins")
+
+        <h3>Add an external login</h3>
+        @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
+    </section>*@
+
+</div>
+@Scripts.Render("~/bundles/jqueryval")

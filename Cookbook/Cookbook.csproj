@@ -171,6 +171,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CookbookController.cs" />
+    <Compile Include="Controllers\WelcomeController.cs" />
     <Compile Include="Controllers\DiscoveryFeedController.cs" />
     <Compile Include="Controllers\NewsFeedController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
@@ -203,7 +204,6 @@
       <LastGenOutput>CookbookDBModels.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
-    <None Include="Properties\PublishProfiles\cookbookProfile.pubxml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
     <Content Include="Scripts\jquery-1.9.1.min.js" />
@@ -261,10 +261,12 @@
     <Content Include="Views\DiscoveryFeed\About.cshtml" />
     <Content Include="Views\DiscoveryFeed\Contact.cshtml" />
     <Content Include="Views\DiscoveryFeed\Index.cshtml" />
+    <Content Include="Views\Cookbook\Cookbook.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Search\" />
+    <Folder Include="Views\Welcome\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

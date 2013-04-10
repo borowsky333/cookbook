@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace Cookbook.Controllers
 {
-    public class NewsFeedController : Controller
+    public class WelcomeController : Controller
     {
         public ActionResult Index()
         {
