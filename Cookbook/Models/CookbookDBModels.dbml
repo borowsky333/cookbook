@@ -72,7 +72,6 @@
     <Type Name="Ingredient">
       <Column Name="IngredientId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="RecipeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Quantity" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="Name" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
       <Association Name="Recipe_Ingredient" Member="Recipe" ThisKey="RecipeId" OtherKey="RecipeID" Type="Recipe" IsForeignKey="true" />
     </Type>

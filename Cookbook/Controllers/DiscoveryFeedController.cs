@@ -19,8 +19,18 @@ namespace Cookbook.Controllers
                  select recipes)
                  .Take(20)
                  .ToList();
+            var recipeDict = new Dictionary<Recipe, List<string>>();
 
-            ViewBag.Recipes = recipeList;
+            foreach (var recipe in recipeList)
+            {
+                var ingredients =
+                    (from allIngredients in db.Ingredients
+                     where allIngredients.RecipeId == recipe.RecipeID
+                     select allIngredients.Name).ToList();
+                recipeDict.Add(recipe, ingredients);
+            }
+
+            ViewBag.Recipes = recipeDict;
 
             return View();
         }

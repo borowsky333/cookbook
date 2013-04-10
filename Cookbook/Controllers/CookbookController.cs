@@ -16,7 +16,19 @@ namespace Cookbook.Controllers
         //redirect if not logged in
         public ActionResult Index()
         {
-            ViewBag.MyRecipes = GetMyRecipes();
+            var recipes = GetMyRecipes();
+            var recipeDict = new Dictionary<Recipe, List<string>>();
+            
+            foreach (var recipe in recipes)
+            {
+                var ingredients =
+                    (from allIngredients in db.Ingredients
+                     where allIngredients.RecipeId == recipe.RecipeID
+                     select allIngredients.Name).ToList();
+                recipeDict.Add(recipe, ingredients);
+            }
+
+            ViewBag.MyRecipes = recipeDict;
             ViewBag.MyPosts = GetMyPosts();
 
             return View();
@@ -59,7 +71,17 @@ namespace Cookbook.Controllers
             recipeEntry.UserID = (int)Membership.GetUser().ProviderUserKey;
 
             db.Recipes.InsertOnSubmit(recipeEntry);
+
             db.SubmitChanges();
+
+            var ingredients = newRecipe.Ingredients.Split(',').ToList();
+            foreach (var ingredient in ingredients)
+            {
+                Ingredient entry = new Ingredient();
+                entry.Name = ingredient.Trim();
+                entry.RecipeId = recipeEntry.RecipeID;
+                db.Ingredients.InsertOnSubmit(entry);
+            }
 
             var tags = newRecipe.Tags.Split(',').ToList();
             foreach (var tag in tags)

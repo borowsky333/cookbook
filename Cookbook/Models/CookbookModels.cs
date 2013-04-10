@@ -6,21 +6,6 @@ using System.Web;
 
 namespace Cookbook.Models
 {
-    //    public class Cookbook
-    //    {
-    //        public int UserID { get; set; }
-
-    //        //your own uploaded recipes
-    //        public List<Recipe> Recipes { get; set; }
-
-    //        //other user's recipes you've attached to your cookbook
-    //        public List<Recipe> Favorites { get; set; }
-
-    //        //blog (non-recipe) posts
-    //        public List<BlogPost> Posts { get; set; }
-
-    //    }
-
     public class UploadRecipeModel
     {
         [Required]
@@ -28,13 +13,17 @@ namespace Cookbook.Models
         public string Title { get; set; }
 
         [Required]
-        [Display(Name = "Recipe Instructions")]
-        public string Instructions { get; set; }
-
-        //public List<Image> PhotoAlbum { get; set; }
+        [Display(Name = "Ingredients")]
+        [DataType(DataType.MultilineText)]
+        public string Ingredients { get; set; }
 
         [Required]
-        [Display(Name = "Comma-separated Tags")]
+        [Display(Name = "Recipe Instructions")]
+        [DataType(DataType.MultilineText)]
+        public string Instructions { get; set; }
+
+        [Required]
+        [Display(Name = "Tags")]
         public string Tags { get; set; }
     }
 

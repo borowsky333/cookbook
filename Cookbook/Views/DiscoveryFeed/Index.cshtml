@@ -26,16 +26,17 @@
             </div>
             <div class="span4 recipeRightSide" style="margin-left: 0px;">
             
-                <h4 class="recipeTitle">@recipe.Title</h4>
+                <h4 class="recipeTitle">@recipe.Key.Title</h4>
                 <p><strong>Ingredients:</strong></p>
-                <p>Beef Patty, Hamburger Buns, Tomatoes, Onions, Ketchup</p>
+		<ul>
+                @foreach (var ingredient in recipe.Value)
+            	{
+                	<li>@ingredient</li>
+            	}
+		</ul>
                 <p><strong>Instructions:</strong></p>
-                <ol>
-                    <li>
-                        @recipe.Instructions
-                        </li>
-                </ol>
-                <p><i>Posted on @recipe.DateModified</i></p>
+                <p>@recipe.Key.Instructions</p>
+                <p><i>Posted on @recipe.Key.DateCreated</i></p>
             </div>
         </div>
     }
