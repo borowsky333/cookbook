@@ -16,8 +16,11 @@
             @Html.LabelFor(m => m.Title)
             @Html.TextBoxFor(m => m.Title)
             <br />
+            @Html.LabelFor(m=> m.Ingredients)
+            @Html.EditorFor(m=> m.Ingredients)
+            <br />
             @Html.LabelFor(m => m.Instructions)
-            @Html.TextBoxFor(m => m.Instructions)
+            @Html.EditorFor(m => m.Instructions, new { cols = 35, rows = 10 })
             <br />
             @Html.LabelFor(m => m.Tags)
             @Html.TextBoxFor(m => m.Tags)

@@ -6,11 +6,17 @@
     <h1>Recipes</h1>
     @foreach (var recipe in ViewBag.MyRecipes)
     {
-        <h4>@recipe.Title</h4>
+        <h4>@recipe.Key.Title</h4>
+        <ol>
+            @foreach (var ingredient in recipe.Value)
+            {
+                <li>@ingredient</li>
+            }
+        </ol>
         <p><b>Steps:</b> 
             <br />
-            @recipe.Instructions</p>
-        <i>Posted on: @recipe.DateCreated</i>
+            @recipe.Key.Instructions</p>
+        <i>Posted on: @recipe.Key.DateCreated</i>
         <hr />
     }
     <h1>Blog Posts</h1>

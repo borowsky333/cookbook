@@ -2,23 +2,28 @@
     @foreach (var recipe in ViewBag.Recipes)
     {
         <div class="row-fluid recipeObject">
-        <div class="span4 offset2 recipeLeftSide">
-            <img src="http://newyork.cities2night.com/public/article_images/1281.jpg" class="recipeImage" />
-            <h4>@@Username</h4>
-        </div>
-        <div class="span4 recipeRightSide" style="margin-left: 0px;">
-            
-            <h4 class="recipeTitle">@recipe.Title</h4>
-            <p><strong>Ingredients:</strong></p>
-            <p>Beef Patty, Hamburger Buns, Tomatoes, Onions, Ketchup</p>
-            <p><strong>Instructions:</strong></p>
-            <ol>
-                <li>
-                    @recipe.Instructions
+            <div class="span4 offset2 recipeLeftSide">
+                <img src="http://newyork.cities2night.com/public/article_images/1281.jpg" class="recipeImage" />
+                <h4>@@Username</h4>
+            </div>
+            <div class="span4 recipeRightSide" style="margin-left: 0px;">
+
+                <h4 class="recipeTitle">@recipe.Key.Title</h4>
+                <p><strong>Ingredients:</strong></p>
+                <ol>
+                    @foreach (var ingredient in recipe.Value)
+                    {
+                        <li>@ingredient</li>
+                    }
+                </ol>
+                <p><strong>Instructions:</strong></p>
+                <ol>
+                    <li>
+                        @recipe.Key.Instructions
                     </li>
-            </ol>
-            <p><i>Posted on @recipe.DateModified</i></p>
+                </ol>
+                <p><i>Posted on @recipe.Key.DateModified</i></p>
+            </div>
         </div>
-    </div>
     }
 </div>
