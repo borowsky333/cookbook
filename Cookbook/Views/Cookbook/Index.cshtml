@@ -2,7 +2,7 @@
     
 }
 
-<div class="addPostRecipe">
+<div class="addPostRecipe row-fluid">
     <div class="span4 offset4">
         <ul class="nav nav-tabs">
             <li class="active"><a href="#post" data-toggle="tab">Create Post</a></li>
@@ -21,49 +21,49 @@
     </div>
 </div>
 
-
-<h3>Your Recipes</h3>
-@foreach (var recipe in ViewBag.MyRecipes)
-    {
-        <br />
-        <div class="row-fluid recipeObject">
-            <div class="span4 offset2 recipeLeftSide">
-                <img src="http://newyork.cities2night.com/public/article_images/1281.jpg" class="recipeImage" />
-                <h4>@@@User.Identity.Name</h4> <!-- This needs to be changed to user name -->
-            </div>
-            <div class="span4 recipeRightSide" style="margin-left: 0px;">
+<div class="row-fluid">
+    <h3 style="text-align:center;">Your Recipes</h3>
+    @foreach (var recipe in ViewBag.MyRecipes)
+        {
+            <br />
+            <div class="row-fluid recipeObject">
+                <div class="span4 offset2 recipeLeftSide">
+                    <img src="http://newyork.cities2night.com/public/article_images/1281.jpg" class="recipeImage" />
+                    <h4>@@@User.Identity.Name</h4> <!-- This needs to be changed to user name -->
+                </div>
+                <div class="span4 recipeRightSide" style="margin-left: 0px;">
             
-                <h4 class="recipeTitle">@recipe.Key.Title</h4>
-                <p><strong>Ingredients:</strong></p>
-		<ul>
-                @foreach (var ingredient in recipe.Value)
-            	{
-                	<li>@ingredient</li>
-            	}
-		</ul>
+                    <h4 class="recipeTitle">@recipe.Key.Title</h4>
+                    <p><strong>Ingredients:</strong></p>
+                    @foreach (var ingredient in recipe.Value)
+            	    {
+                	    <p>@ingredient</p>
+            	    }
 
-                <p><strong>Instructions:</strong></p>
-                <p>@recipe.Key.Instructions</p>
-                <p><i>Posted on @recipe.Key.DateCreated</i></p>
+                    <p><strong>Instructions:</strong></p>
+                    <p>@recipe.Key.Instructions</p>
+                    <p><i>Posted on @recipe.Key.DateCreated</i></p>
+                </div>
             </div>
-        </div>
-    }
+        }
+</div>
 
-
-<h3>Your Posts</h3>
-@foreach (var post in ViewBag.MyPosts)
-    {
-        <br />
-        <div class="row-fluid recipeObject">
-            <div class="span4 offset2 recipeLeftSide">
-                <img src="http://newyork.cities2night.com/public/article_images/1281.jpg" class="recipeImage" />
-                <h4>@@@User.Identity.Name</h4> <!-- This needs to be changed to user name -->
-            </div>
-            <div class="span4 recipeRightSide" style="margin-left: 0px;">
+<div class="row-fluid">
+    <h3 style="text-align:center;">Your Posts</h3>
+    @foreach (var post in ViewBag.MyPosts)
+        {
+            <br />
+            <div class="row-fluid recipeObject">
+                <div class="span4 offset2 recipeLeftSide">
+                    <img src="http://newyork.cities2night.com/public/article_images/1281.jpg" class="recipeImage" />
+                    <h4>@@@User.Identity.Name</h4> <!-- This needs to be changed to user name -->
+                </div>
+                <div class="span4 recipeRightSide" style="margin-left: 0px;">
             
-                <h4 class="recipeTitle">@post.Title</h4>
-                <p>@post.Post</p>
-                <p><i>Posted on @post.DateCreated</i></p>
+                    <h4 class="recipeTitle">@post.Title</h4>
+                    <p>@post.Post</p>
+                    <p><i>Posted on @post.DateCreated</i></p>
+                </div>
             </div>
-        </div>
-    }
+        }
+</div>
