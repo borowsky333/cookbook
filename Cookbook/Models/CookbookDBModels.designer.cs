@@ -51,6 +51,9 @@ namespace Cookbook.Models
     partial void InsertRecipe_Tag(Recipe_Tag instance);
     partial void UpdateRecipe_Tag(Recipe_Tag instance);
     partial void DeleteRecipe_Tag(Recipe_Tag instance);
+    partial void InsertUser_Subscriber(User_Subscriber instance);
+    partial void UpdateUser_Subscriber(User_Subscriber instance);
+    partial void DeleteUser_Subscriber(User_Subscriber instance);
     #endregion
 		
 		public CookbookDBModelsDataContext() : 
@@ -192,6 +195,14 @@ namespace Cookbook.Models
 			get
 			{
 				return this.GetTable<Recipe_Tag>();
+			}
+		}
+		
+		public System.Data.Linq.Table<User_Subscriber> User_Subscribers
+		{
+			get
+			{
+				return this.GetTable<User_Subscriber>();
 			}
 		}
 	}
@@ -1775,6 +1786,116 @@ namespace Cookbook.Models
 						this._RecipeID = default(int);
 					}
 					this.SendPropertyChanged("Recipe");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.User_Subscriber")]
+	public partial class User_Subscriber : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _UserId;
+		
+		private int _SubscriberId;
+		
+		private System.DateTime _DateSubscribed;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnUserIdChanging(int value);
+    partial void OnUserIdChanged();
+    partial void OnSubscriberIdChanging(int value);
+    partial void OnSubscriberIdChanged();
+    partial void OnDateSubscribedChanging(System.DateTime value);
+    partial void OnDateSubscribedChanged();
+    #endregion
+		
+		public User_Subscriber()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserId", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int UserId
+		{
+			get
+			{
+				return this._UserId;
+			}
+			set
+			{
+				if ((this._UserId != value))
+				{
+					this.OnUserIdChanging(value);
+					this.SendPropertyChanging();
+					this._UserId = value;
+					this.SendPropertyChanged("UserId");
+					this.OnUserIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SubscriberId", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int SubscriberId
+		{
+			get
+			{
+				return this._SubscriberId;
+			}
+			set
+			{
+				if ((this._SubscriberId != value))
+				{
+					this.OnSubscriberIdChanging(value);
+					this.SendPropertyChanging();
+					this._SubscriberId = value;
+					this.SendPropertyChanged("SubscriberId");
+					this.OnSubscriberIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateSubscribed", DbType="DateTime NOT NULL")]
+		public System.DateTime DateSubscribed
+		{
+			get
+			{
+				return this._DateSubscribed;
+			}
+			set
+			{
+				if ((this._DateSubscribed != value))
+				{
+					this.OnDateSubscribedChanging(value);
+					this.SendPropertyChanging();
+					this._DateSubscribed = value;
+					this.SendPropertyChanged("DateSubscribed");
+					this.OnDateSubscribedChanged();
 				}
 			}
 		}

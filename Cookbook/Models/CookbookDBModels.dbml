@@ -132,4 +132,11 @@
       <Association Name="Recipe_Recipe_Tag" Member="Recipe" ThisKey="RecipeID" OtherKey="RecipeID" Type="Recipe" IsForeignKey="true" />
     </Type>
   </Table>
+  <Table Name="dbo.User_Subscriber" Member="User_Subscribers">
+    <Type Name="User_Subscriber">
+      <Column Name="UserId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="SubscriberId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="DateSubscribed" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
 </Database>
