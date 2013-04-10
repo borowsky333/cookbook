@@ -1,10 +1,10 @@
 ﻿@{
-    
+    Layout = "~/Views/Shared/WelcomeLayout.cshtml";
 }
 
 <div class="row">
     <div class="container">
-	    <div class="hero-unit" style="text-align: center;" >
+	    <div class="hero-unit" style="text-align: center; background-color: #45aeea; color: white;" >
 	        <h1>Welcome to Cookbook!</h1>
         </div>
         <div class="row-fluid">
@@ -15,7 +15,7 @@
 	        </div>
 	        <div class="span4 alert alert-success">
 		        <h4><i class="icon-th-list"></i> Why Need Cookbook?</h4>
-		        <p>The reason why we need this recipe network is because other recipe websites do not harness the creativity and ingenuity of everyday citizens. Most of these recipe sites use external vendors and popular restaurant chains to populate their databases. In contrast, the content of Cookbook is entirely user-generated.</p>
+		        <p>The reason why we need this recipe network is because other recipe websites do not harness the creativity and ingenuity of everyday citizens. Most recipe sites use external vendors to populate their databases. In contrast, the content of Cookbook is entirely user-generated.</p>
 		        <p>
 	        </div>
 	        <div class="span4 alert alert-success">
@@ -23,6 +23,12 @@
 		        <p>By creating an account with us, you can create and share your own recipes. If we are missing a recipe, help us out by posting it. Share your recipe via Facebook, Twitter, and other social networks.</p>
 		        <p>
 	        </div>
+        </div>
+        <div class="row-fluid">
+            <div class="loginRegister span6 offset5">
+                <button type="button" class="btn btn-primary" onclick="location.href='/Account/Login'">Log In</button>
+                <button type="button" class="btn btn-inverse" onclick="location.href='/Account/Register'">Register</button>
+            </div>
         </div>
     </div>
 </div>

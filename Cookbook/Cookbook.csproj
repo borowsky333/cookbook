@@ -266,7 +266,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Search\" />
-    <Folder Include="Views\Welcome\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -278,6 +277,8 @@
     <None Include="Models\CookbookDBModels.dbml.layout">
       <DependentUpon>CookbookDBModels.dbml</DependentUpon>
     </None>
+    <Content Include="Views\Welcome\Index.cshtml" />
+    <Content Include="Views\Shared\WelcomeLayout.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -4,5 +4,3 @@ Web.Debug.config
 Web.Release.config
 obj/
 App_Data/
-Models/CookbookDBModels.dbml.layout
-Models/CookbookDBModels.designer.cs
