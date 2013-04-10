@@ -10,7 +10,7 @@ namespace Cookbook.Controllers
     [Authorize]
     public class CookbookController : Controller
     {
-        CookbookDBModelsDataContext db = new CookbookDBModelsDataContext();
+        private CookbookDBModelsDataContext db = new CookbookDBModelsDataContext();
 
 
         //redirect if not logged in

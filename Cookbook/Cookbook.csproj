@@ -323,6 +323,9 @@
     <Content Include="Views\Cookbook\UploadPost.cshtml" />
     <Content Include="Views\Cookbook\Index.cshtml" />
     <Content Include="Views\Welcome\Index.cshtml" />
+    <Content Include="Views\DiscoveryFeed\About.cshtml" />
+    <Content Include="Views\DiscoveryFeed\Contact.cshtml" />
+    <Content Include="Views\DiscoveryFeed\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Search\" />
