@@ -281,6 +281,7 @@
     </None>
     <Content Include="Views\Welcome\Index.cshtml" />
     <Content Include="Views\Shared\WelcomeLayout.cshtml" />
+    <Content Include="Views\Cookbook\ViewCookbook.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
