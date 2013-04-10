@@ -37,7 +37,8 @@ namespace Cookbook.Controllers
         {
             if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
             {
-                return RedirectToLocal(returnUrl);
+                //return RedirectToLocal(returnUrl);   --> This does not work.
+                return RedirectToAction("Index", "Cookbook"); 
             }
 
             // If we got this far, something failed, redisplay form
@@ -46,15 +47,15 @@ namespace Cookbook.Controllers
         }
 
         //
-        // POST: /Account/LogOff
+        // POST: /Account/Logoff
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult LogOff()
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        public ActionResult Logoff()
         {
             WebSecurity.Logout();
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Cookbook");
         }
 
         //
@@ -81,7 +82,7 @@ namespace Cookbook.Controllers
                 {
                     WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
                     WebSecurity.Login(model.UserName, model.Password);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Cookbook");
                 }
                 catch (MembershipCreateUserException e)
                 {

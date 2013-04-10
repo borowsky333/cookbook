@@ -22,10 +22,13 @@
 				        <ul class="nav">
 					        <li class="divider-vertical"></li>
                             <li class="dropdown" id="menu1">
+                                <a href="/NewsFeed">News Feed</a>
+                            </li>
+                            <li class="dropdown" id="menu2">
                                 <a href="/DiscoveryFeed">Discover</a>
                             </li>
-					        <li class="dropdown" id="menu2">
-					            <a class="dropdown-toggle" data-toggle="dropdown" href="#menu2">
+					        <li class="dropdown" id="menu3">
+					            <a class="dropdown-toggle" data-toggle="dropdown" href="#menu3">
 					              My Blogs
 					              <b class="caret"></b>
 					            </a>
@@ -34,15 +37,30 @@
 					              <li><a href="/Cookbook/GetBlog/2">Blog 2</a></li>
 					            </ul>
 				  	        </li>
-				  	        <li class="dropdown" id="menu3">
-					            <a href="/Account">Settings</a>
-				  	        </li>
 				        </ul>
 			            <ul class="nav pull-right">
-				            <li class='divider-vertical'></li>
-						    <li class="signin">
-						        <a href="/Account/Login">Log In</a>
-						    </li>
+				            <li class='divider-vertical'></li> 
+                            @{
+                                if (@User.Identity.Name == "")
+                                {
+                                    <li class="login" id="menu4">
+                                        <a href="/Account/Login">Log In</a>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li class="logoff dropdown" id="menu5">
+                                        <a class="dropdown-toggle" data-toggle="dropdown" href="#menu5">
+					                      @User.Identity.Name
+					                    </a>
+					                    <ul class="dropdown-menu">
+					                      <li><a href="/Account/Manage">Settings</a></li>
+					                      <li>@Html.ActionLink("Log Off", "LogOff", "Account")</li>
+					                    </ul>
+                                    </li>
+                                }
+    
+                            }
                         </ul>
 			        </div>
 		        </div>
@@ -51,7 +69,7 @@
         <div class="wrapper">
               @RenderBody()
         </div>
-        <footer>
+        @*<footer>
             <div class="container">
 		        <div class="row-fluid">
 			        <div class='span3'>
@@ -78,7 +96,7 @@
 			        </div>
 		        </div>
 	        </div>
-        </footer>
+        </footer>*@
     </body>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")

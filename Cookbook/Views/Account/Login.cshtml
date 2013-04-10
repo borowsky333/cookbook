@@ -21,9 +21,11 @@
                     @Html.ValidationMessageFor(m => m.Password)
                 </div>
             </div>
-            <div class="row-fluid span6 offset3">
-                <button type="submit" class="btn btn-primary">Log In</button>
-                <button type="button" class="btn btn-inverse" onclick="location.href='/Account/Register'">Register</button>
+            <div class="row-fluid">
+                <div class="loginRegister span6 offset4">
+                    <button type="submit" class="btn btn-primary">Log In</button>
+                    <button type="button" class="btn btn-inverse" onclick="location.href='/Account/Register'">Register</button>
+                </div>
             </div>
         </fieldset>
     }
