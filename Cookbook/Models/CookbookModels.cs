@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -22,13 +23,19 @@ namespace Cookbook.Models
 
     public class UploadRecipeModel
     {
-
+        [Required]
+        [Display(Name = "Recipe Title")]
         public string Title { get; set; }
+
+        [Required]
+        [Display(Name = "Recipe Instructions")]
         public string Instructions { get; set; }
 
         //public List<Image> PhotoAlbum { get; set; }
 
-        public HashSet<string> Tags { get; set; }
+        [Required]
+        [Display(Name = "Comma-separated Tags")]
+        public string Tags { get; set; }
     }
 
     //    public class Ingredient

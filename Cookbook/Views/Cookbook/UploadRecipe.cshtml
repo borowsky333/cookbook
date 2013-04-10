@@ -1,5 +1,33 @@
-﻿@{
-    ViewBag.Title = "UploadRecipe";
-}
+﻿@model Cookbook.Models.UploadRecipeModel
 
+@{
+    ViewBag.Title = "Upload Recipe";
+}
+<div>
 <h2>Upload Recipe</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+
+    <fieldset>
+        <legend>Upload Recipe</legend>
+        <ul>
+            <li>
+                @Html.LabelFor(m => m.Title)
+                @Html.TextBoxFor(m => m.Title)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.Instructions)
+                @Html.TextBoxFor(m => m.Instructions)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.Tags)
+                @Html.TextBoxFor(m => m.Tags)
+            </li>
+        </ul>
+        <input type="submit" value="Upload Recipe" />
+    </fieldset>
+
+}        
+</div>

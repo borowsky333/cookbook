@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using Cookbook.Models;
 namespace Cookbook.Controllers
 {
+    [Authorize]
     public class CookbookController : Controller
     {
         CookbookDBModelsDataContext db = new CookbookDBModelsDataContext();
@@ -32,10 +34,30 @@ namespace Cookbook.Controllers
             return View();
         }
 
-        //upload own recipe
-        public ActionResult UploadRecipe(Recipe recipe)
+
+        public ActionResult UploadRecipe()
         {
             return View();
+        }
+
+
+        [HttpPost]
+        public ActionResult UploadRecipe(UploadRecipeModel newRecipe)
+        {
+            Recipe recipeEntry = new Recipe();
+            recipeEntry.Title = newRecipe.Title;
+            recipeEntry.Instructions = newRecipe.Instructions;
+            
+            //TODO: need logic for adding tags to tag table.
+            recipeEntry.DateCreated = DateTime.Now;
+
+            recipeEntry.DateModified = DateTime.Now;
+            recipeEntry.UserID = (int)Membership.GetUser().ProviderUserKey;
+
+            db.Recipes.InsertOnSubmit(recipeEntry);
+            db.SubmitChanges();
+
+            return RedirectToAction("Index");
         }
 
         //edit own recipe
