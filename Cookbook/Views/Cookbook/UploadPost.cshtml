@@ -3,26 +3,24 @@
 @{
     ViewBag.Title = "Upload Post";
 }
-<div>
-<h2>Upload Recipe</h2>
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary()
+<div class="well">
+    @using (Html.BeginForm("UploadPost", "Cookbook"))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary()
 
-    <fieldset>
-        <legend>Upload Post</legend>
-                @Html.LabelFor(m => m.Title)
-                @Html.TextBoxFor(m => m.Title)
-<br />
-                @Html.LabelFor(m => m.Post)
-                @Html.TextBoxFor(m => m.Post)
-<br />
-                @Html.LabelFor(m => m.Tags)
-                @Html.TextBoxFor(m => m.Tags)
-<br />
-        <input type="submit" value="Upload Post" />
-    </fieldset>
+        <fieldset>
+                    @Html.LabelFor(m => m.Title)
+                    @Html.TextBoxFor(m => m.Title)
+            <br />
+                    @Html.LabelFor(m => m.Post)
+                    @Html.TextBoxFor(m => m.Post)
+            <br />
+                    @Html.LabelFor(m => m.Tags)
+                    @Html.TextBoxFor(m => m.Tags)
+            <br />
+            <button type="submit" class="btn btn-primary">Upload Post</button>
+        </fieldset>
 
-}        
+    }        
 </div>

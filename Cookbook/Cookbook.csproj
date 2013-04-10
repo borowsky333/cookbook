@@ -265,7 +265,6 @@
     <Content Include="Views\DiscoveryFeed\About.cshtml" />
     <Content Include="Views\DiscoveryFeed\Contact.cshtml" />
     <Content Include="Views\DiscoveryFeed\Index.cshtml" />
-    <Content Include="Views\Cookbook\Cookbook.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Search\" />

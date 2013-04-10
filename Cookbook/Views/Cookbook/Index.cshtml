@@ -2,26 +2,61 @@
     
 }
 
-<div>
-    <h1>Recipes</h1>
-    @foreach (var recipe in ViewBag.MyRecipes)
-    {
-        <h4>@recipe.Title</h4>
-        <p><b>Steps:</b> 
-            <br />
-            @recipe.Instructions</p>
-        <i>Posted on: @recipe.DateCreated</i>
-        <hr />
-    }
-    <h1>Blog Posts</h1>
-    @foreach (var post in ViewBag.MyPosts)
-    {
-        <h4>@post.Title</h4>
-        <p><b>The Post: </b>
-            <br />
-            @post.Post
-        </p>
-        <i>Posted on: @post.DateCreated</i>
-        
-    }
+<div class="addPostRecipe">
+    <div class="span4 offset4">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#post" data-toggle="tab">Create Post</a></li>
+            <li><a href="#recipe" data-toggle="tab">Create Recipe</a></li>
+        </ul>
+        <div class="tabbable">
+            <div class="tab-content">
+                <div class="tab-pane active" id="post">
+                    @RenderPage("~/Views/Cookbook/UploadPost.cshtml")
+                </div>
+                <div class="tab-pane" id="recipe">
+                    @RenderPage("~/Views/Cookbook/UploadRecipe.cshtml")
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+@foreach (var recipe in ViewBag.MyRecipes)
+    {
+        <br />
+        <h1>Your Recipes</h1>
+        <br />
+        <div class="row-fluid recipeObject">
+            <div class="span4 offset2 recipeLeftSide">
+                <img src="http://newyork.cities2night.com/public/article_images/1281.jpg" class="recipeImage" />
+                <h4>@@@User.Identity.Name</h4> <!-- This needs to be changed to user name -->
+            </div>
+            <div class="span4 recipeRightSide" style="margin-left: 0px;">
+            
+                <h4 class="recipeTitle">@recipe.Title</h4>
+                <p><strong>Ingredients:</strong></p>
+                <p>Beef Patty, Hamburger Buns, Tomatoes, Onions, Ketchup</p>
+                <p><strong>Instructions:</strong></p>
+                <p>@recipe.Instructions</p>
+                <p><i>Posted on @recipe.DateModified</i></p>
+            </div>
+        </div>
+    }
+
+@foreach (var post in ViewBag.MyPosts)
+    {
+        <h1>Your Recipes</h1>
+        <br />
+        <div class="row-fluid recipeObject">
+            <div class="span4 offset2 recipeLeftSide">
+                <img src="http://newyork.cities2night.com/public/article_images/1281.jpg" class="recipeImage" />
+                <h4>@@@User.Identity.Name</h4> <!-- This needs to be changed to user name -->
+            </div>
+            <div class="span4 recipeRightSide" style="margin-left: 0px;">
+            
+                <h4 class="recipeTitle">@post.Title</h4>
+                <p>@post.Post</p>
+                <p><i>Posted on @post.DateCreated</i></p>
+            </div>
+        </div>
+    }
