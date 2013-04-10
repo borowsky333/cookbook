@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="aspnet-Cookbook-20130302154948" Class="CookbookDBModelsDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="WebSettings" ConnectionString="Data Source=(LocalDb)\v11.0;AttachDbFilename=|DataDirectory|\aspnet-Cookbook-20130302154948.mdf;Initial Catalog=aspnet-Cookbook-20130302154948;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="aspnet_Cookbook_20130302154948ConnectionString" Provider="System.Data.SqlClient" />
+  <Connection Mode="WebSettings" ConnectionString="Data Source=(LocalDb)\v11.0;AttachDbFilename=|DataDirectory|\aspnet-Cookbook-20130302154948.mdf;Initial Catalog=aspnet-Cookbook-20130302154948;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="DefaultConnection" Provider="System.Data.SqlClient" />
   <Table Name="dbo.BlogPost" Member="BlogPosts">
     <Type Name="BlogPost">
       <Column Name="BlogPostId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -40,8 +40,8 @@
   </Table>
   <Table Name="dbo.BlogPost_Tag" Member="BlogPost_Tags">
     <Type Name="BlogPost_Tag">
-      <Column Name="BlogPostId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Tag" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="BlogPostId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Tag" Type="System.String" DbType="NVarChar(30) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Association Name="BlogPost_BlogPost_Tag" Member="BlogPost" ThisKey="BlogPostId" OtherKey="BlogPostId" Type="BlogPost" IsForeignKey="true" />
     </Type>
   </Table>
@@ -127,8 +127,8 @@
   </Table>
   <Table Name="dbo.Recipe_Tag" Member="Recipe_Tags">
     <Type Name="Recipe_Tag">
-      <Column Name="RecipeID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Tag" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="RecipeID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Tag" Type="System.String" DbType="NVarChar(30) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Association Name="Recipe_Recipe_Tag" Member="Recipe" ThisKey="RecipeID" OtherKey="RecipeID" Type="Recipe" IsForeignKey="true" />
     </Type>
   </Table>

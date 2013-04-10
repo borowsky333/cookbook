@@ -22,7 +22,7 @@ namespace Cookbook.Models
 	using System;
 	
 	
-	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="DefaultConnection")]
+	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="aspnet-Cookbook-20130302154948")]
 	public partial class CookbookDBModelsDataContext : System.Data.Linq.DataContext
 	{
 		
@@ -33,6 +33,9 @@ namespace Cookbook.Models
     partial void InsertBlogPost(BlogPost instance);
     partial void UpdateBlogPost(BlogPost instance);
     partial void DeleteBlogPost(BlogPost instance);
+    partial void InsertBlogPost_Tag(BlogPost_Tag instance);
+    partial void UpdateBlogPost_Tag(BlogPost_Tag instance);
+    partial void DeleteBlogPost_Tag(BlogPost_Tag instance);
     partial void InsertComment(Comment instance);
     partial void UpdateComment(Comment instance);
     partial void DeleteComment(Comment instance);
@@ -45,10 +48,13 @@ namespace Cookbook.Models
     partial void InsertRecipe(Recipe instance);
     partial void UpdateRecipe(Recipe instance);
     partial void DeleteRecipe(Recipe instance);
+    partial void InsertRecipe_Tag(Recipe_Tag instance);
+    partial void UpdateRecipe_Tag(Recipe_Tag instance);
+    partial void DeleteRecipe_Tag(Recipe_Tag instance);
     #endregion
 		
-		public CookbookDBModelsDataContext() :
-        base(global::System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString, mappingSource)
+		public CookbookDBModelsDataContext() : 
+				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
@@ -210,6 +216,8 @@ namespace Cookbook.Models
 		
 		private int _LikeCount;
 		
+		private EntitySet<BlogPost_Tag> _BlogPost_Tags;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -232,6 +240,7 @@ namespace Cookbook.Models
 		
 		public BlogPost()
 		{
+			this._BlogPost_Tags = new EntitySet<BlogPost_Tag>(new Action<BlogPost_Tag>(this.attach_BlogPost_Tags), new Action<BlogPost_Tag>(this.detach_BlogPost_Tags));
 			OnCreated();
 		}
 		
@@ -375,6 +384,19 @@ namespace Cookbook.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="BlogPost_BlogPost_Tag", Storage="_BlogPost_Tags", ThisKey="BlogPostId", OtherKey="BlogPostId")]
+		public EntitySet<BlogPost_Tag> BlogPost_Tags
+		{
+			get
+			{
+				return this._BlogPost_Tags;
+			}
+			set
+			{
+				this._BlogPost_Tags.Assign(value);
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -393,6 +415,18 @@ namespace Cookbook.Models
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+		
+		private void attach_BlogPost_Tags(BlogPost_Tag entity)
+		{
+			this.SendPropertyChanging();
+			entity.BlogPost = this;
+		}
+		
+		private void detach_BlogPost_Tags(BlogPost_Tag entity)
+		{
+			this.SendPropertyChanging();
+			entity.BlogPost = null;
 		}
 	}
 	
@@ -532,18 +566,34 @@ namespace Cookbook.Models
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.BlogPost_Tag")]
-	public partial class BlogPost_Tag
+	public partial class BlogPost_Tag : INotifyPropertyChanging, INotifyPropertyChanged
 	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private int _BlogPostId;
 		
 		private string _Tag;
 		
+		private EntityRef<BlogPost> _BlogPost;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnBlogPostIdChanging(int value);
+    partial void OnBlogPostIdChanged();
+    partial void OnTagChanging(string value);
+    partial void OnTagChanged();
+    #endregion
+		
 		public BlogPost_Tag()
 		{
+			this._BlogPost = default(EntityRef<BlogPost>);
+			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BlogPostId", DbType="Int NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BlogPostId", DbType="Int NOT NULL", IsPrimaryKey=true)]
 		public int BlogPostId
 		{
 			get
@@ -554,12 +604,20 @@ namespace Cookbook.Models
 			{
 				if ((this._BlogPostId != value))
 				{
+					if (this._BlogPost.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnBlogPostIdChanging(value);
+					this.SendPropertyChanging();
 					this._BlogPostId = value;
+					this.SendPropertyChanged("BlogPostId");
+					this.OnBlogPostIdChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Tag", DbType="NVarChar(30) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Tag", DbType="NVarChar(30) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
 		public string Tag
 		{
 			get
@@ -570,8 +628,66 @@ namespace Cookbook.Models
 			{
 				if ((this._Tag != value))
 				{
+					this.OnTagChanging(value);
+					this.SendPropertyChanging();
 					this._Tag = value;
+					this.SendPropertyChanged("Tag");
+					this.OnTagChanged();
 				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="BlogPost_BlogPost_Tag", Storage="_BlogPost", ThisKey="BlogPostId", OtherKey="BlogPostId", IsForeignKey=true)]
+		public BlogPost BlogPost
+		{
+			get
+			{
+				return this._BlogPost.Entity;
+			}
+			set
+			{
+				BlogPost previousValue = this._BlogPost.Entity;
+				if (((previousValue != value) 
+							|| (this._BlogPost.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._BlogPost.Entity = null;
+						previousValue.BlogPost_Tags.Remove(this);
+					}
+					this._BlogPost.Entity = value;
+					if ((value != null))
+					{
+						value.BlogPost_Tags.Add(this);
+						this._BlogPostId = value.BlogPostId;
+					}
+					else
+					{
+						this._BlogPostId = default(int);
+					}
+					this.SendPropertyChanged("BlogPost");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}
@@ -1115,6 +1231,8 @@ namespace Cookbook.Models
 		
 		private EntitySet<Ingredient> _Ingredients;
 		
+		private EntitySet<Recipe_Tag> _Recipe_Tags;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -1140,6 +1258,7 @@ namespace Cookbook.Models
 		public Recipe()
 		{
 			this._Ingredients = new EntitySet<Ingredient>(new Action<Ingredient>(this.attach_Ingredients), new Action<Ingredient>(this.detach_Ingredients));
+			this._Recipe_Tags = new EntitySet<Recipe_Tag>(new Action<Recipe_Tag>(this.attach_Recipe_Tags), new Action<Recipe_Tag>(this.detach_Recipe_Tags));
 			OnCreated();
 		}
 		
@@ -1316,6 +1435,19 @@ namespace Cookbook.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Recipe_Recipe_Tag", Storage="_Recipe_Tags", ThisKey="RecipeID", OtherKey="RecipeID")]
+		public EntitySet<Recipe_Tag> Recipe_Tags
+		{
+			get
+			{
+				return this._Recipe_Tags;
+			}
+			set
+			{
+				this._Recipe_Tags.Assign(value);
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -1343,6 +1475,18 @@ namespace Cookbook.Models
 		}
 		
 		private void detach_Ingredients(Ingredient entity)
+		{
+			this.SendPropertyChanging();
+			entity.Recipe = null;
+		}
+		
+		private void attach_Recipe_Tags(Recipe_Tag entity)
+		{
+			this.SendPropertyChanging();
+			entity.Recipe = this;
+		}
+		
+		private void detach_Recipe_Tags(Recipe_Tag entity)
 		{
 			this.SendPropertyChanging();
 			entity.Recipe = null;
@@ -1530,18 +1674,34 @@ namespace Cookbook.Models
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Recipe_Tag")]
-	public partial class Recipe_Tag
+	public partial class Recipe_Tag : INotifyPropertyChanging, INotifyPropertyChanged
 	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private int _RecipeID;
 		
 		private string _Tag;
 		
+		private EntityRef<Recipe> _Recipe;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnRecipeIDChanging(int value);
+    partial void OnRecipeIDChanged();
+    partial void OnTagChanging(string value);
+    partial void OnTagChanged();
+    #endregion
+		
 		public Recipe_Tag()
 		{
+			this._Recipe = default(EntityRef<Recipe>);
+			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RecipeID", DbType="Int NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RecipeID", DbType="Int NOT NULL", IsPrimaryKey=true)]
 		public int RecipeID
 		{
 			get
@@ -1552,12 +1712,20 @@ namespace Cookbook.Models
 			{
 				if ((this._RecipeID != value))
 				{
+					if (this._Recipe.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnRecipeIDChanging(value);
+					this.SendPropertyChanging();
 					this._RecipeID = value;
+					this.SendPropertyChanged("RecipeID");
+					this.OnRecipeIDChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Tag", DbType="NVarChar(30) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Tag", DbType="NVarChar(30) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
 		public string Tag
 		{
 			get
@@ -1568,8 +1736,66 @@ namespace Cookbook.Models
 			{
 				if ((this._Tag != value))
 				{
+					this.OnTagChanging(value);
+					this.SendPropertyChanging();
 					this._Tag = value;
+					this.SendPropertyChanged("Tag");
+					this.OnTagChanged();
 				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Recipe_Recipe_Tag", Storage="_Recipe", ThisKey="RecipeID", OtherKey="RecipeID", IsForeignKey=true)]
+		public Recipe Recipe
+		{
+			get
+			{
+				return this._Recipe.Entity;
+			}
+			set
+			{
+				Recipe previousValue = this._Recipe.Entity;
+				if (((previousValue != value) 
+							|| (this._Recipe.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Recipe.Entity = null;
+						previousValue.Recipe_Tags.Remove(this);
+					}
+					this._Recipe.Entity = value;
+					if ((value != null))
+					{
+						value.Recipe_Tags.Add(this);
+						this._RecipeID = value.RecipeID;
+					}
+					else
+					{
+						this._RecipeID = default(int);
+					}
+					this.SendPropertyChanged("Recipe");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}

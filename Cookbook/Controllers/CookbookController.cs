@@ -61,6 +61,16 @@ namespace Cookbook.Controllers
             db.Recipes.InsertOnSubmit(recipeEntry);
             db.SubmitChanges();
 
+            var tags = newRecipe.Tags.Split(',').ToList();
+            foreach (var tag in tags)
+            {
+                Recipe_Tag newTag = new Recipe_Tag();
+                newTag.RecipeID = recipeEntry.RecipeID;
+                newTag.Tag = tag.Trim();
+                db.Recipe_Tags.InsertOnSubmit(newTag);
+            }
+            db.SubmitChanges();
+
             return RedirectToAction("Index");
         }
 
@@ -82,7 +92,7 @@ namespace Cookbook.Controllers
         }
 
         [HttpPost]
-        public ActionResult UploadPost(BlogPost newPost)
+        public ActionResult UploadPost(UploadBlogPostModel newPost)
         {
             BlogPost post = new BlogPost();
             post.Title = newPost.Title;
@@ -95,6 +105,17 @@ namespace Cookbook.Controllers
             post.UserId = (int)Membership.GetUser().ProviderUserKey;
 
             db.BlogPosts.InsertOnSubmit(post);
+            db.SubmitChanges();
+
+
+            var tags = newPost.Tags.Split(',').ToList();
+            foreach (var tag in tags)
+            {
+                BlogPost_Tag newTag = new BlogPost_Tag();
+                newTag.BlogPostId = post.BlogPostId;
+                newTag.Tag = tag.Trim();
+                db.BlogPost_Tags.InsertOnSubmit(newTag);
+            }
             db.SubmitChanges();
 
             return RedirectToAction("Index");
