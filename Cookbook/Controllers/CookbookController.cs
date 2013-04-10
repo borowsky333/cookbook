@@ -16,10 +16,29 @@ namespace Cookbook.Controllers
         //redirect if not logged in
         public ActionResult Index()
         {
+            ViewBag.MyRecipes = GetMyRecipes();
+            ViewBag.MyPosts = GetMyPosts();
+
             return View();
         }
 
+        public List<Recipe> GetMyRecipes()
+        {
+            int currentUserId = (int)Membership.GetUser().ProviderUserKey;
+            var recipes = (from allRecipes in db.Recipes
+                          where allRecipes.UserID == currentUserId
+                          select allRecipes).Take(20).ToList();
+            return recipes;
+        }
 
+        public List<BlogPost> GetMyPosts()
+        {
+            int currentUserId = (int)Membership.GetUser().ProviderUserKey;
+            var posts = (from allPosts in db.BlogPosts
+                         where allPosts.UserId == currentUserId
+                         select allPosts).Take(20).ToList();
+            return posts;
+        }
         public ActionResult UploadRecipe()
         {
             return View();

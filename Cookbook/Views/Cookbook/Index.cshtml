@@ -1,0 +1,27 @@
+﻿@{
+    
+}
+
+<div>
+    <h1>Recipes</h1>
+    @foreach (var recipe in ViewBag.MyRecipes)
+    {
+        <h4>@recipe.Title</h4>
+        <p><b>Steps:</b> 
+            <br />
+            @recipe.Instructions</p>
+        <i>Posted on: @recipe.DateCreated</i>
+        <hr />
+    }
+    <h1>Blog Posts</h1>
+    @foreach (var post in ViewBag.MyPosts)
+    {
+        <h4>@post.Title</h4>
+        <p><b>The Post: </b>
+            <br />
+            @post.Post
+        </p>
+        <i>Posted on: @post.DateCreated</i>
+        
+    }
+</div>

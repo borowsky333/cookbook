@@ -317,6 +317,7 @@
     <Content Include="Views\Cookbook\DeletePost.cshtml" />
     <Content Include="Views\Cookbook\UploadPost.cshtml" />
     <Content Include="Views\Cookbook\Index.cshtml" />
+    <Content Include="Views\Welcome\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Search\" />
