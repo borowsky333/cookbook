@@ -251,8 +251,6 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
-    <Content Include="Views\NewsFeed\About.cshtml" />
-    <Content Include="Views\NewsFeed\Contact.cshtml" />
     <Content Include="Views\NewsFeed\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
@@ -262,8 +260,6 @@
     <Content Include="Views\Cookbook\UploadRecipe.cshtml" />
     <Content Include="Views\Cookbook\DeletePost.cshtml" />
     <Content Include="Views\Cookbook\UploadPost.cshtml" />
-    <Content Include="Views\DiscoveryFeed\About.cshtml" />
-    <Content Include="Views\DiscoveryFeed\Contact.cshtml" />
     <Content Include="Views\DiscoveryFeed\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>

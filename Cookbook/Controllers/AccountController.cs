@@ -49,7 +49,7 @@ namespace Cookbook.Controllers
         {
             WebSecurity.Logout();
 
-            return RedirectToAction("Index", "NewsFeed");
+            return RedirectToAction("Index", "Welcome");
         }
 
         //

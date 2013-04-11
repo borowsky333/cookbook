@@ -3,16 +3,14 @@
 @{
     ViewBag.Title = "Upload Recipe";
 }
-<div>
-    <h2>Upload Recipe</h2>
+<div class="well">
     <p>Uploading images is currently not supported. Sorry!</p>
-    @using (Html.BeginForm())
+    @using (Html.BeginForm("UploadRecipe", "Cookbook"))
     {
         @Html.AntiForgeryToken()
         @Html.ValidationSummary()
 
         <fieldset>
-            <legend>Upload Recipe</legend>
             @Html.LabelFor(m => m.Title)
             @Html.TextBoxFor(m => m.Title)
             <br />
@@ -25,7 +23,7 @@
             @Html.LabelFor(m => m.Tags)
             @Html.TextBoxFor(m => m.Tags)
             <br />
-            <input type="submit" value="Upload Recipe" />
+            <button type="submit" class="btn btn-primary">Upload Recipe</button>
         </fieldset>
 
     }
