@@ -16,7 +16,7 @@ namespace Cookbook.Controllers
         //redirect if not logged in
         public ActionResult Index()
         {
-            var recipes = GetMyRecipes();
+            var recipes = GetRecipes((int)Membership.GetUser().ProviderUserKey);
             var recipeDict = new Dictionary<Recipe, List<string>>();
             
             foreach (var recipe in recipes)
@@ -29,25 +29,43 @@ namespace Cookbook.Controllers
             }
 
             ViewBag.MyRecipes = recipeDict;
-            ViewBag.MyPosts = GetMyPosts();
+            ViewBag.MyPosts = GetPosts((int)Membership.GetUser().ProviderUserKey);
 
             return View();
         }
 
-        public List<Recipe> GetMyRecipes()
+        public ActionResult ViewCookbook(int userId)
         {
-            int currentUserId = (int)Membership.GetUser().ProviderUserKey;
+            var recipes = GetRecipes(userId);
+            var recipeDict = new Dictionary<Recipe, List<string>>();
+
+            foreach (var recipe in recipes)
+            {
+                var ingredients =
+                    (from allIngredients in db.Ingredients
+                     where allIngredients.RecipeId == recipe.RecipeID
+                     select allIngredients.Name).ToList();
+                recipeDict.Add(recipe, ingredients);
+            }
+
+            ViewBag.MyRecipes = recipeDict;
+            ViewBag.MyPosts = GetPosts(userId);
+
+            return View();
+        }
+
+        public List<Recipe> GetRecipes(int userId)
+        {
             var recipes = (from allRecipes in db.Recipes
-                          where allRecipes.UserID == currentUserId
+                           where allRecipes.UserID == userId
                           select allRecipes).Take(20).ToList();
             return recipes;
         }
 
-        public List<BlogPost> GetMyPosts()
+        public List<BlogPost> GetPosts(int userId)
         {
-            int currentUserId = (int)Membership.GetUser().ProviderUserKey;
             var posts = (from allPosts in db.BlogPosts
-                         where allPosts.UserId == currentUserId
+                         where allPosts.UserId == userId
                          select allPosts).Take(20).ToList();
             return posts;
         }
@@ -64,7 +82,6 @@ namespace Cookbook.Controllers
             recipeEntry.Title = newRecipe.Title;
             recipeEntry.Instructions = newRecipe.Instructions;
             
-            //TODO: need logic for adding tags to tag table.
             recipeEntry.DateCreated = DateTime.Now;
 
             recipeEntry.DateModified = DateTime.Now;
@@ -120,7 +137,6 @@ namespace Cookbook.Controllers
             post.Title = newPost.Title;
             post.Post = newPost.Post;
 
-            //TODO: need logic for adding tags to tag table.
             post.DateCreated = DateTime.Now;
 
             post.DateModified = DateTime.Now;
