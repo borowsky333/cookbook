@@ -5,12 +5,18 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using Cookbook.Models;
+
+using Amazon.S3;
+using Amazon.S3.Model;
+
 namespace Cookbook.Controllers
 {
     [Authorize]
     public class CookbookController : Controller
     {
         private CookbookDBModelsDataContext db = new CookbookDBModelsDataContext();
+        private AmazonS3 s3client = new AmazonS3Client();
+
 
 
         //redirect if not logged in
@@ -76,17 +82,80 @@ namespace Cookbook.Controllers
 
 
         [HttpPost]
-        public ActionResult UploadRecipe(UploadRecipeModel newRecipe)
+        public ActionResult UploadRecipe(UploadRecipeModel newRecipe, HttpPostedFileBase file)
         {
             Recipe recipeEntry = new Recipe();
             recipeEntry.Title = newRecipe.Title;
             recipeEntry.Instructions = newRecipe.Instructions;
-            
+
+            //TODO: need logic for adding tags to tag table.
             recipeEntry.DateCreated = DateTime.Now;
 
             recipeEntry.DateModified = DateTime.Now;
             recipeEntry.UserID = (int)Membership.GetUser().ProviderUserKey;
 
+            //If there is an image, upload it to S3
+            if (file != null && file.ContentLength > 0)
+            {
+                //make sure the file is less than 5 MB
+                if (file.ContentLength > 5 * 1024 * 1024)
+                {
+                    ViewBag.Error = "Image must be less than 5 MB";
+                    return View("Error");
+                }
+
+                //make sure the file is an image
+                string[] acceptedExtensions = { ".jpg", ".jpeg", ".png", ".gif", ".bmp", ".tiff" };
+                bool isImage = false;
+                foreach (string extension in acceptedExtensions)
+                {
+                    if (file.FileName.ToLower().EndsWith(extension))
+                    {
+                        isImage = true;
+                        break;
+                    }
+                }
+                if (!isImage)
+                {
+                    ViewBag.Error = "Image format not supported.  Accepted formats are: " +
+                             ".jpg, .jpeg, .png, .gif, .bmp, and .tiff";
+                    return View("Error");
+                }
+
+                //upload the image to S3
+                string imageKey = "recipes/" + (int)Membership.GetUser().ProviderUserKey + "/" + recipeEntry.RecipeID;
+                PutObjectRequest request = new PutObjectRequest
+                {
+                    BucketName = "Cookbook_Images",
+                    Key = imageKey,
+                    InputStream = file.InputStream,
+                };
+
+                try
+                {
+                    s3client.PutObject(request);
+                }
+                catch (AmazonS3Exception e)
+                {
+                    ViewBag.Error = "An error occurred storing the image:\n" + e.Message;
+                    return View("Error");
+                }
+
+                //store the image info in the database
+                /*Image dbImage = new Image
+                {
+                    DateCreated = DateTime.Now,
+                    UserId = (int)Membership.GetUser().ProviderUserKey,
+                    DateModified = DateTime.Now,
+                    ImageDescription = "",
+                    ImageTitle = file.FileName,
+                    ImageUrl = "https://s3.amazonaws.com/Cookbook_Images/" + imageKey
+                };
+                db.Images.InsertOnSubmit(dbImage);*/
+
+                recipeEntry.ImageUrl = "https://s3.amazonaws.com/Cookbook_Images/" + imageKey;
+            }
+            
             db.Recipes.InsertOnSubmit(recipeEntry);
 
             db.SubmitChanges();
@@ -108,10 +177,12 @@ namespace Cookbook.Controllers
                 newTag.Tag = tag.Trim();
                 db.Recipe_Tags.InsertOnSubmit(newTag);
             }
+
             db.SubmitChanges();
 
             return RedirectToAction("Index");
         }
+
 
         //edit own recipe
         public ActionResult EditRecipe(Recipe recipe)
@@ -131,7 +202,7 @@ namespace Cookbook.Controllers
         }
 
         [HttpPost]
-        public ActionResult UploadPost(UploadBlogPostModel newPost)
+        public ActionResult UploadPost(UploadBlogPostModel newPost, HttpPostedFileBase file)
         {
             BlogPost post = new BlogPost();
             post.Title = newPost.Title;
@@ -141,6 +212,58 @@ namespace Cookbook.Controllers
 
             post.DateModified = DateTime.Now;
             post.UserId = (int)Membership.GetUser().ProviderUserKey;
+
+
+            //If there is an image, upload it to S3
+            if (file != null && file.ContentLength > 0)
+            {
+                //make sure the file is less than 5 MB
+                if (file.ContentLength > 5 * 1024 * 1024)
+                {
+                    ViewBag.Error = "Image must be less than 5 MB";
+                    return View("Error");
+                }
+
+                //make sure the file is an image
+                string[] acceptedExtensions = { ".jpg", ".jpeg", ".png", ".gif", ".bmp", ".tiff" };
+                bool isImage = false;
+                foreach (string extension in acceptedExtensions)
+                {
+                    if (file.FileName.ToLower().EndsWith(extension))
+                    {
+                        isImage = true;
+                        break;
+                    }
+                }
+                if (!isImage)
+                {
+                    ViewBag.Error = "Image format not supported.  Accepted formats are: " +
+                             ".jpg, .jpeg, .png, .gif, .bmp, and .tiff";
+                    return View("Error");
+                }
+
+                //upload the image to S3
+                string imageKey = "posts/" + (int)Membership.GetUser().ProviderUserKey + "/" + post.BlogPostId;
+                PutObjectRequest request = new PutObjectRequest
+                {
+                    BucketName = "Cookbook_Images",
+                    Key = imageKey,
+                    InputStream = file.InputStream,
+                };
+
+                try
+                {
+                    s3client.PutObject(request);
+                }
+                catch (AmazonS3Exception e)
+                {
+                    ViewBag.Error = "An error occurred storing the image:\n" + e.Message;
+                    return View("Error");
+                }
+
+                post.ImageUrl = "https://s3.amazonaws.com/Cookbook_Images/" + imageKey;
+            }
+
 
             db.BlogPosts.InsertOnSubmit(post);
             db.SubmitChanges();

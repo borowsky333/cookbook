@@ -28,7 +28,14 @@
             <br />
             <div class="row-fluid recipeObject">
                 <div class="span4 offset2 recipeLeftSide">
-                    <img src="http://newyork.cities2night.com/public/article_images/1281.jpg" class="recipeImage" />
+                    @{
+                        string imageUrl = recipe.Key.ImageUrl;
+                        if(imageUrl == null)
+                        {
+                            imageUrl = "http://newyork.cities2night.com/public/article_images/1281.jpg";
+                        }
+                    }
+                    <img src=@imageUrl class="recipeImage" />
                     <h4>@@@User.Identity.Name</h4> <!-- This needs to be changed to user name -->
                 </div>
                 <div class="span4 recipeRightSide" style="margin-left: 0px;">
@@ -55,7 +62,14 @@
             <br />
             <div class="row-fluid recipeObject">
                 <div class="span4 offset2 recipeLeftSide">
-                    <img src="http://newyork.cities2night.com/public/article_images/1281.jpg" class="recipeImage" />
+                    @{
+                        string imageUrl = post.ImageUrl;
+                        if(imageUrl == null)
+                        {
+                            imageUrl = "http://newyork.cities2night.com/public/article_images/1281.jpg";
+                        }
+                    }
+                    <img src=@imageUrl class="recipeImage" />
                     <h4>@@@User.Identity.Name</h4> <!-- This needs to be changed to user name -->
                 </div>
                 <div class="span4 recipeRightSide" style="margin-left: 0px;">
