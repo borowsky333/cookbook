@@ -94,6 +94,10 @@ namespace Cookbook.Controllers
             recipeEntry.DateModified = DateTime.Now;
             recipeEntry.UserID = (int)Membership.GetUser().ProviderUserKey;
 
+            db.Recipes.InsertOnSubmit(recipeEntry);
+
+            db.SubmitChanges();
+
             //If there is an image, upload it to S3
             if (file != null && file.ContentLength > 0)
             {
@@ -153,12 +157,17 @@ namespace Cookbook.Controllers
                 };
                 db.Images.InsertOnSubmit(dbImage);*/
 
-                recipeEntry.ImageUrl = "https://s3.amazonaws.com/Cookbook_Images/" + imageKey;
+                string imageUrl = "https://s3.amazonaws.com/Cookbook_Images/" + imageKey;
+                object[] param = { };
+                db.ExecuteQuery<Object>(@"UPDATE Recipe " +
+                                "SET Recipe.ImageUrl='" + imageUrl + "'" +
+                                "WHERE Recipe.RecipeId='" + recipeEntry.RecipeID + "'", param);
+                
+                
+
+                
             }
             
-            db.Recipes.InsertOnSubmit(recipeEntry);
-
-            db.SubmitChanges();
 
             var ingredients = newRecipe.Ingredients.Split(',').ToList();
             foreach (var ingredient in ingredients)
@@ -214,6 +223,10 @@ namespace Cookbook.Controllers
             post.UserId = (int)Membership.GetUser().ProviderUserKey;
 
 
+            db.BlogPosts.InsertOnSubmit(post);
+            db.SubmitChanges();
+
+
             //If there is an image, upload it to S3
             if (file != null && file.ContentLength > 0)
             {
@@ -261,12 +274,15 @@ namespace Cookbook.Controllers
                     return View("Error");
                 }
 
-                post.ImageUrl = "https://s3.amazonaws.com/Cookbook_Images/" + imageKey;
+                string imageUrl = "https://s3.amazonaws.com/Cookbook_Images/" + imageKey;
+                object[] param = {};
+                db.ExecuteQuery<Object>(@"UPDATE BlogPost " +
+                                "SET BlogPost.ImageUrl='" + imageUrl + "'" +
+                                "WHERE BlogPost.BlogPostId='" + post.BlogPostId + "'", param);
             }
 
 
-            db.BlogPosts.InsertOnSubmit(post);
-            db.SubmitChanges();
+            
 
 
             var tags = newPost.Tags.Split(',').ToList();
