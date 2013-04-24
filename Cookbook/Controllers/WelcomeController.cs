@@ -10,9 +10,14 @@ namespace Cookbook.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
-
-            return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "NewsFeed"); //If logged in, do not show welcome page.
+            }
+            else
+            {
+                return View(); //If not logged in, show welcome page.
+            }
         }
 
         public ActionResult FilterByTag(string tag)
