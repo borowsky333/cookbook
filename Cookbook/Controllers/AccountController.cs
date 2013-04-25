@@ -10,6 +10,8 @@ using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
 using Cookbook.Filters;
 using Cookbook.Models;
+using Amazon.Route53;
+using Amazon.Route53.Model;
 
 namespace Cookbook.Controllers
 {
@@ -87,6 +89,10 @@ namespace Cookbook.Controllers
                 try
                 {
                     WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
+
+                    //Create new subdomain for username here.
+
+
                     WebSecurity.Login(model.UserName, model.Password);
                     return RedirectToAction("Index", "NewsFeed");
                 }

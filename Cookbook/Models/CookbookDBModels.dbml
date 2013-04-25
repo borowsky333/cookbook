@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="aspnet-Cookbook-20130302154948" Class="CookbookDBModelsDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="WebSettings" ConnectionString="Data Source=(LocalDb)\v11.0;AttachDbFilename=|DataDirectory|\aspnet-Cookbook-20130302154948.mdf;Initial Catalog=aspnet-Cookbook-20130302154948;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="DefaultConnection" Provider="System.Data.SqlClient" />
+  <Connection Mode="WebSettings" ConnectionString="Data Source=cookbookdb.cbyrhf3o2rpq.us-east-1.rds.amazonaws.com,1433;Initial Catalog=CookbookDB;Integrated Security=False;Persist Security Info=True;User ID=admindb" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="DefaultConnection" Provider="System.Data.SqlClient" />
   <Table Name="dbo.BlogPost" Member="BlogPosts">
     <Type Name="BlogPost">
       <Column Name="BlogPostId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -9,6 +9,7 @@
       <Column Name="DateCreated" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="DateModified" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="LikeCount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Member="ImageUrl" Type="System.String" CanBeNull="false" />
       <Association Name="BlogPost_BlogPost_Comment" Member="BlogPost_Comments" ThisKey="BlogPostId" OtherKey="BlogPostId" Type="BlogPost_Comment" />
       <Association Name="BlogPost_BlogPost_Image" Member="BlogPost_Images" ThisKey="BlogPostId" OtherKey="BlogPostId" Type="BlogPost_Image" />
       <Association Name="BlogPost_BlogPost_Liker" Member="BlogPost_Likers" ThisKey="BlogPostId" OtherKey="BlogPostId" Type="BlogPost_Liker" />
@@ -86,6 +87,7 @@
       <Column Name="DateModified" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="FavoriteCount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="LikeCount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Member="ImageUrl" Type="System.String" CanBeNull="false" />
       <Association Name="Recipe_Ingredient" Member="Ingredients" ThisKey="RecipeID" OtherKey="RecipeId" Type="Ingredient" />
       <Association Name="Recipe_Recipe_Comment" Member="Recipe_Comments" ThisKey="RecipeID" OtherKey="RecipeId" Type="Recipe_Comment" />
       <Association Name="Recipe_Recipe_Favoriter" Member="Recipe_Favoriters" ThisKey="RecipeID" OtherKey="RecipeId" Type="Recipe_Favoriter" />

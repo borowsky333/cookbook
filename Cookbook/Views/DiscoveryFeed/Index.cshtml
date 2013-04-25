@@ -21,8 +21,15 @@
     {
         <div class="row-fluid recipeObject">
             <div class="span4 offset2 recipeLeftSide">
-                <img src="http://newyork.cities2night.com/public/article_images/1281.jpg" class="recipeImage" />
-                <h4><a href="/Cookbook/ViewCookbook/?userId=@recipe.Key.UserID">@@@recipe.Key.UserID</a></h4> <!-- This needs to be changed to user name -->
+                @{
+                    string imageUrl = recipe.Key.ImageUrl;
+                    if(imageUrl == null)
+                    {
+                        imageUrl = "http://newyork.cities2night.com/public/article_images/1281.jpg";
+                    }
+                }
+                <img src=@imageUrl class="recipeImage" />
+                <h4>@@@recipe.Key.UserID</h4> <!-- This needs to be changed to user name -->
             </div>
             <div class="span4 recipeRightSide" style="margin-left: 0px;">
             
