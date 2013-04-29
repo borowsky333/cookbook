@@ -42,6 +42,7 @@ namespace Cookbook.Controllers
 
         public ActionResult ViewCookbook(int userId)
         {
+
             var recipes = GetRecipes(userId);
             var recipeDict = new Dictionary<Recipe, List<string>>();
 
@@ -56,6 +57,7 @@ namespace Cookbook.Controllers
 
             ViewBag.MyRecipes = recipeDict;
             ViewBag.MyPosts = GetPosts(userId);
+            
 
             return View();
         }
@@ -75,6 +77,7 @@ namespace Cookbook.Controllers
                          select allPosts).Take(20).ToList();
             return posts;
         }
+
         public ActionResult UploadRecipe()
         {
             return View();
