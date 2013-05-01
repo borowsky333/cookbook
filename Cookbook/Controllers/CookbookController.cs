@@ -55,8 +55,10 @@ namespace Cookbook.Controllers
                 recipeDict.Add(recipe, ingredients);
             }
 
+
             ViewBag.MyRecipes = recipeDict;
             ViewBag.MyPosts = GetPosts(userId);
+            ViewBag.UserID = userId;
             
 
             return View();

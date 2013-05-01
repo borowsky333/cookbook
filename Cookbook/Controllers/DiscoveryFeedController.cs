@@ -15,9 +15,9 @@ namespace Cookbook.Controllers
         {
             var recipeList =
                 (from recipes in db.Recipes
-                 where recipes.DateModified.Date == DateTime.Today
+                 //where recipes.DateModified.Date == DateTime.Today
                  select recipes)
-                 .Take(20)
+                 .Take(50)
                  .ToList();
             var recipeDict = new Dictionary<Recipe, List<string>>();
 
@@ -30,7 +30,14 @@ namespace Cookbook.Controllers
                 recipeDict.Add(recipe, ingredients);
             }
 
+            var postList =
+                (from posts in db.BlogPosts
+                 select posts)
+                 .Take(50)
+                 .ToList();
+
             ViewBag.Recipes = recipeDict;
+            ViewBag.Posts = postList;
 
             return View();
         }
