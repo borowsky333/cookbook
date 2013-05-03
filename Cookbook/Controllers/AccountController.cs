@@ -213,6 +213,16 @@ namespace Cookbook.Controllers
             return View(model);
         }
 
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateEmailSubscription (FormCollection collection)
+        {
+
+
+
+        }
+
         //
         // POST: /Account/ExternalLogin
 

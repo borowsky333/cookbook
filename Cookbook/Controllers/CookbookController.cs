@@ -5,9 +5,12 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using Cookbook.Models;
-
 using Amazon.S3;
 using Amazon.S3.Model;
+using Amazon.SimpleEmail;
+using Amazon.SimpleEmail.Model;
+using Amazon.SimpleNotificationService;
+using Amazon.SimpleNotificationService.Model;
 
 namespace Cookbook.Controllers
 {
@@ -358,5 +361,83 @@ namespace Cookbook.Controllers
         {
             return View();
         }
+
+        public ActionResult SendEmail(int userID) //Send notification to user via email.
+        {
+            try
+            {
+                String email = ""; //Find userID's email address.
+
+                String[] arrayTO = new String[1];
+                arrayTO[0] = email;
+
+                List<string> listTO = arrayTO.ToList<String>();
+
+                // Construct an object to contain the recipient address.
+                Destination destination = new Destination().WithToAddresses(listTO);
+
+                String FROM = "thecookbooksubscription@gmail.com";
+                String SUBJECT = "The Cookbook - New Notification Waiting For You";
+                String BODY = "You have received a new notification. Visit The Cookbook for more information.";
+
+                // Create the subject and body of the message.
+                Content subject = new Content().WithData(SUBJECT);
+                Content textBody = new Content().WithData(BODY);
+                Body body = new Body().WithText(textBody);
+
+                // Create a message with the specified subject and body.
+                Message message = new Message().WithSubject(subject).WithBody(body);
+
+                // Assemble the email.
+                SendEmailRequest request = new SendEmailRequest().WithSource(FROM).WithDestination(destination).WithMessage(message);
+
+                AmazonSimpleEmailServiceClient client = new AmazonSimpleEmailServiceClient();
+
+                SendEmailResponse response = client.SendEmail(request);
+                TempData["sendstatus"] = "Sent successfully.";
+
+            }
+            catch (Exception e)
+            {
+                TempData["sendstatus"] = e.Message;
+            }
+
+            return this.RedirectToAction("Index");
+        }
+
+        public ActionResult SendSMS(int userID) //Send notification to user via SMS.
+        {
+            String userName = ""; //Resolve username from userID
+            AmazonSimpleNotificationServiceClient client = new AmazonSimpleNotificationServiceClient();
+            PublishRequest request = new PublishRequest
+            {
+                TopicArn = "arn:aws:sns:us-east-1:727060774285:INSERT_USERNAME",
+                Subject = "The Cookbook - New Notification",
+                Message = "Hello. You have received a new notification. Visit The Cookbook for more information."
+            };
+
+            try
+            {
+                PublishResponse response = client.Publish(request);
+                PublishResult result = response.PublishResult;
+
+                String[] strings = new String[1];
+
+                for (int i = 0; i < strings.GetLength(0); i++)
+                {
+                    strings[i] = "Success! Message ID is: " + result.MessageId;
+                }
+
+                TempData["result"] = strings;
+
+            }
+            catch (Exception e)
+            {
+                TempData["error"] = e.Message;
+            }
+
+            return this.RedirectToAction("Index");
+        }
+
     }
 }
