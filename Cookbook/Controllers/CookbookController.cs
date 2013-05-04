@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using WebMatrix.WebData;
 using Cookbook.Models;
 using Amazon.S3;
 using Amazon.S3.Model;
@@ -12,15 +13,15 @@ using Amazon.SimpleEmail.Model;
 using Amazon.SimpleNotificationService;
 using Amazon.SimpleNotificationService.Model;
 
+
 namespace Cookbook.Controllers
 {
     [Authorize]
     public class CookbookController : Controller
     {
         private CookbookDBModelsDataContext db = new CookbookDBModelsDataContext();
+        private UsersContext userDb = new UsersContext();
         private AmazonS3 s3client = new AmazonS3Client();
-
-
 
         //redirect if not logged in
         public ActionResult Index()
@@ -47,7 +48,6 @@ namespace Cookbook.Controllers
         {
 
             var recipes = GetRecipes(userId);
-            var recipeDict = new Dictionary<Recipe, List<string>>();
 
             List<ViewRecipeModel> recipeList = new List<ViewRecipeModel>();
 
@@ -69,22 +69,32 @@ namespace Cookbook.Controllers
 
                 recipeView.Ingredients = ingredients;
 
+                var tags =
+                    (from allTags in db.Recipe_Tags
+                     where allTags.RecipeID == recipe.RecipeID
+                     select allTags.Tag).ToList();
+
+                recipeView.Tags = tags;
+                recipeView.Username =
+                    (from userprofiles in userDb.UserProfiles
+                     where userprofiles.UserId == recipe.UserID
+                     select userprofiles.UserName).FirstOrDefault();
+
+                recipeList.Add(recipeView);
             }
 
-
-            ViewBag.MyRecipes = recipeDict;
             ViewBag.MyPosts = GetPosts(userId);
             ViewBag.UserID = userId;
             
 
-            return View();
+            return View(recipeList);
         }
 
         public List<Recipe> GetRecipes(int userId)
         {
             var recipes = (from allRecipes in db.Recipes
                            where allRecipes.UserID == userId
-                          select allRecipes).Take(20).ToList();
+                          select allRecipes).Take(30).ToList();
             return recipes;
         }
 
@@ -92,7 +102,7 @@ namespace Cookbook.Controllers
         {
             var posts = (from allPosts in db.BlogPosts
                          where allPosts.UserId == userId
-                         select allPosts).Take(20).ToList();
+                         select allPosts).Take(30).ToList();
             return posts;
         }
 
