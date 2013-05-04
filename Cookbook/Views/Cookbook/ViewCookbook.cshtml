@@ -39,15 +39,17 @@
 
                         <p><strong>Instructions:</strong></p>
                         <p>@post.RecipePost.Instructions</p>
+                        <p>x Likes. </b><a href="/Cookbook/LikeRecipe/?postId=@post.PostId">Like</a></p>
                     }
                     @if (post.BlogPost != null)
                     {
                         <p>@post.BlogPost.Post</p>
+                        <p><b>x Likes. </b><a href="/Cookbook/LikeBlog/?postId=@post.PostId">Like</a></p>
                     }
                     <p><i>Posted on @post.DateCreated</i></p>
+
                 </div>
             </div>
         }
     </div>
 </div>
->>>>>>> 070b394bf7b33465821eed81fd2132f0abf054e6

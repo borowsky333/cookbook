@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Cookbook.Models;
+using WebMatrix.WebData;
 
 namespace Cookbook.Controllers
 {
@@ -100,5 +101,39 @@ namespace Cookbook.Controllers
             return View();
         }
 
+
+        public ActionResult LikeBlog(int postID)
+        {
+            var blogPost = (from blogs in db.BlogPosts
+                            where blogs.BlogPostId == postID
+                            select blogs).FirstOrDefault();
+            blogPost.LikeCount++;
+
+            BlogPost_Liker newLiker = new BlogPost_Liker();
+            newLiker.BlogPostId = postID;
+            newLiker.UserId = WebSecurity.CurrentUserId;
+            db.BlogPost_Likers.InsertOnSubmit(newLiker);
+
+            db.SubmitChanges();
+
+
+            return Redirect(Request.UrlReferrer.AbsoluteUri);
+        }
+
+        public ActionResult LikeRecipe(int postID)
+        {
+            var recipe = (from recipes in db.Recipes
+                          where recipes.RecipeID == postID
+                          select recipes).FirstOrDefault();
+            recipe.LikeCount++;
+
+            Recipe_Liker newLiker = new Recipe_Liker();
+            newLiker.RecipeId = postID;
+            newLiker.UserId = WebSecurity.CurrentUserId;
+            db.Recipe_Likers.InsertOnSubmit(newLiker);
+
+            db.SubmitChanges();
+            return Redirect(Request.UrlReferrer.AbsoluteUri);
+        }
     }
 }
