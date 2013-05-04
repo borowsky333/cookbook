@@ -1845,8 +1845,6 @@ namespace Cookbook.Models
 		
 		private int _SubscriberId;
 		
-		private System.DateTime _DateSubscribed;
-		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -1855,8 +1853,6 @@ namespace Cookbook.Models
     partial void OnUserIdChanged();
     partial void OnSubscriberIdChanging(int value);
     partial void OnSubscriberIdChanged();
-    partial void OnDateSubscribedChanging(System.DateTime value);
-    partial void OnDateSubscribedChanged();
     #endregion
 		
 		public User_Subscriber()
@@ -1900,26 +1896,6 @@ namespace Cookbook.Models
 					this._SubscriberId = value;
 					this.SendPropertyChanged("SubscriberId");
 					this.OnSubscriberIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateSubscribed", DbType="DateTime NOT NULL")]
-		public System.DateTime DateSubscribed
-		{
-			get
-			{
-				return this._DateSubscribed;
-			}
-			set
-			{
-				if ((this._DateSubscribed != value))
-				{
-					this.OnDateSubscribedChanging(value);
-					this.SendPropertyChanging();
-					this._DateSubscribed = value;
-					this.SendPropertyChanged("DateSubscribed");
-					this.OnDateSubscribedChanged();
 				}
 			}
 		}
