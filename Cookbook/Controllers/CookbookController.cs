@@ -26,7 +26,7 @@ namespace Cookbook.Controllers
         //redirect if not logged in
         public ActionResult Index()
         {
-            var recipes = GetRecipes((int)Membership.GetUser().ProviderUserKey);
+            var recipes = GetRecipes(WebSecurity.CurrentUserId);
             var recipeDict = new Dictionary<Recipe, List<string>>();
 
             foreach (var recipe in recipes)
@@ -39,7 +39,7 @@ namespace Cookbook.Controllers
             }
 
             ViewBag.MyRecipes = recipeDict;
-            ViewBag.MyPosts = GetBlogPosts((int)Membership.GetUser().ProviderUserKey);
+            ViewBag.MyPosts = GetBlogPosts(WebSecurity.CurrentUserId);
 
             return View();
         }
@@ -148,7 +148,7 @@ namespace Cookbook.Controllers
             recipeEntry.DateCreated = DateTime.Now;
 
             recipeEntry.DateModified = DateTime.Now;
-            recipeEntry.UserID = (int)Membership.GetUser().ProviderUserKey;
+            recipeEntry.UserID = WebSecurity.CurrentUserId;
 
             db.Recipes.InsertOnSubmit(recipeEntry);
 
@@ -183,7 +183,7 @@ namespace Cookbook.Controllers
                 }
 
                 //upload the image to S3
-                string imageKey = "recipes/" + (int)Membership.GetUser().ProviderUserKey + "/" + recipeEntry.RecipeID;
+                string imageKey = "recipes/" + WebSecurity.CurrentUserId + "/" + recipeEntry.RecipeID;
                 PutObjectRequest request = new PutObjectRequest
                 {
                     BucketName = "Cookbook_Images",
@@ -277,7 +277,6 @@ namespace Cookbook.Controllers
 
             post.DateModified = DateTime.Now;
             post.UserId = (int)Membership.GetUser().ProviderUserKey;
-
 
             db.BlogPosts.InsertOnSubmit(post);
             db.SubmitChanges();
