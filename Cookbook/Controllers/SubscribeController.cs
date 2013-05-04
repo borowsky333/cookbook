@@ -77,10 +77,20 @@ namespace Cookbook.Controllers
                 SubscriberId = userId
             };
 
-            db.User_Subscribers.DeleteOnSubmit(us);
+            if (!db.User_Subscribers.Contains(us))
+            {
+                ViewBag.Message = "You weren't following this user";
+                return View();
+            }
+
+            db.ExecuteQuery<Object>("DELETE FROM User_Subscriber " +
+                                    "WHERE UserId=" + us.UserId +
+                                    " AND SubscriberId=" + userId);
+
+            
             db.SubmitChanges();
 
-            ViewBag.Message("Unsubscribed");
+            ViewBag.Message = "Unsubscribed";
             return RedirectToAction("Index");
 
         }

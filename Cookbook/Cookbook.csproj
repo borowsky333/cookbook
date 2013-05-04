@@ -222,7 +222,9 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -283,6 +285,7 @@
     <None Include="Properties\PublishProfiles\cookbook.pubxml" />
     <Content Include="Views\Subscribe\AddSubscriber.cshtml" />
     <Content Include="Views\Subscribe\Index.cshtml" />
+    <Content Include="Views\Subscribe\RemoveSubscriber.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
