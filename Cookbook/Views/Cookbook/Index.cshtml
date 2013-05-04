@@ -1,10 +1,7 @@
-@{
-    
-}
 <div class="row-fluid">
     <div class="span4" style="padding-left: 2em;">
         <div class="addPostRecipe">
-            <ul class="nav nav-tabs">
+            <ul class="nav nav-tabs" style="margin-bottom: 0px;">
                 <li class="active"><a href="#post" data-toggle="tab">Create Post</a></li>
                 <li><a href="#recipe" data-toggle="tab">Create Recipe</a></li>
             </ul>
@@ -20,13 +17,13 @@
             </div>
         </div>
     </div>
-    <div class="span8">
+    <div class="span7">
         <h3 style="text-align:center;">Your Recipes</h3>
         @foreach (var recipe in ViewBag.MyRecipes)
             {
                 <br />
-                <div class="row-fluid recipeObject">
-                    <div class="span4 offset2 recipeLeftSide">
+                <div class="row-fluid recipeOrPost">
+                    <div class="span4 offset1">
                         @{
                             string imageUrl = recipe.Key.ImageUrl;
                             if(imageUrl == null)
@@ -37,8 +34,10 @@
                         <img src=@imageUrl class="recipeImage" />
                         <h4>@@@User.Identity.Name</h4> <!-- This needs to be changed to user name -->
                     </div>
-                    <div class="span4 recipeRightSide" style="margin-left: 0px;">
-            
+                    <div class="span1 divider">
+
+                    </div>
+                    <div class="span5">
                         <h4 class="recipeTitle">@recipe.Key.Title</h4>
                         <p><strong>Ingredients:</strong></p>
                         @foreach (var ingredient in recipe.Value)
@@ -57,8 +56,8 @@
         @foreach (var post in ViewBag.MyPosts)
             {
                 <br />
-                <div class="row-fluid recipeObject">
-                    <div class="span4 offset2 recipeLeftSide">
+                <div class="row-fluid recipeOrPost">
+                    <div class="span4 offset1">
                         @{
                             string imageUrl = post.ImageUrl;
                             if(imageUrl == null)
@@ -69,8 +68,10 @@
                         <img src=@imageUrl class="recipeImage" />
                         <h4>@@@User.Identity.Name</h4> <!-- This needs to be changed to user name -->
                     </div>
-                    <div class="span4 recipeRightSide" style="margin-left: 0px;">
-            
+                    <div class="span1 divider">
+
+                    </div>
+                    <div class="span5">
                         <h4 class="recipeTitle">@post.Title</h4>
                         <p>@post.Post</p>
                         <p><i>Posted on @post.DateCreated</i></p>

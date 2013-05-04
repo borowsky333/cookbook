@@ -3122,8 +3122,8 @@ table th[class*="span"],
   min-height: 20px;
   padding: 19px;
   margin-bottom: 20px;
-  background-color: #f5f5f5;
-  border: 1px solid #e3e3e3;
+  background-color: #FAF6E9;
+  /*border: 1px solid #e3e3e3;*/
   -webkit-border-radius: 4px;
      -moz-border-radius: 4px;
           border-radius: 4px;
@@ -3463,7 +3463,7 @@ input[type="button"].btn-block {
 
 .btn-danger:active,
 .btn-danger.active {
-  background-color: #942a25 \9;
+  background-color: #942a25;
 }
 
 .btn-success {
@@ -4068,7 +4068,7 @@ input[type="submit"].btn.btn-mini {
 }
 
 .nav-tabs {
-  border-bottom: 1px solid #ddd;
+  /*border-bottom: 1px solid #ddd;*/
 }
 
 .nav-tabs > li {
@@ -4093,10 +4093,10 @@ input[type="submit"].btn.btn-mini {
 .nav-tabs > .active > a,
 .nav-tabs > .active > a:hover,
 .nav-tabs > .active > a:focus {
-  color: #555555;
+  color: #317eac;
   cursor: default;
-  background-color: #ffffff;
-  border: 1px solid #ddd;
+  background-color: #FAF6E9;
+  /*border: 1px solid #ddd;*/
   border-bottom-color: transparent;
 }
 
@@ -6502,44 +6502,24 @@ i[class^="icon-"] {
   position: fixed;
 }
 
-.recipeLeftSide {
+.recipeOrPost {
+    height: auto;
     text-align: center;
-    border-top: 5px solid black;
-    border-left: 5px solid black;
-    border-bottom: 5px solid black;
-    border-right: 5px solid black;
-    border-top-left-radius: 40px;
-    border-bottom-left-radius: 40px;
-    height: 250px;
-    
-
-}
-
-.recipeRightSide {
-    
-    border-top: 5px solid black;
-    border-right: 5px solid black;
-    border-bottom: 5px solid black;
-    border-left: 5px solid black;
-    border-top-right-radius: 40px;
-    border-bottom-right-radius: 40px;
-    height: 250px;
-    padding: 5px 5px 5px 5px;
-    overflow: hidden;
-    
-
-    
+    border-radius: 40px;
+    background-color: #FAF6E9;
 }
 
 .recipeImage {
     width: 180px;
     height: 180px;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 
 .recipeTitle {
     text-align: center;
 }
 
-.recipeObject {
-    margin-bottom: 10px;
+.profilePic {
+    border-radius: 40px;
 }
