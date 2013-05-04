@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using WebMatrix.WebData;
 using Cookbook.Models;
 using Amazon.S3;
 using Amazon.S3.Model;
@@ -12,22 +13,22 @@ using Amazon.SimpleEmail.Model;
 using Amazon.SimpleNotificationService;
 using Amazon.SimpleNotificationService.Model;
 
+
 namespace Cookbook.Controllers
 {
     [Authorize]
     public class CookbookController : Controller
     {
         private CookbookDBModelsDataContext db = new CookbookDBModelsDataContext();
+        private UsersContext userDb = new UsersContext();
         private AmazonS3 s3client = new AmazonS3Client();
-
-
 
         //redirect if not logged in
         public ActionResult Index()
         {
             var recipes = GetRecipes((int)Membership.GetUser().ProviderUserKey);
             var recipeDict = new Dictionary<Recipe, List<string>>();
-            
+
             foreach (var recipe in recipes)
             {
                 var ingredients =
@@ -38,7 +39,7 @@ namespace Cookbook.Controllers
             }
 
             ViewBag.MyRecipes = recipeDict;
-            ViewBag.MyPosts = GetPosts((int)Membership.GetUser().ProviderUserKey);
+            ViewBag.MyPosts = GetBlogPosts((int)Membership.GetUser().ProviderUserKey);
 
             return View();
         }
@@ -47,39 +48,98 @@ namespace Cookbook.Controllers
         {
 
             var recipes = GetRecipes(userId);
-            var recipeDict = new Dictionary<Recipe, List<string>>();
+
+            List<ViewPostModel> postList = new List<ViewPostModel>();
 
             foreach (var recipe in recipes)
             {
+                ViewRecipeModel recipeView = new ViewRecipeModel();
+                recipeView.DateCreated = recipe.DateCreated;
+                recipeView.DateModified = recipe.DateModified;
+                recipeView.FavoriteCount = recipe.FavoriteCount;
+                recipeView.ImageURL = recipe.ImageUrl;
+                recipeView.Instructions = recipe.Instructions;
+                recipeView.LikeCount = recipe.LikeCount;
+                recipeView.Title = recipe.Title;
+
                 var ingredients =
                     (from allIngredients in db.Ingredients
                      where allIngredients.RecipeId == recipe.RecipeID
                      select allIngredients.Name).ToList();
-                recipeDict.Add(recipe, ingredients);
+
+                recipeView.Ingredients = ingredients;
+
+                var tags =
+                    (from allTags in db.Recipe_Tags
+                     where allTags.RecipeID == recipe.RecipeID
+                     select allTags.Tag).ToList();
+
+                recipeView.Tags = tags;
+                recipeView.Username =
+                    (from userprofiles in userDb.UserProfiles
+                     where userprofiles.UserId == recipe.UserID
+                     select userprofiles.UserName).FirstOrDefault();
+
+                ViewPostModel post = new ViewPostModel();
+                post.DateCreated = recipe.DateCreated;
+                post.RecipePost = recipeView;
+                post.Username = recipeView.Username;
+                post.ImageURL = recipe.ImageUrl;
+                post.Title = recipe.Title;
+                postList.Add(post);
             }
 
+            var blogPosts = GetBlogPosts(userId);
+            foreach (var blog in blogPosts)
+            {
+                ViewBlogModel blogView = new ViewBlogModel();
+                blogView.DateCreated = blog.DateCreated;
+                blogView.DateModified = blog.DateModified;
+                blogView.ImageURL = blog.ImageUrl;
+                blogView.LikeCount = blog.LikeCount;
+                blogView.Post = blog.Post;
+                blogView.Title = blog.Title;
+                var tags =
+                    (from allTags in db.BlogPost_Tags
+                     where allTags.BlogPostId == blog.BlogPostId
+                     select allTags.Tag).ToList();
+                blogView.Tags = tags;
+                blogView.Username =
+                    (from userprofiles in userDb.UserProfiles
+                    where userprofiles.UserId == blog.UserId
+                    select userprofiles.UserName).FirstOrDefault();
 
-            ViewBag.MyRecipes = recipeDict;
-            ViewBag.MyPosts = GetPosts(userId);
+                ViewPostModel post = new ViewPostModel();
+                post.DateCreated = blog.DateCreated;
+                post.BlogPost = blogView;
+                post.Username = blogView.Username;
+                post.ImageURL = blog.ImageUrl;
+                post.Title = blog.Title;
+                postList.Add(post);
+            }
+
+            List<ViewPostModel> sortedPosts = postList.OrderByDescending(p => p.DateCreated).ToList();
+
             ViewBag.UserID = userId;
-            
 
-            return View();
+
+            return View(sortedPosts);
         }
+
 
         public List<Recipe> GetRecipes(int userId)
         {
             var recipes = (from allRecipes in db.Recipes
                            where allRecipes.UserID == userId
-                          select allRecipes).Take(20).ToList();
+                           select allRecipes).Take(30).ToList();
             return recipes;
         }
 
-        public List<BlogPost> GetPosts(int userId)
+        public List<BlogPost> GetBlogPosts(int userId)
         {
             var posts = (from allPosts in db.BlogPosts
                          where allPosts.UserId == userId
-                         select allPosts).Take(20).ToList();
+                         select allPosts).Take(30).ToList();
             return posts;
         }
 
@@ -170,12 +230,12 @@ namespace Cookbook.Controllers
                 db.ExecuteQuery<Object>(@"UPDATE Recipe " +
                                 "SET Recipe.ImageUrl='" + imageUrl + "'" +
                                 "WHERE Recipe.RecipeId='" + recipeEntry.RecipeID + "'", param);
-                
-                
 
-                
+
+
+
             }
-            
+
 
             var ingredients = newRecipe.Ingredients.Split(',').ToList();
             foreach (var ingredient in ingredients)
@@ -283,14 +343,14 @@ namespace Cookbook.Controllers
                 }
 
                 string imageUrl = "https://s3.amazonaws.com/Cookbook_Images/" + imageKey;
-                object[] param = {};
+                object[] param = { };
                 db.ExecuteQuery<Object>(@"UPDATE BlogPost " +
                                 "SET BlogPost.ImageUrl='" + imageUrl + "'" +
                                 "WHERE BlogPost.BlogPostId='" + post.BlogPostId + "'", param);
             }
 
 
-            
+
 
 
             var tags = newPost.Tags.Split(',').ToList();
@@ -351,7 +411,7 @@ namespace Cookbook.Controllers
         {
             return View();
         }
-        
+
         public ActionResult LikePost(int postID)
         {
             return View();

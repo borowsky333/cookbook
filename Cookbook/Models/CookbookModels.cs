@@ -6,6 +6,44 @@ using System.Web;
 
 namespace Cookbook.Models
 {
+    public class ViewPostModel
+    {
+        public ViewBlogModel BlogPost { get; set; }
+        public ViewRecipeModel RecipePost { get; set; }
+        public DateTime DateCreated { get; set; }
+        public string Username { get; set; }
+        public string ImageURL { get; set; }
+        public string Title { get; set; }
+    }
+
+    public class ViewBlogModel
+    {
+        public string Title { get; set; }
+        public string Post { get; set; }
+        public string Username { get; set; }
+        public DateTime DateCreated { get; set; }
+        public DateTime DateModified { get; set; }
+        public int LikeCount { get; set; }
+        public string ImageURL { get; set; }
+        public List<string> Tags { get; set; }
+    }
+
+
+    public class ViewRecipeModel
+    {
+        public string Title { get; set; }
+        public List<string> Ingredients { get; set; }
+        public string Instructions { get; set; }
+        public string Username { get; set; }
+        public string ImageURL { get; set; }
+        public List<string> Tags { get; set; }
+        public int LikeCount { get; set; }
+        public int FavoriteCount { get; set; }
+        public DateTime DateCreated { get; set; }
+        public DateTime DateModified { get; set; }
+        
+    }
+
     public class UploadRecipeModel
     {
         [Required]
@@ -33,11 +71,15 @@ namespace Cookbook.Models
         [Required]
         [Display(Name = "Post Title")]
         public string Title { get; set; }
+        
         [Required]
         [Display(Name = "Post")]
+        [DataType(DataType.MultilineText)]
         public string Post { get; set; }
+        
         [Required]
         [Display(Name = "Tags")]
+        [DataType(DataType.MultilineText)]
         public string Tags { get; set; }
 
     }
