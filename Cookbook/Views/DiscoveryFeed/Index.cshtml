@@ -13,33 +13,35 @@
                     {
                         imageUrl = "http://newyork.cities2night.com/public/article_images/1281.jpg";
                     }
-                }
-                <img src=@imageUrl class="recipeImage" />
-                <h4>
-                    <a href="/Cookbook/ViewCookbook/?userId=@post.UserID">@@@post.Username</a>
-                </h4>
-            </div>
-			<div class ="span1 divider"></div>
-            <div class="span5">
+                 }
+                    <img src=@imageUrl class="recipeImage" />
+                    <h4>
+                        <a href="/Cookbook/ViewCookbook/?userId=@post.UserID">@@@post.Username</a>
+                    </h4>
+                </div>
+                <div class="span1 divider"></div>
+                <div class="span5">
 
-                <h4 class="recipeTitle">@post.Title</h4>
-                @if (post.RecipePost != null)
-                {
-                    <p><strong>Ingredients:</strong></p>
-                    foreach (var ingredient in post.RecipePost.Ingredients)
+                    <h4 class="recipeTitle">@post.Title</h4>
+                    @if (post.RecipePost != null)
                     {
+                        <p><strong>Ingredients:</strong></p>
+                        foreach (var ingredient in post.RecipePost.Ingredients)
+                        {
                         <p>@ingredient</p>
-                    }
+                        }
 
-                    <p><strong>Instructions:</strong></p>
-                    <p>@post.RecipePost.Instructions</p>
-                }
-                @if (post.BlogPost != null)
-                {
-                    <p>@post.BlogPost.Post</p>
-                }
-                <p><i>Posted on @post.DateCreated</i></p>
+                        <p><strong>Instructions:</strong></p>
+                        <p>@post.RecipePost.Instructions</p>
+                    }
+                    @if (post.BlogPost != null)
+                    {
+                        <p>@post.BlogPost.Post</p>
+                    }
+                    <p><i>Posted on @post.DateCreated</i></p>
+                </div>
             </div>
-        </div>
-    }
+        }
+    </div>
 </div>
+
