@@ -173,7 +173,6 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CookbookController.cs" />
     <Compile Include="Controllers\SubscribeController.cs" />
-    <Compile Include="Controllers\SubscribersController.cs" />
     <Compile Include="Controllers\WelcomeController.cs" />
     <Compile Include="Controllers\DiscoveryFeedController.cs" />
     <Compile Include="Controllers\NewsFeedController.cs" />
