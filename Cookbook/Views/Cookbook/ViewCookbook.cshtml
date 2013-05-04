@@ -3,7 +3,7 @@
 <div class="row-fluid">
     <div class="span4 offset1 well profilePic" style="text-align:center;">
         <img src="~/Content/images/defaultUser.png" />
-        <h3>@Model[0].Username</h3>
+        <h3>@ViewBag.Username</h3>
         <!-- username will be the same for all recipes, grab it from the first-->
     </div>
     <div class="span7">
@@ -20,7 +20,7 @@
                         }
                     }
                     <img src=@imageUrl class="recipeImage" />
-                    <h4>@post.Username</h4>
+                    <h4>@ViewBag.Username</h4>
                 </div>
                 <div class="span1 divider">
 

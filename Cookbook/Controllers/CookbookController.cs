@@ -79,7 +79,7 @@ namespace Cookbook.Controllers
                      select userprofiles.UserName).FirstOrDefault();
                 post.ImageURL = recipe.ImageUrl;
                 post.Title = recipe.Title;
-
+                ViewBag.Username = post.Username;
                 postList.Add(post);
 
             }
@@ -106,6 +106,7 @@ namespace Cookbook.Controllers
                                  select userprofiles.UserName).FirstOrDefault();
                 post.ImageURL = blog.ImageUrl;
                 post.Title = blog.Title;
+                ViewBag.Username = post.Username;
                 postList.Add(post);
             }
 
