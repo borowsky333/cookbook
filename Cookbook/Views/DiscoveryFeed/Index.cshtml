@@ -1,10 +1,11 @@
 ﻿@model List<Cookbook.Models.ViewPostModel>
 <div class="row-fluid">
+    <div class="span8 offset2">
     <h3 style="text-align: center;">Discovery Feed</h3>
     @foreach (var post in Model)
     {
-        <div class="row-fluid recipeObject">
-            <div class="span4 offset2 recipeLeftSide">
+        <div class="row-fluid recipeOrPost">
+            <div class="span4 offset1">
                 @{
                     string imageUrl = post.ImageURL;
                     if (imageUrl == null)
@@ -16,9 +17,9 @@
                 <h4>
                     <a href="/Cookbook/ViewCookbook/?userId=@post.UserID">@@@post.Username</a>
                 </h4>
-                <!-- This needs to be changed to user name -->
             </div>
-            <div class="span4 recipeRightSide" style="margin-left: 0px;">
+			<div class ="span1 divider"></div>
+            <div class="span5">
 
                 <h4 class="recipeTitle">@post.Title</h4>
                 @if (post.RecipePost != null)
