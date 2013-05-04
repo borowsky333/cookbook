@@ -46,6 +46,7 @@ namespace Cookbook.Controllers
 
         public ActionResult ViewCookbook(int userId)
         {
+            ViewBag.userId = userId;
 
             var recipes = GetRecipes(userId);
 
