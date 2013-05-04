@@ -4,6 +4,9 @@
     <div class="span4 well" style="text-align:center;">
         <img src="~/Content/images/defaultUser.png" />
         <h2>@Model[0].Username</h2> <!-- username will be the same for all recipes, grab it from the first-->
+        <p>
+            @Html.ActionLink("Subscribe", "AddSubscriber", "Subscribe", new { userId = ViewBag.UserId }, new { })
+        </p>
     </div>
     <div class="span8">
         <h3 style="text-align:center;">Your Recipes</h3>
