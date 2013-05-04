@@ -46,6 +46,28 @@ namespace Cookbook.Controllers
 
         public ActionResult ViewCookbook(int userId)
         {
+            //if the user id is the logged in user's, redirect to index
+            if (userId == (int)Membership.GetUser().ProviderUserKey)
+            {
+                return RedirectToAction("Index");
+            }
+
+            User_Subscriber us = new User_Subscriber
+            {
+                UserId = (int)Membership.GetUser().ProviderUserKey,
+                SubscriberId = userId
+            };
+
+            if (db.User_Subscribers.Contains(us))
+            {
+                ViewBag.IsSubscribed = true;
+            }
+            else
+            {
+                ViewBag.IsSubscribed = false;
+            }
+
+            ViewBag.UserId = userId;
 
             var recipes = GetRecipes(userId);
 

@@ -5,7 +5,14 @@
         <img src="~/Content/images/defaultUser.png" />
         <h3>@ViewBag.Username</h3>
         <p>
-            @Html.ActionLink("Subscribe", "AddSubscriber", "Subscribe", new { userId = ViewBag.UserId }, new { })
+            @if(!ViewBag.IsSubscribed)
+            {
+                @Html.ActionLink("Subscribe", "AddSubscriber", "Subscribe", new { userId = ViewBag.UserId }, new { })
+            }
+            else
+            {
+                @Html.ActionLink("Unsubscribe", "RemoveSubscriber", "Subscribe", new { userId = ViewBag.UserId }, new { })
+            }
         </p>
     </div>
     <div class="span7">
