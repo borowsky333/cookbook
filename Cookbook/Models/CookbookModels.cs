@@ -6,6 +6,29 @@ using System.Web;
 
 namespace Cookbook.Models
 {
+    public class ViewPostModel
+    {
+        public ViewBlogModel BlogPost { get; set; }
+        public ViewRecipeModel RecipePost { get; set; }
+        public DateTime DateCreated { get; set; }
+        public string Username { get; set; }
+        public string ImageURL { get; set; }
+        public string Title { get; set; }
+    }
+
+    public class ViewBlogModel
+    {
+        public string Title { get; set; }
+        public string Post { get; set; }
+        public string Username { get; set; }
+        public DateTime DateCreated { get; set; }
+        public DateTime DateModified { get; set; }
+        public int LikeCount { get; set; }
+        public string ImageURL { get; set; }
+        public List<string> Tags { get; set; }
+    }
+
+
     public class ViewRecipeModel
     {
         public string Title { get; set; }

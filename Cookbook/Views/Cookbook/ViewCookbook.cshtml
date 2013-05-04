@@ -1,66 +1,51 @@
-﻿@model List<Cookbook.Models.ViewRecipeModel>
+﻿@model List<Cookbook.Models.ViewPostModel>
 
 <div class="row-fluid">
-    <div class="span4 well" style="text-align:center;">
+    <div class="span4 well" style="text-align: center;">
         <img src="~/Content/images/defaultUser.png" />
-        <h2>@Model[0].Username</h2> <!-- username will be the same for all recipes, grab it from the first-->
+        <h2>@Model[0].Username</h2>
+        <!-- username will be the same for all recipes, grab it from the first-->
     </div>
     <div class="span8">
-        <h3 style="text-align:center;">Your Recipes</h3>
-        @foreach (var recipe in Model)
+        <h3 style="text-align: center;">Posts</h3>
+        @foreach (var post in Model)
+        {
+            <br />
+            <div class="row-fluid recipeObject">
+                <div class="span4 offset2 recipeLeftSide">
+                    @{
+            string imageUrl = post.ImageURL;
+            if (imageUrl == null)
             {
-                <br />
-                <div class="row-fluid recipeObject">
-                    <div class="span4 offset2 recipeLeftSide">
-                        @{
-                            string imageUrl = recipe.ImageURL;
-                            if(imageUrl == null)
-                            {
-                                imageUrl = "http://newyork.cities2night.com/public/article_images/1281.jpg";
-                            }
-                        }
-                        <img src=@imageUrl class="recipeImage" />
-                        <h4>@recipe.Username</h4>
-                    </div>
-                    <div class="span4 recipeRightSide" style="margin-left: 0px;">
-            
-                        <h4 class="recipeTitle">@recipe.Title</h4>
+                imageUrl = "http://newyork.cities2night.com/public/article_images/1281.jpg";
+            }
+                    }
+                    <img src=@imageUrl class="recipeImage" />
+                    <h4>@post.Username</h4>
+                </div>
+                <div class="span4 recipeRightSide" style="margin-left: 0px;">
+
+                    <h4 class="recipeTitle">@post.Title</h4>
+                    @if (post.RecipePost != null)
+                    {
                         <p><strong>Ingredients:</strong></p>
-                        @foreach (var ingredient in recipe.Ingredients)
-            	        {
-                	        <p>@ingredient</p>
-            	        }
+                        foreach (var ingredient in post.RecipePost.Ingredients)
+                        {
+                            <p>@ingredient</p>
+                        }
 
                         <p><strong>Instructions:</strong></p>
-                        <p>@recipe.Instructions</p>
-                        <p><i>Posted on @recipe.DateCreated</i></p>
-                    </div>
+                        <p>@post.RecipePost.Instructions</p>
+                    }
+                    @if (post.BlogPost != null)
+                    {
+                        <p>@post.BlogPost.Post</p>
+                    }
+                    <p><i>Posted on @post.DateCreated</i></p>
                 </div>
-            }
+            </div>
+        }
         <br />
-        <h3 style="text-align:center;">Your Posts</h3>
-        @foreach (var post in ViewBag.MyPosts)
-            {
-                <br />
-                <div class="row-fluid recipeObject">
-                    <div class="span4 offset2 recipeLeftSide">
-                        @{
-                            string imageUrl = post.ImageUrl;
-                            if(imageUrl == null)
-                            {
-                                imageUrl = "http://newyork.cities2night.com/public/article_images/1281.jpg";
-                            }
-                        }
-                        <img src=@imageUrl class="recipeImage" />
-                        <h4>@post.UserId</h4>
-                    </div>
-                    <div class="span4 recipeRightSide" style="margin-left: 0px;">
-            
-                        <h4 class="recipeTitle">@post.Title</h4>
-                        <p>@post.Post</p>
-                        <p><i>Posted on @post.DateCreated</i></p>
-                    </div>
-                </div>
-            }
+        
     </div>
 </div>
