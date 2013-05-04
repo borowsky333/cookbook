@@ -337,6 +337,10 @@ namespace Cookbook.Controllers
                                 "WHERE BlogPost.BlogPostId='" + post.BlogPostId + "'", param);
             }
 
+
+
+
+
             var tags = newPost.Tags.Split(',').ToList();
             foreach (var tag in tags)
             {
