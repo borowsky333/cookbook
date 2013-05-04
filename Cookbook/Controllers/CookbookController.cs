@@ -45,13 +45,26 @@ namespace Cookbook.Controllers
             var recipes = GetRecipes(userId);
             var recipeDict = new Dictionary<Recipe, List<string>>();
 
+            List<ViewRecipeModel> recipeList = new List<ViewRecipeModel>();
+
             foreach (var recipe in recipes)
             {
+                ViewRecipeModel recipeView = new ViewRecipeModel();
+                recipeView.DateCreated = recipe.DateCreated;
+                recipeView.DateModified = recipe.DateModified;
+                recipeView.FavoriteCount = recipe.FavoriteCount;
+                recipeView.ImageURL = recipe.ImageUrl;
+                recipeView.Instructions = recipe.Instructions;
+                recipeView.LikeCount = recipe.LikeCount;
+                recipeView.Title = recipe.Title;
+                
                 var ingredients =
                     (from allIngredients in db.Ingredients
                      where allIngredients.RecipeId == recipe.RecipeID
                      select allIngredients.Name).ToList();
-                recipeDict.Add(recipe, ingredients);
+
+                recipeView.Ingredients = ingredients;
+
             }
 
             ViewBag.MyRecipes = recipeDict;
