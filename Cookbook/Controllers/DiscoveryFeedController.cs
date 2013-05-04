@@ -112,7 +112,8 @@ namespace Cookbook.Controllers
             BlogPost_Liker newLiker = new BlogPost_Liker();
             newLiker.BlogPostId = postID;
             newLiker.UserId = WebSecurity.CurrentUserId;
-            db.BlogPost_Likers.InsertOnSubmit(newLiker);
+            if (!db.BlogPost_Likers.Contains(newLiker))
+                db.BlogPost_Likers.InsertOnSubmit(newLiker);
 
             db.SubmitChanges();
 
@@ -130,7 +131,8 @@ namespace Cookbook.Controllers
             Recipe_Liker newLiker = new Recipe_Liker();
             newLiker.RecipeId = postID;
             newLiker.UserId = WebSecurity.CurrentUserId;
-            db.Recipe_Likers.InsertOnSubmit(newLiker);
+            if (!db.Recipe_Likers.Contains(newLiker))
+                db.Recipe_Likers.InsertOnSubmit(newLiker);
 
             db.SubmitChanges();
             return Redirect(Request.UrlReferrer.AbsoluteUri);
