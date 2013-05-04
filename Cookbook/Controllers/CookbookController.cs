@@ -46,7 +46,28 @@ namespace Cookbook.Controllers
 
         public ActionResult ViewCookbook(int userId)
         {
-            ViewBag.userId = userId;
+            //if the user id is the logged in user's, redirect to index
+            if (userId == (int)Membership.GetUser().ProviderUserKey)
+            {
+                return RedirectToAction("Index");
+            }
+
+            User_Subscriber us = new User_Subscriber
+            {
+                UserId = (int)Membership.GetUser().ProviderUserKey,
+                SubscriberId = userId
+            };
+
+            if (db.User_Subscribers.Contains(us))
+            {
+                ViewBag.IsSubscribed = true;
+            }
+            else
+            {
+                ViewBag.IsSubscribed = false;
+            }
+
+            ViewBag.UserId = userId;
 
             var recipes = GetRecipes(userId);
 
@@ -80,6 +101,7 @@ namespace Cookbook.Controllers
                      select userprofiles.UserName).FirstOrDefault();
                 post.ImageURL = recipe.ImageUrl;
                 post.Title = recipe.Title;
+                post.PostId = recipe.RecipeID;
                 ViewBag.Username = post.Username;
                 postList.Add(post);
 
@@ -107,6 +129,7 @@ namespace Cookbook.Controllers
                                  select userprofiles.UserName).FirstOrDefault();
                 post.ImageURL = blog.ImageUrl;
                 post.Title = blog.Title;
+                post.PostId = blog.BlogPostId;
                 ViewBag.Username = post.Username;
                 postList.Add(post);
             }
@@ -145,10 +168,7 @@ namespace Cookbook.Controllers
             Recipe recipeEntry = new Recipe();
             recipeEntry.Title = newRecipe.Title;
             recipeEntry.Instructions = newRecipe.Instructions;
-
-            //TODO: need logic for adding tags to tag table.
             recipeEntry.DateCreated = DateTime.Now;
-
             recipeEntry.DateModified = DateTime.Now;
             recipeEntry.UserID = WebSecurity.CurrentUserId;
 
@@ -220,12 +240,7 @@ namespace Cookbook.Controllers
                 db.ExecuteQuery<Object>(@"UPDATE Recipe " +
                                 "SET Recipe.ImageUrl='" + imageUrl + "'" +
                                 "WHERE Recipe.RecipeId='" + recipeEntry.RecipeID + "'", param);
-
-
-
-
             }
-
 
             var ingredients = newRecipe.Ingredients.Split(',').ToList();
             foreach (var ingredient in ingredients)
@@ -274,11 +289,9 @@ namespace Cookbook.Controllers
             BlogPost post = new BlogPost();
             post.Title = newPost.Title;
             post.Post = newPost.Post;
-
             post.DateCreated = DateTime.Now;
-
             post.DateModified = DateTime.Now;
-            post.UserId = (int)Membership.GetUser().ProviderUserKey;
+            post.UserId = WebSecurity.CurrentUserId;
 
             db.BlogPosts.InsertOnSubmit(post);
             db.SubmitChanges();
@@ -338,10 +351,6 @@ namespace Cookbook.Controllers
                                 "WHERE BlogPost.BlogPostId='" + post.BlogPostId + "'", param);
             }
 
-
-
-
-
             var tags = newPost.Tags.Split(',').ToList();
             foreach (var tag in tags)
             {
@@ -361,22 +370,6 @@ namespace Cookbook.Controllers
         }
 
         public ActionResult DeletePost(BlogPost post)
-        {
-            return View();
-        }
-
-        //postId must be the ID of either a blog post or recipe post
-        public ActionResult UploadImage(string postId, Image image)
-        {
-            return View();
-        }
-
-        public ActionResult EditImage(string postId, Image image)
-        {
-            return View();
-        }
-
-        public ActionResult DeleteImage(string postId, Image image)
         {
             return View();
         }
@@ -401,9 +394,38 @@ namespace Cookbook.Controllers
             return View();
         }
 
-        public ActionResult LikePost(int postID)
+        public ActionResult LikeBlog(int postID)
         {
-            return View();
+            var blogPost = (from blogs in db.BlogPosts
+                            where blogs.BlogPostId == postID
+                            select blogs).FirstOrDefault();
+            blogPost.LikeCount++;
+
+            BlogPost_Liker newLiker = new BlogPost_Liker();
+            newLiker.BlogPostId = postID;
+            newLiker.UserId = WebSecurity.CurrentUserId;
+            db.BlogPost_Likers.InsertOnSubmit(newLiker);
+
+            db.SubmitChanges();
+           
+            
+            return Redirect(Request.UrlReferrer.AbsoluteUri);
+        }
+
+        public ActionResult LikeRecipe(int postID)
+        {
+            var recipe = (from recipes in db.Recipes
+                          where recipes.RecipeID == postID
+                          select recipes).FirstOrDefault();
+            recipe.LikeCount++;
+
+            Recipe_Liker newLiker = new Recipe_Liker();
+            newLiker.RecipeId = postID;
+            newLiker.UserId = WebSecurity.CurrentUserId;
+            db.Recipe_Likers.InsertOnSubmit(newLiker);
+
+            db.SubmitChanges();
+            return Redirect(Request.UrlReferrer.AbsoluteUri);
         }
 
         public ActionResult Report(int id)

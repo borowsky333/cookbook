@@ -5,7 +5,14 @@
         <img src="~/Content/images/defaultUser.png" />
         <h3>@ViewBag.Username</h3>
         <p>
-            @Html.ActionLink("Subscribe", "AddSubscriber", "Subscribe", new { userId = ViewBag.UserId }, new { })
+            @if(!ViewBag.IsSubscribed)
+            {
+                @Html.ActionLink("Subscribe", "AddSubscriber", "Subscribe", new { userId = ViewBag.UserId }, new { })
+            }
+            else
+            {
+                @Html.ActionLink("Unsubscribe", "RemoveSubscriber", "Subscribe", new { userId = ViewBag.UserId }, new { })
+            }
         </p>
     </div>
     <div class="span7">
@@ -39,12 +46,15 @@
 
                         <p><strong>Instructions:</strong></p>
                         <p>@post.RecipePost.Instructions</p>
+                        <p>x Likes. </b><a href="/Cookbook/LikeRecipe/?postId=@post.PostId">Like</a></p>
                     }
                     @if (post.BlogPost != null)
                     {
                         <p>@post.BlogPost.Post</p>
+                        <p><b>x Likes. </b><a href="/Cookbook/LikeBlog/?postId=@post.PostId">Like</a></p>
                     }
                     <p><i>Posted on @post.DateCreated</i></p>
+
                 </div>
             </div>
         }

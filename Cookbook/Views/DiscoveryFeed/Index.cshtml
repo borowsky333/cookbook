@@ -33,10 +33,12 @@
 
                         <p><strong>Instructions:</strong></p>
                         <p>@post.RecipePost.Instructions</p>
+                        <p><b>x Likes.</b> <a href="/DiscoveryFeed/LikeRecipe/?postId=@post.PostId">Like</a></p>
                     }
                     @if (post.BlogPost != null)
                     {
                         <p>@post.BlogPost.Post</p>
+                        <p><b>x Likes.</b> <a href="/DiscoveryFeed/LikeBlog/?postId=@post.PostId">Like</a></p>
                     }
                     <p><i>Posted on @post.DateCreated</i></p>
                 </div>

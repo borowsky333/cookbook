@@ -15,6 +15,7 @@ namespace Cookbook.Models
         public string ImageURL { get; set; }
         public string Title { get; set; }
         public int UserID { get; set; }
+        public int PostId { get; set; }
     }
 
     public class ViewBlogModel
