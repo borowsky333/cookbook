@@ -30,30 +30,36 @@ namespace Cookbook.Models
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
-    partial void InsertUser_Subscriber(User_Subscriber instance);
-    partial void UpdateUser_Subscriber(User_Subscriber instance);
-    partial void DeleteUser_Subscriber(User_Subscriber instance);
-    partial void InsertRecipe_Liker(Recipe_Liker instance);
-    partial void UpdateRecipe_Liker(Recipe_Liker instance);
-    partial void DeleteRecipe_Liker(Recipe_Liker instance);
-    partial void InsertRecipe(Recipe instance);
-    partial void UpdateRecipe(Recipe instance);
-    partial void DeleteRecipe(Recipe instance);
-    partial void InsertIngredient(Ingredient instance);
-    partial void UpdateIngredient(Ingredient instance);
-    partial void DeleteIngredient(Ingredient instance);
-    partial void InsertImage(Image instance);
-    partial void UpdateImage(Image instance);
-    partial void DeleteImage(Image instance);
-    partial void InsertComment(Comment instance);
-    partial void UpdateComment(Comment instance);
-    partial void DeleteComment(Comment instance);
-    partial void InsertBlogPost_Liker(BlogPost_Liker instance);
-    partial void UpdateBlogPost_Liker(BlogPost_Liker instance);
-    partial void DeleteBlogPost_Liker(BlogPost_Liker instance);
     partial void InsertBlogPost(BlogPost instance);
     partial void UpdateBlogPost(BlogPost instance);
     partial void DeleteBlogPost(BlogPost instance);
+    partial void InsertBlogPost_Liker(BlogPost_Liker instance);
+    partial void UpdateBlogPost_Liker(BlogPost_Liker instance);
+    partial void DeleteBlogPost_Liker(BlogPost_Liker instance);
+    partial void InsertBlogPost_Tag(BlogPost_Tag instance);
+    partial void UpdateBlogPost_Tag(BlogPost_Tag instance);
+    partial void DeleteBlogPost_Tag(BlogPost_Tag instance);
+    partial void InsertComment(Comment instance);
+    partial void UpdateComment(Comment instance);
+    partial void DeleteComment(Comment instance);
+    partial void InsertImage(Image instance);
+    partial void UpdateImage(Image instance);
+    partial void DeleteImage(Image instance);
+    partial void InsertIngredient(Ingredient instance);
+    partial void UpdateIngredient(Ingredient instance);
+    partial void DeleteIngredient(Ingredient instance);
+    partial void InsertRecipe(Recipe instance);
+    partial void UpdateRecipe(Recipe instance);
+    partial void DeleteRecipe(Recipe instance);
+    partial void InsertRecipe_Liker(Recipe_Liker instance);
+    partial void UpdateRecipe_Liker(Recipe_Liker instance);
+    partial void DeleteRecipe_Liker(Recipe_Liker instance);
+    partial void InsertRecipe_Tag(Recipe_Tag instance);
+    partial void UpdateRecipe_Tag(Recipe_Tag instance);
+    partial void DeleteRecipe_Tag(Recipe_Tag instance);
+    partial void InsertUser_Subscriber(User_Subscriber instance);
+    partial void UpdateUser_Subscriber(User_Subscriber instance);
+    partial void DeleteUser_Subscriber(User_Subscriber instance);
     #endregion
 		
 		public CookbookDBModelsDataContext() : 
@@ -86,107 +92,11 @@ namespace Cookbook.Models
 			OnCreated();
 		}
 		
-		public System.Data.Linq.Table<User_Subscriber> User_Subscribers
+		public System.Data.Linq.Table<BlogPost> BlogPosts
 		{
 			get
 			{
-				return this.GetTable<User_Subscriber>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Recipe_Tag> Recipe_Tags
-		{
-			get
-			{
-				return this.GetTable<Recipe_Tag>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Recipe_Liker> Recipe_Likers
-		{
-			get
-			{
-				return this.GetTable<Recipe_Liker>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Recipe_Image> Recipe_Images
-		{
-			get
-			{
-				return this.GetTable<Recipe_Image>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Recipe_Favoriter> Recipe_Favoriters
-		{
-			get
-			{
-				return this.GetTable<Recipe_Favoriter>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Recipe_Comment> Recipe_Comments
-		{
-			get
-			{
-				return this.GetTable<Recipe_Comment>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Recipe> Recipes
-		{
-			get
-			{
-				return this.GetTable<Recipe>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Ingredient> Ingredients
-		{
-			get
-			{
-				return this.GetTable<Ingredient>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Image> Images
-		{
-			get
-			{
-				return this.GetTable<Image>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Comment> Comments
-		{
-			get
-			{
-				return this.GetTable<Comment>();
-			}
-		}
-		
-		public System.Data.Linq.Table<BlogPost_Tag> BlogPost_Tags
-		{
-			get
-			{
-				return this.GetTable<BlogPost_Tag>();
-			}
-		}
-		
-		public System.Data.Linq.Table<BlogPost_Liker> BlogPost_Likers
-		{
-			get
-			{
-				return this.GetTable<BlogPost_Liker>();
-			}
-		}
-		
-		public System.Data.Linq.Table<BlogPost_Image> BlogPost_Images
-		{
-			get
-			{
-				return this.GetTable<BlogPost_Image>();
+				return this.GetTable<BlogPost>();
 			}
 		}
 		
@@ -198,342 +108,182 @@ namespace Cookbook.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<BlogPost> BlogPosts
+		public System.Data.Linq.Table<BlogPost_Image> BlogPost_Images
 		{
 			get
 			{
-				return this.GetTable<BlogPost>();
+				return this.GetTable<BlogPost_Image>();
+			}
+		}
+		
+		public System.Data.Linq.Table<BlogPost_Liker> BlogPost_Likers
+		{
+			get
+			{
+				return this.GetTable<BlogPost_Liker>();
+			}
+		}
+		
+		public System.Data.Linq.Table<BlogPost_Tag> BlogPost_Tags
+		{
+			get
+			{
+				return this.GetTable<BlogPost_Tag>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Comment> Comments
+		{
+			get
+			{
+				return this.GetTable<Comment>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Image> Images
+		{
+			get
+			{
+				return this.GetTable<Image>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Ingredient> Ingredients
+		{
+			get
+			{
+				return this.GetTable<Ingredient>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Recipe> Recipes
+		{
+			get
+			{
+				return this.GetTable<Recipe>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Recipe_Comment> Recipe_Comments
+		{
+			get
+			{
+				return this.GetTable<Recipe_Comment>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Recipe_Favoriter> Recipe_Favoriters
+		{
+			get
+			{
+				return this.GetTable<Recipe_Favoriter>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Recipe_Image> Recipe_Images
+		{
+			get
+			{
+				return this.GetTable<Recipe_Image>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Recipe_Liker> Recipe_Likers
+		{
+			get
+			{
+				return this.GetTable<Recipe_Liker>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Recipe_Tag> Recipe_Tags
+		{
+			get
+			{
+				return this.GetTable<Recipe_Tag>();
+			}
+		}
+		
+		public System.Data.Linq.Table<User_Subscriber> User_Subscribers
+		{
+			get
+			{
+				return this.GetTable<User_Subscriber>();
 			}
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.User_Subscriber")]
-	public partial class User_Subscriber : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.BlogPost")]
+	public partial class BlogPost : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
+		private int _BlogPostId;
+		
 		private int _UserId;
 		
-		private int _SubscriberId;
+		private string _Title;
+		
+		private string _Post;
+		
+		private System.DateTime _DateCreated;
+		
+		private System.DateTime _DateModified;
+		
+		private int _LikeCount;
+		
+		private string _ImageUrl;
+		
+		private EntitySet<BlogPost_Liker> _BlogPost_Likers;
+		
+		private EntitySet<BlogPost_Tag> _BlogPost_Tags;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
+    partial void OnBlogPostIdChanging(int value);
+    partial void OnBlogPostIdChanged();
     partial void OnUserIdChanging(int value);
     partial void OnUserIdChanged();
-    partial void OnSubscriberIdChanging(int value);
-    partial void OnSubscriberIdChanged();
+    partial void OnTitleChanging(string value);
+    partial void OnTitleChanged();
+    partial void OnPostChanging(string value);
+    partial void OnPostChanged();
+    partial void OnDateCreatedChanging(System.DateTime value);
+    partial void OnDateCreatedChanged();
+    partial void OnDateModifiedChanging(System.DateTime value);
+    partial void OnDateModifiedChanged();
+    partial void OnLikeCountChanging(int value);
+    partial void OnLikeCountChanged();
+    partial void OnImageUrlChanging(string value);
+    partial void OnImageUrlChanged();
     #endregion
 		
-		public User_Subscriber()
+		public BlogPost()
 		{
+			this._BlogPost_Likers = new EntitySet<BlogPost_Liker>(new Action<BlogPost_Liker>(this.attach_BlogPost_Likers), new Action<BlogPost_Liker>(this.detach_BlogPost_Likers));
+			this._BlogPost_Tags = new EntitySet<BlogPost_Tag>(new Action<BlogPost_Tag>(this.attach_BlogPost_Tags), new Action<BlogPost_Tag>(this.detach_BlogPost_Tags));
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserId", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int UserId
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BlogPostId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int BlogPostId
 		{
 			get
 			{
-				return this._UserId;
+				return this._BlogPostId;
 			}
 			set
 			{
-				if ((this._UserId != value))
+				if ((this._BlogPostId != value))
 				{
-					this.OnUserIdChanging(value);
+					this.OnBlogPostIdChanging(value);
 					this.SendPropertyChanging();
-					this._UserId = value;
-					this.SendPropertyChanged("UserId");
-					this.OnUserIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SubscriberId", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int SubscriberId
-		{
-			get
-			{
-				return this._SubscriberId;
-			}
-			set
-			{
-				if ((this._SubscriberId != value))
-				{
-					this.OnSubscriberIdChanging(value);
-					this.SendPropertyChanging();
-					this._SubscriberId = value;
-					this.SendPropertyChanged("SubscriberId");
-					this.OnSubscriberIdChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Recipe_Tag")]
-	public partial class Recipe_Tag
-	{
-		
-		private int _RecipeID;
-		
-		private string _Tag;
-		
-		public Recipe_Tag()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RecipeID", DbType="Int NOT NULL")]
-		public int RecipeID
-		{
-			get
-			{
-				return this._RecipeID;
-			}
-			set
-			{
-				if ((this._RecipeID != value))
-				{
-					this._RecipeID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Tag", DbType="NVarChar(30) NOT NULL", CanBeNull=false)]
-		public string Tag
-		{
-			get
-			{
-				return this._Tag;
-			}
-			set
-			{
-				if ((this._Tag != value))
-				{
-					this._Tag = value;
-				}
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Recipe_Liker")]
-	public partial class Recipe_Liker : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _RecipeId;
-		
-		private int _UserId;
-		
-		private EntityRef<Recipe> _Recipe;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnRecipeIdChanging(int value);
-    partial void OnRecipeIdChanged();
-    partial void OnUserIdChanging(int value);
-    partial void OnUserIdChanged();
-    #endregion
-		
-		public Recipe_Liker()
-		{
-			this._Recipe = default(EntityRef<Recipe>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RecipeId", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int RecipeId
-		{
-			get
-			{
-				return this._RecipeId;
-			}
-			set
-			{
-				if ((this._RecipeId != value))
-				{
-					if (this._Recipe.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnRecipeIdChanging(value);
-					this.SendPropertyChanging();
-					this._RecipeId = value;
-					this.SendPropertyChanged("RecipeId");
-					this.OnRecipeIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserId", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int UserId
-		{
-			get
-			{
-				return this._UserId;
-			}
-			set
-			{
-				if ((this._UserId != value))
-				{
-					this.OnUserIdChanging(value);
-					this.SendPropertyChanging();
-					this._UserId = value;
-					this.SendPropertyChanged("UserId");
-					this.OnUserIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Recipe_Recipe_Liker", Storage="_Recipe", ThisKey="RecipeId", OtherKey="RecipeID", IsForeignKey=true)]
-		public Recipe Recipe
-		{
-			get
-			{
-				return this._Recipe.Entity;
-			}
-			set
-			{
-				Recipe previousValue = this._Recipe.Entity;
-				if (((previousValue != value) 
-							|| (this._Recipe.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Recipe.Entity = null;
-						previousValue.Recipe_Likers.Remove(this);
-					}
-					this._Recipe.Entity = value;
-					if ((value != null))
-					{
-						value.Recipe_Likers.Add(this);
-						this._RecipeId = value.RecipeID;
-					}
-					else
-					{
-						this._RecipeId = default(int);
-					}
-					this.SendPropertyChanged("Recipe");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Recipe_Image")]
-	public partial class Recipe_Image
-	{
-		
-		private int _RecipeId;
-		
-		private int _ImageId;
-		
-		public Recipe_Image()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RecipeId", DbType="Int NOT NULL")]
-		public int RecipeId
-		{
-			get
-			{
-				return this._RecipeId;
-			}
-			set
-			{
-				if ((this._RecipeId != value))
-				{
-					this._RecipeId = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ImageId", DbType="Int NOT NULL")]
-		public int ImageId
-		{
-			get
-			{
-				return this._ImageId;
-			}
-			set
-			{
-				if ((this._ImageId != value))
-				{
-					this._ImageId = value;
-				}
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Recipe_Favoriter")]
-	public partial class Recipe_Favoriter
-	{
-		
-		private int _RecipeId;
-		
-		private int _UserId;
-		
-		public Recipe_Favoriter()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RecipeId", DbType="Int NOT NULL")]
-		public int RecipeId
-		{
-			get
-			{
-				return this._RecipeId;
-			}
-			set
-			{
-				if ((this._RecipeId != value))
-				{
-					this._RecipeId = value;
+					this._BlogPostId = value;
+					this.SendPropertyChanged("BlogPostId");
+					this.OnBlogPostIdChanged();
 				}
 			}
 		}
@@ -549,152 +299,11 @@ namespace Cookbook.Models
 			{
 				if ((this._UserId != value))
 				{
+					this.OnUserIdChanging(value);
+					this.SendPropertyChanging();
 					this._UserId = value;
-				}
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Recipe_Comment")]
-	public partial class Recipe_Comment
-	{
-		
-		private int _RecipeId;
-		
-		private int _CommentId;
-		
-		public Recipe_Comment()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RecipeId", DbType="Int NOT NULL")]
-		public int RecipeId
-		{
-			get
-			{
-				return this._RecipeId;
-			}
-			set
-			{
-				if ((this._RecipeId != value))
-				{
-					this._RecipeId = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CommentId", DbType="Int NOT NULL")]
-		public int CommentId
-		{
-			get
-			{
-				return this._CommentId;
-			}
-			set
-			{
-				if ((this._CommentId != value))
-				{
-					this._CommentId = value;
-				}
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Recipe")]
-	public partial class Recipe : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _RecipeID;
-		
-		private int _UserID;
-		
-		private string _Title;
-		
-		private string _Instructions;
-		
-		private System.DateTime _DateCreated;
-		
-		private System.DateTime _DateModified;
-		
-		private int _FavoriteCount;
-		
-		private int _LikeCount;
-		
-		private string _ImageUrl;
-		
-		private EntitySet<Recipe_Liker> _Recipe_Likers;
-		
-		private EntitySet<Ingredient> _Ingredients;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnRecipeIDChanging(int value);
-    partial void OnRecipeIDChanged();
-    partial void OnUserIDChanging(int value);
-    partial void OnUserIDChanged();
-    partial void OnTitleChanging(string value);
-    partial void OnTitleChanged();
-    partial void OnInstructionsChanging(string value);
-    partial void OnInstructionsChanged();
-    partial void OnDateCreatedChanging(System.DateTime value);
-    partial void OnDateCreatedChanged();
-    partial void OnDateModifiedChanging(System.DateTime value);
-    partial void OnDateModifiedChanged();
-    partial void OnFavoriteCountChanging(int value);
-    partial void OnFavoriteCountChanged();
-    partial void OnLikeCountChanging(int value);
-    partial void OnLikeCountChanged();
-    partial void OnImageUrlChanging(string value);
-    partial void OnImageUrlChanged();
-    #endregion
-		
-		public Recipe()
-		{
-			this._Recipe_Likers = new EntitySet<Recipe_Liker>(new Action<Recipe_Liker>(this.attach_Recipe_Likers), new Action<Recipe_Liker>(this.detach_Recipe_Likers));
-			this._Ingredients = new EntitySet<Ingredient>(new Action<Ingredient>(this.attach_Ingredients), new Action<Ingredient>(this.detach_Ingredients));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RecipeID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int RecipeID
-		{
-			get
-			{
-				return this._RecipeID;
-			}
-			set
-			{
-				if ((this._RecipeID != value))
-				{
-					this.OnRecipeIDChanging(value);
-					this.SendPropertyChanging();
-					this._RecipeID = value;
-					this.SendPropertyChanged("RecipeID");
-					this.OnRecipeIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserID", DbType="Int NOT NULL")]
-		public int UserID
-		{
-			get
-			{
-				return this._UserID;
-			}
-			set
-			{
-				if ((this._UserID != value))
-				{
-					this.OnUserIDChanging(value);
-					this.SendPropertyChanging();
-					this._UserID = value;
-					this.SendPropertyChanged("UserID");
-					this.OnUserIDChanged();
+					this.SendPropertyChanged("UserId");
+					this.OnUserIdChanged();
 				}
 			}
 		}
@@ -719,22 +328,22 @@ namespace Cookbook.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Instructions", DbType="NVarChar(4000) NOT NULL", CanBeNull=false)]
-		public string Instructions
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Post", DbType="NVarChar(4000) NOT NULL", CanBeNull=false)]
+		public string Post
 		{
 			get
 			{
-				return this._Instructions;
+				return this._Post;
 			}
 			set
 			{
-				if ((this._Instructions != value))
+				if ((this._Post != value))
 				{
-					this.OnInstructionsChanging(value);
+					this.OnPostChanging(value);
 					this.SendPropertyChanging();
-					this._Instructions = value;
-					this.SendPropertyChanged("Instructions");
-					this.OnInstructionsChanged();
+					this._Post = value;
+					this.SendPropertyChanged("Post");
+					this.OnPostChanged();
 				}
 			}
 		}
@@ -779,26 +388,6 @@ namespace Cookbook.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FavoriteCount", DbType="Int NOT NULL")]
-		public int FavoriteCount
-		{
-			get
-			{
-				return this._FavoriteCount;
-			}
-			set
-			{
-				if ((this._FavoriteCount != value))
-				{
-					this.OnFavoriteCountChanging(value);
-					this.SendPropertyChanging();
-					this._FavoriteCount = value;
-					this.SendPropertyChanged("FavoriteCount");
-					this.OnFavoriteCountChanged();
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LikeCount", DbType="Int NOT NULL")]
 		public int LikeCount
 		{
@@ -839,29 +428,29 @@ namespace Cookbook.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Recipe_Recipe_Liker", Storage="_Recipe_Likers", ThisKey="RecipeID", OtherKey="RecipeId")]
-		public EntitySet<Recipe_Liker> Recipe_Likers
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="BlogPost_BlogPost_Liker", Storage="_BlogPost_Likers", ThisKey="BlogPostId", OtherKey="BlogPostId")]
+		public EntitySet<BlogPost_Liker> BlogPost_Likers
 		{
 			get
 			{
-				return this._Recipe_Likers;
+				return this._BlogPost_Likers;
 			}
 			set
 			{
-				this._Recipe_Likers.Assign(value);
+				this._BlogPost_Likers.Assign(value);
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Recipe_Ingredient", Storage="_Ingredients", ThisKey="RecipeID", OtherKey="RecipeId")]
-		public EntitySet<Ingredient> Ingredients
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="BlogPost_BlogPost_Tag", Storage="_BlogPost_Tags", ThisKey="BlogPostId", OtherKey="BlogPostId")]
+		public EntitySet<BlogPost_Tag> BlogPost_Tags
 		{
 			get
 			{
-				return this._Ingredients;
+				return this._BlogPost_Tags;
 			}
 			set
 			{
-				this._Ingredients.Assign(value);
+				this._BlogPost_Tags.Assign(value);
 			}
 		}
 		
@@ -885,157 +474,484 @@ namespace Cookbook.Models
 			}
 		}
 		
-		private void attach_Recipe_Likers(Recipe_Liker entity)
+		private void attach_BlogPost_Likers(BlogPost_Liker entity)
 		{
 			this.SendPropertyChanging();
-			entity.Recipe = this;
+			entity.BlogPost = this;
 		}
 		
-		private void detach_Recipe_Likers(Recipe_Liker entity)
+		private void detach_BlogPost_Likers(BlogPost_Liker entity)
 		{
 			this.SendPropertyChanging();
-			entity.Recipe = null;
+			entity.BlogPost = null;
 		}
 		
-		private void attach_Ingredients(Ingredient entity)
+		private void attach_BlogPost_Tags(BlogPost_Tag entity)
 		{
 			this.SendPropertyChanging();
-			entity.Recipe = this;
+			entity.BlogPost = this;
 		}
 		
-		private void detach_Ingredients(Ingredient entity)
+		private void detach_BlogPost_Tags(BlogPost_Tag entity)
 		{
 			this.SendPropertyChanging();
-			entity.Recipe = null;
+			entity.BlogPost = null;
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Ingredient")]
-	public partial class Ingredient : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.BlogPost_Comment")]
+	public partial class BlogPost_Comment
+	{
+		
+		private int _BlogPostId;
+		
+		private int _CommentId;
+		
+		public BlogPost_Comment()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BlogPostId", DbType="Int NOT NULL")]
+		public int BlogPostId
+		{
+			get
+			{
+				return this._BlogPostId;
+			}
+			set
+			{
+				if ((this._BlogPostId != value))
+				{
+					this._BlogPostId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CommentId", DbType="Int NOT NULL")]
+		public int CommentId
+		{
+			get
+			{
+				return this._CommentId;
+			}
+			set
+			{
+				if ((this._CommentId != value))
+				{
+					this._CommentId = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.BlogPost_Image")]
+	public partial class BlogPost_Image
+	{
+		
+		private int _BlogPostId;
+		
+		private int _ImageId;
+		
+		public BlogPost_Image()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BlogPostId", DbType="Int NOT NULL")]
+		public int BlogPostId
+		{
+			get
+			{
+				return this._BlogPostId;
+			}
+			set
+			{
+				if ((this._BlogPostId != value))
+				{
+					this._BlogPostId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ImageId", DbType="Int NOT NULL")]
+		public int ImageId
+		{
+			get
+			{
+				return this._ImageId;
+			}
+			set
+			{
+				if ((this._ImageId != value))
+				{
+					this._ImageId = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.BlogPost_Liker")]
+	public partial class BlogPost_Liker : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private int _IngredientId;
+		private int _BlogPostId;
 		
-		private int _RecipeId;
+		private int _UserId;
 		
-		private string _Name;
-		
-		private EntityRef<Recipe> _Recipe;
+		private EntityRef<BlogPost> _BlogPost;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnIngredientIdChanging(int value);
-    partial void OnIngredientIdChanged();
-    partial void OnRecipeIdChanging(int value);
-    partial void OnRecipeIdChanged();
-    partial void OnNameChanging(string value);
-    partial void OnNameChanged();
+    partial void OnBlogPostIdChanging(int value);
+    partial void OnBlogPostIdChanged();
+    partial void OnUserIdChanging(int value);
+    partial void OnUserIdChanged();
     #endregion
 		
-		public Ingredient()
+		public BlogPost_Liker()
 		{
-			this._Recipe = default(EntityRef<Recipe>);
+			this._BlogPost = default(EntityRef<BlogPost>);
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IngredientId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int IngredientId
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BlogPostId", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int BlogPostId
 		{
 			get
 			{
-				return this._IngredientId;
+				return this._BlogPostId;
 			}
 			set
 			{
-				if ((this._IngredientId != value))
+				if ((this._BlogPostId != value))
 				{
-					this.OnIngredientIdChanging(value);
-					this.SendPropertyChanging();
-					this._IngredientId = value;
-					this.SendPropertyChanged("IngredientId");
-					this.OnIngredientIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RecipeId", DbType="Int NOT NULL")]
-		public int RecipeId
-		{
-			get
-			{
-				return this._RecipeId;
-			}
-			set
-			{
-				if ((this._RecipeId != value))
-				{
-					if (this._Recipe.HasLoadedOrAssignedValue)
+					if (this._BlogPost.HasLoadedOrAssignedValue)
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
-					this.OnRecipeIdChanging(value);
+					this.OnBlogPostIdChanging(value);
 					this.SendPropertyChanging();
-					this._RecipeId = value;
-					this.SendPropertyChanged("RecipeId");
-					this.OnRecipeIdChanged();
+					this._BlogPostId = value;
+					this.SendPropertyChanged("BlogPostId");
+					this.OnBlogPostIdChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(100) NOT NULL", CanBeNull=false)]
-		public string Name
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserId", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int UserId
 		{
 			get
 			{
-				return this._Name;
+				return this._UserId;
 			}
 			set
 			{
-				if ((this._Name != value))
+				if ((this._UserId != value))
 				{
-					this.OnNameChanging(value);
+					this.OnUserIdChanging(value);
 					this.SendPropertyChanging();
-					this._Name = value;
-					this.SendPropertyChanged("Name");
-					this.OnNameChanged();
+					this._UserId = value;
+					this.SendPropertyChanged("UserId");
+					this.OnUserIdChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Recipe_Ingredient", Storage="_Recipe", ThisKey="RecipeId", OtherKey="RecipeID", IsForeignKey=true)]
-		public Recipe Recipe
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="BlogPost_BlogPost_Liker", Storage="_BlogPost", ThisKey="BlogPostId", OtherKey="BlogPostId", IsForeignKey=true)]
+		public BlogPost BlogPost
 		{
 			get
 			{
-				return this._Recipe.Entity;
+				return this._BlogPost.Entity;
 			}
 			set
 			{
-				Recipe previousValue = this._Recipe.Entity;
+				BlogPost previousValue = this._BlogPost.Entity;
 				if (((previousValue != value) 
-							|| (this._Recipe.HasLoadedOrAssignedValue == false)))
+							|| (this._BlogPost.HasLoadedOrAssignedValue == false)))
 				{
 					this.SendPropertyChanging();
 					if ((previousValue != null))
 					{
-						this._Recipe.Entity = null;
-						previousValue.Ingredients.Remove(this);
+						this._BlogPost.Entity = null;
+						previousValue.BlogPost_Likers.Remove(this);
 					}
-					this._Recipe.Entity = value;
+					this._BlogPost.Entity = value;
 					if ((value != null))
 					{
-						value.Ingredients.Add(this);
-						this._RecipeId = value.RecipeID;
+						value.BlogPost_Likers.Add(this);
+						this._BlogPostId = value.BlogPostId;
 					}
 					else
 					{
-						this._RecipeId = default(int);
+						this._BlogPostId = default(int);
 					}
-					this.SendPropertyChanged("Recipe");
+					this.SendPropertyChanged("BlogPost");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.BlogPost_Tag")]
+	public partial class BlogPost_Tag : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _BlogPostId;
+		
+		private string _Tag;
+		
+		private EntityRef<BlogPost> _BlogPost;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnBlogPostIdChanging(int value);
+    partial void OnBlogPostIdChanged();
+    partial void OnTagChanging(string value);
+    partial void OnTagChanged();
+    #endregion
+		
+		public BlogPost_Tag()
+		{
+			this._BlogPost = default(EntityRef<BlogPost>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BlogPostId", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int BlogPostId
+		{
+			get
+			{
+				return this._BlogPostId;
+			}
+			set
+			{
+				if ((this._BlogPostId != value))
+				{
+					if (this._BlogPost.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnBlogPostIdChanging(value);
+					this.SendPropertyChanging();
+					this._BlogPostId = value;
+					this.SendPropertyChanged("BlogPostId");
+					this.OnBlogPostIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Tag", DbType="NVarChar(30) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string Tag
+		{
+			get
+			{
+				return this._Tag;
+			}
+			set
+			{
+				if ((this._Tag != value))
+				{
+					this.OnTagChanging(value);
+					this.SendPropertyChanging();
+					this._Tag = value;
+					this.SendPropertyChanged("Tag");
+					this.OnTagChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="BlogPost_BlogPost_Tag", Storage="_BlogPost", ThisKey="BlogPostId", OtherKey="BlogPostId", IsForeignKey=true)]
+		public BlogPost BlogPost
+		{
+			get
+			{
+				return this._BlogPost.Entity;
+			}
+			set
+			{
+				BlogPost previousValue = this._BlogPost.Entity;
+				if (((previousValue != value) 
+							|| (this._BlogPost.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._BlogPost.Entity = null;
+						previousValue.BlogPost_Tags.Remove(this);
+					}
+					this._BlogPost.Entity = value;
+					if ((value != null))
+					{
+						value.BlogPost_Tags.Add(this);
+						this._BlogPostId = value.BlogPostId;
+					}
+					else
+					{
+						this._BlogPostId = default(int);
+					}
+					this.SendPropertyChanged("BlogPost");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Comment")]
+	public partial class Comment : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _CommentId;
+		
+		private int _UserId;
+		
+		private string _Content;
+		
+		private System.DateTime _DateCreated;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnCommentIdChanging(int value);
+    partial void OnCommentIdChanged();
+    partial void OnUserIdChanging(int value);
+    partial void OnUserIdChanged();
+    partial void OnContentChanging(string value);
+    partial void OnContentChanged();
+    partial void OnDateCreatedChanging(System.DateTime value);
+    partial void OnDateCreatedChanged();
+    #endregion
+		
+		public Comment()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CommentId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int CommentId
+		{
+			get
+			{
+				return this._CommentId;
+			}
+			set
+			{
+				if ((this._CommentId != value))
+				{
+					this.OnCommentIdChanging(value);
+					this.SendPropertyChanging();
+					this._CommentId = value;
+					this.SendPropertyChanged("CommentId");
+					this.OnCommentIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserId", DbType="Int NOT NULL")]
+		public int UserId
+		{
+			get
+			{
+				return this._UserId;
+			}
+			set
+			{
+				if ((this._UserId != value))
+				{
+					this.OnUserIdChanging(value);
+					this.SendPropertyChanging();
+					this._UserId = value;
+					this.SendPropertyChanged("UserId");
+					this.OnUserIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Content", DbType="NVarChar(500) NOT NULL", CanBeNull=false)]
+		public string Content
+		{
+			get
+			{
+				return this._Content;
+			}
+			set
+			{
+				if ((this._Content != value))
+				{
+					this.OnContentChanging(value);
+					this.SendPropertyChanging();
+					this._Content = value;
+					this.SendPropertyChanged("Content");
+					this.OnContentChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateCreated", DbType="DateTime NOT NULL")]
+		public System.DateTime DateCreated
+		{
+			get
+			{
+				return this._DateCreated;
+			}
+			set
+			{
+				if ((this._DateCreated != value))
+				{
+					this.OnDateCreatedChanging(value);
+					this.SendPropertyChanging();
+					this._DateCreated = value;
+					this.SendPropertyChanged("DateCreated");
+					this.OnDateCreatedChanged();
 				}
 			}
 		}
@@ -1267,287 +1183,132 @@ namespace Cookbook.Models
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Comment")]
-	public partial class Comment : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Ingredient")]
+	public partial class Ingredient : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private int _CommentId;
+		private int _IngredientId;
 		
-		private int _UserId;
+		private int _RecipeId;
 		
-		private string _Content;
+		private string _Name;
 		
-		private System.DateTime _DateCreated;
+		private EntityRef<Recipe> _Recipe;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnCommentIdChanging(int value);
-    partial void OnCommentIdChanged();
-    partial void OnUserIdChanging(int value);
-    partial void OnUserIdChanged();
-    partial void OnContentChanging(string value);
-    partial void OnContentChanged();
-    partial void OnDateCreatedChanging(System.DateTime value);
-    partial void OnDateCreatedChanged();
+    partial void OnIngredientIdChanging(int value);
+    partial void OnIngredientIdChanged();
+    partial void OnRecipeIdChanging(int value);
+    partial void OnRecipeIdChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
     #endregion
 		
-		public Comment()
+		public Ingredient()
 		{
+			this._Recipe = default(EntityRef<Recipe>);
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CommentId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int CommentId
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IngredientId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int IngredientId
 		{
 			get
 			{
-				return this._CommentId;
+				return this._IngredientId;
 			}
 			set
 			{
-				if ((this._CommentId != value))
+				if ((this._IngredientId != value))
 				{
-					this.OnCommentIdChanging(value);
+					this.OnIngredientIdChanging(value);
 					this.SendPropertyChanging();
-					this._CommentId = value;
-					this.SendPropertyChanged("CommentId");
-					this.OnCommentIdChanged();
+					this._IngredientId = value;
+					this.SendPropertyChanged("IngredientId");
+					this.OnIngredientIdChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserId", DbType="Int NOT NULL")]
-		public int UserId
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RecipeId", DbType="Int NOT NULL")]
+		public int RecipeId
 		{
 			get
 			{
-				return this._UserId;
+				return this._RecipeId;
 			}
 			set
 			{
-				if ((this._UserId != value))
+				if ((this._RecipeId != value))
 				{
-					this.OnUserIdChanging(value);
-					this.SendPropertyChanging();
-					this._UserId = value;
-					this.SendPropertyChanged("UserId");
-					this.OnUserIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Content", DbType="NVarChar(500) NOT NULL", CanBeNull=false)]
-		public string Content
-		{
-			get
-			{
-				return this._Content;
-			}
-			set
-			{
-				if ((this._Content != value))
-				{
-					this.OnContentChanging(value);
-					this.SendPropertyChanging();
-					this._Content = value;
-					this.SendPropertyChanged("Content");
-					this.OnContentChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateCreated", DbType="DateTime NOT NULL")]
-		public System.DateTime DateCreated
-		{
-			get
-			{
-				return this._DateCreated;
-			}
-			set
-			{
-				if ((this._DateCreated != value))
-				{
-					this.OnDateCreatedChanging(value);
-					this.SendPropertyChanging();
-					this._DateCreated = value;
-					this.SendPropertyChanged("DateCreated");
-					this.OnDateCreatedChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.BlogPost_Tag")]
-	public partial class BlogPost_Tag
-	{
-		
-		private int _BlogPostId;
-		
-		private string _Tag;
-		
-		public BlogPost_Tag()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BlogPostId", DbType="Int NOT NULL")]
-		public int BlogPostId
-		{
-			get
-			{
-				return this._BlogPostId;
-			}
-			set
-			{
-				if ((this._BlogPostId != value))
-				{
-					this._BlogPostId = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Tag", DbType="NVarChar(30) NOT NULL", CanBeNull=false)]
-		public string Tag
-		{
-			get
-			{
-				return this._Tag;
-			}
-			set
-			{
-				if ((this._Tag != value))
-				{
-					this._Tag = value;
-				}
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.BlogPost_Liker")]
-	public partial class BlogPost_Liker : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _BlogPostId;
-		
-		private int _UserId;
-		
-		private EntityRef<BlogPost> _BlogPost;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnBlogPostIdChanging(int value);
-    partial void OnBlogPostIdChanged();
-    partial void OnUserIdChanging(int value);
-    partial void OnUserIdChanged();
-    #endregion
-		
-		public BlogPost_Liker()
-		{
-			this._BlogPost = default(EntityRef<BlogPost>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BlogPostId", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int BlogPostId
-		{
-			get
-			{
-				return this._BlogPostId;
-			}
-			set
-			{
-				if ((this._BlogPostId != value))
-				{
-					if (this._BlogPost.HasLoadedOrAssignedValue)
+					if (this._Recipe.HasLoadedOrAssignedValue)
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
-					this.OnBlogPostIdChanging(value);
+					this.OnRecipeIdChanging(value);
 					this.SendPropertyChanging();
-					this._BlogPostId = value;
-					this.SendPropertyChanged("BlogPostId");
-					this.OnBlogPostIdChanged();
+					this._RecipeId = value;
+					this.SendPropertyChanged("RecipeId");
+					this.OnRecipeIdChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserId", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int UserId
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(100) NOT NULL", CanBeNull=false)]
+		public string Name
 		{
 			get
 			{
-				return this._UserId;
+				return this._Name;
 			}
 			set
 			{
-				if ((this._UserId != value))
+				if ((this._Name != value))
 				{
-					this.OnUserIdChanging(value);
+					this.OnNameChanging(value);
 					this.SendPropertyChanging();
-					this._UserId = value;
-					this.SendPropertyChanged("UserId");
-					this.OnUserIdChanged();
+					this._Name = value;
+					this.SendPropertyChanged("Name");
+					this.OnNameChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="BlogPost_BlogPost_Liker", Storage="_BlogPost", ThisKey="BlogPostId", OtherKey="BlogPostId", IsForeignKey=true)]
-		public BlogPost BlogPost
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Recipe_Ingredient", Storage="_Recipe", ThisKey="RecipeId", OtherKey="RecipeID", IsForeignKey=true)]
+		public Recipe Recipe
 		{
 			get
 			{
-				return this._BlogPost.Entity;
+				return this._Recipe.Entity;
 			}
 			set
 			{
-				BlogPost previousValue = this._BlogPost.Entity;
+				Recipe previousValue = this._Recipe.Entity;
 				if (((previousValue != value) 
-							|| (this._BlogPost.HasLoadedOrAssignedValue == false)))
+							|| (this._Recipe.HasLoadedOrAssignedValue == false)))
 				{
 					this.SendPropertyChanging();
 					if ((previousValue != null))
 					{
-						this._BlogPost.Entity = null;
-						previousValue.BlogPost_Likers.Remove(this);
+						this._Recipe.Entity = null;
+						previousValue.Ingredients.Remove(this);
 					}
-					this._BlogPost.Entity = value;
+					this._Recipe.Entity = value;
 					if ((value != null))
 					{
-						value.BlogPost_Likers.Add(this);
-						this._BlogPostId = value.BlogPostId;
+						value.Ingredients.Add(this);
+						this._RecipeId = value.RecipeID;
 					}
 					else
 					{
-						this._BlogPostId = default(int);
+						this._RecipeId = default(int);
 					}
-					this.SendPropertyChanged("BlogPost");
+					this.SendPropertyChanged("Recipe");
 				}
 			}
 		}
@@ -1573,184 +1334,104 @@ namespace Cookbook.Models
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.BlogPost_Image")]
-	public partial class BlogPost_Image
-	{
-		
-		private int _BlogPostId;
-		
-		private int _ImageId;
-		
-		public BlogPost_Image()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BlogPostId", DbType="Int NOT NULL")]
-		public int BlogPostId
-		{
-			get
-			{
-				return this._BlogPostId;
-			}
-			set
-			{
-				if ((this._BlogPostId != value))
-				{
-					this._BlogPostId = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ImageId", DbType="Int NOT NULL")]
-		public int ImageId
-		{
-			get
-			{
-				return this._ImageId;
-			}
-			set
-			{
-				if ((this._ImageId != value))
-				{
-					this._ImageId = value;
-				}
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.BlogPost_Comment")]
-	public partial class BlogPost_Comment
-	{
-		
-		private int _BlogPostId;
-		
-		private int _CommentId;
-		
-		public BlogPost_Comment()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BlogPostId", DbType="Int NOT NULL")]
-		public int BlogPostId
-		{
-			get
-			{
-				return this._BlogPostId;
-			}
-			set
-			{
-				if ((this._BlogPostId != value))
-				{
-					this._BlogPostId = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CommentId", DbType="Int NOT NULL")]
-		public int CommentId
-		{
-			get
-			{
-				return this._CommentId;
-			}
-			set
-			{
-				if ((this._CommentId != value))
-				{
-					this._CommentId = value;
-				}
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.BlogPost")]
-	public partial class BlogPost : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Recipe")]
+	public partial class Recipe : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private int _BlogPostId;
+		private int _RecipeID;
 		
-		private int _UserId;
+		private int _UserID;
 		
 		private string _Title;
 		
-		private string _Post;
+		private string _Instructions;
 		
 		private System.DateTime _DateCreated;
 		
 		private System.DateTime _DateModified;
 		
+		private int _FavoriteCount;
+		
 		private int _LikeCount;
 		
 		private string _ImageUrl;
 		
-		private EntitySet<BlogPost_Liker> _BlogPost_Likers;
+		private EntitySet<Ingredient> _Ingredients;
+		
+		private EntitySet<Recipe_Liker> _Recipe_Likers;
+		
+		private EntitySet<Recipe_Tag> _Recipe_Tags;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnBlogPostIdChanging(int value);
-    partial void OnBlogPostIdChanged();
-    partial void OnUserIdChanging(int value);
-    partial void OnUserIdChanged();
+    partial void OnRecipeIDChanging(int value);
+    partial void OnRecipeIDChanged();
+    partial void OnUserIDChanging(int value);
+    partial void OnUserIDChanged();
     partial void OnTitleChanging(string value);
     partial void OnTitleChanged();
-    partial void OnPostChanging(string value);
-    partial void OnPostChanged();
+    partial void OnInstructionsChanging(string value);
+    partial void OnInstructionsChanged();
     partial void OnDateCreatedChanging(System.DateTime value);
     partial void OnDateCreatedChanged();
     partial void OnDateModifiedChanging(System.DateTime value);
     partial void OnDateModifiedChanged();
+    partial void OnFavoriteCountChanging(int value);
+    partial void OnFavoriteCountChanged();
     partial void OnLikeCountChanging(int value);
     partial void OnLikeCountChanged();
     partial void OnImageUrlChanging(string value);
     partial void OnImageUrlChanged();
     #endregion
 		
-		public BlogPost()
+		public Recipe()
 		{
-			this._BlogPost_Likers = new EntitySet<BlogPost_Liker>(new Action<BlogPost_Liker>(this.attach_BlogPost_Likers), new Action<BlogPost_Liker>(this.detach_BlogPost_Likers));
+			this._Ingredients = new EntitySet<Ingredient>(new Action<Ingredient>(this.attach_Ingredients), new Action<Ingredient>(this.detach_Ingredients));
+			this._Recipe_Likers = new EntitySet<Recipe_Liker>(new Action<Recipe_Liker>(this.attach_Recipe_Likers), new Action<Recipe_Liker>(this.detach_Recipe_Likers));
+			this._Recipe_Tags = new EntitySet<Recipe_Tag>(new Action<Recipe_Tag>(this.attach_Recipe_Tags), new Action<Recipe_Tag>(this.detach_Recipe_Tags));
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BlogPostId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int BlogPostId
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RecipeID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int RecipeID
 		{
 			get
 			{
-				return this._BlogPostId;
+				return this._RecipeID;
 			}
 			set
 			{
-				if ((this._BlogPostId != value))
+				if ((this._RecipeID != value))
 				{
-					this.OnBlogPostIdChanging(value);
+					this.OnRecipeIDChanging(value);
 					this.SendPropertyChanging();
-					this._BlogPostId = value;
-					this.SendPropertyChanged("BlogPostId");
-					this.OnBlogPostIdChanged();
+					this._RecipeID = value;
+					this.SendPropertyChanged("RecipeID");
+					this.OnRecipeIDChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserId", DbType="Int NOT NULL")]
-		public int UserId
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserID", DbType="Int NOT NULL")]
+		public int UserID
 		{
 			get
 			{
-				return this._UserId;
+				return this._UserID;
 			}
 			set
 			{
-				if ((this._UserId != value))
+				if ((this._UserID != value))
 				{
-					this.OnUserIdChanging(value);
+					this.OnUserIDChanging(value);
 					this.SendPropertyChanging();
-					this._UserId = value;
-					this.SendPropertyChanged("UserId");
-					this.OnUserIdChanged();
+					this._UserID = value;
+					this.SendPropertyChanged("UserID");
+					this.OnUserIDChanged();
 				}
 			}
 		}
@@ -1775,22 +1456,22 @@ namespace Cookbook.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Post", DbType="NVarChar(4000) NOT NULL", CanBeNull=false)]
-		public string Post
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Instructions", DbType="NVarChar(4000) NOT NULL", CanBeNull=false)]
+		public string Instructions
 		{
 			get
 			{
-				return this._Post;
+				return this._Instructions;
 			}
 			set
 			{
-				if ((this._Post != value))
+				if ((this._Instructions != value))
 				{
-					this.OnPostChanging(value);
+					this.OnInstructionsChanging(value);
 					this.SendPropertyChanging();
-					this._Post = value;
-					this.SendPropertyChanged("Post");
-					this.OnPostChanged();
+					this._Instructions = value;
+					this.SendPropertyChanged("Instructions");
+					this.OnInstructionsChanged();
 				}
 			}
 		}
@@ -1835,6 +1516,26 @@ namespace Cookbook.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FavoriteCount", DbType="Int NOT NULL")]
+		public int FavoriteCount
+		{
+			get
+			{
+				return this._FavoriteCount;
+			}
+			set
+			{
+				if ((this._FavoriteCount != value))
+				{
+					this.OnFavoriteCountChanging(value);
+					this.SendPropertyChanging();
+					this._FavoriteCount = value;
+					this.SendPropertyChanged("FavoriteCount");
+					this.OnFavoriteCountChanged();
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LikeCount", DbType="Int NOT NULL")]
 		public int LikeCount
 		{
@@ -1875,16 +1576,42 @@ namespace Cookbook.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="BlogPost_BlogPost_Liker", Storage="_BlogPost_Likers", ThisKey="BlogPostId", OtherKey="BlogPostId")]
-		public EntitySet<BlogPost_Liker> BlogPost_Likers
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Recipe_Ingredient", Storage="_Ingredients", ThisKey="RecipeID", OtherKey="RecipeId")]
+		public EntitySet<Ingredient> Ingredients
 		{
 			get
 			{
-				return this._BlogPost_Likers;
+				return this._Ingredients;
 			}
 			set
 			{
-				this._BlogPost_Likers.Assign(value);
+				this._Ingredients.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Recipe_Recipe_Liker", Storage="_Recipe_Likers", ThisKey="RecipeID", OtherKey="RecipeId")]
+		public EntitySet<Recipe_Liker> Recipe_Likers
+		{
+			get
+			{
+				return this._Recipe_Likers;
+			}
+			set
+			{
+				this._Recipe_Likers.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Recipe_Recipe_Tag", Storage="_Recipe_Tags", ThisKey="RecipeID", OtherKey="RecipeID")]
+		public EntitySet<Recipe_Tag> Recipe_Tags
+		{
+			get
+			{
+				return this._Recipe_Tags;
+			}
+			set
+			{
+				this._Recipe_Tags.Assign(value);
 			}
 		}
 		
@@ -1908,16 +1635,515 @@ namespace Cookbook.Models
 			}
 		}
 		
-		private void attach_BlogPost_Likers(BlogPost_Liker entity)
+		private void attach_Ingredients(Ingredient entity)
 		{
 			this.SendPropertyChanging();
-			entity.BlogPost = this;
+			entity.Recipe = this;
 		}
 		
-		private void detach_BlogPost_Likers(BlogPost_Liker entity)
+		private void detach_Ingredients(Ingredient entity)
 		{
 			this.SendPropertyChanging();
-			entity.BlogPost = null;
+			entity.Recipe = null;
+		}
+		
+		private void attach_Recipe_Likers(Recipe_Liker entity)
+		{
+			this.SendPropertyChanging();
+			entity.Recipe = this;
+		}
+		
+		private void detach_Recipe_Likers(Recipe_Liker entity)
+		{
+			this.SendPropertyChanging();
+			entity.Recipe = null;
+		}
+		
+		private void attach_Recipe_Tags(Recipe_Tag entity)
+		{
+			this.SendPropertyChanging();
+			entity.Recipe = this;
+		}
+		
+		private void detach_Recipe_Tags(Recipe_Tag entity)
+		{
+			this.SendPropertyChanging();
+			entity.Recipe = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Recipe_Comment")]
+	public partial class Recipe_Comment
+	{
+		
+		private int _RecipeId;
+		
+		private int _CommentId;
+		
+		public Recipe_Comment()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RecipeId", DbType="Int NOT NULL")]
+		public int RecipeId
+		{
+			get
+			{
+				return this._RecipeId;
+			}
+			set
+			{
+				if ((this._RecipeId != value))
+				{
+					this._RecipeId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CommentId", DbType="Int NOT NULL")]
+		public int CommentId
+		{
+			get
+			{
+				return this._CommentId;
+			}
+			set
+			{
+				if ((this._CommentId != value))
+				{
+					this._CommentId = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Recipe_Favoriter")]
+	public partial class Recipe_Favoriter
+	{
+		
+		private int _RecipeId;
+		
+		private int _UserId;
+		
+		public Recipe_Favoriter()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RecipeId", DbType="Int NOT NULL")]
+		public int RecipeId
+		{
+			get
+			{
+				return this._RecipeId;
+			}
+			set
+			{
+				if ((this._RecipeId != value))
+				{
+					this._RecipeId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserId", DbType="Int NOT NULL")]
+		public int UserId
+		{
+			get
+			{
+				return this._UserId;
+			}
+			set
+			{
+				if ((this._UserId != value))
+				{
+					this._UserId = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Recipe_Image")]
+	public partial class Recipe_Image
+	{
+		
+		private int _RecipeId;
+		
+		private int _ImageId;
+		
+		public Recipe_Image()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RecipeId", DbType="Int NOT NULL")]
+		public int RecipeId
+		{
+			get
+			{
+				return this._RecipeId;
+			}
+			set
+			{
+				if ((this._RecipeId != value))
+				{
+					this._RecipeId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ImageId", DbType="Int NOT NULL")]
+		public int ImageId
+		{
+			get
+			{
+				return this._ImageId;
+			}
+			set
+			{
+				if ((this._ImageId != value))
+				{
+					this._ImageId = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Recipe_Liker")]
+	public partial class Recipe_Liker : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _RecipeId;
+		
+		private int _UserId;
+		
+		private EntityRef<Recipe> _Recipe;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnRecipeIdChanging(int value);
+    partial void OnRecipeIdChanged();
+    partial void OnUserIdChanging(int value);
+    partial void OnUserIdChanged();
+    #endregion
+		
+		public Recipe_Liker()
+		{
+			this._Recipe = default(EntityRef<Recipe>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RecipeId", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int RecipeId
+		{
+			get
+			{
+				return this._RecipeId;
+			}
+			set
+			{
+				if ((this._RecipeId != value))
+				{
+					if (this._Recipe.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnRecipeIdChanging(value);
+					this.SendPropertyChanging();
+					this._RecipeId = value;
+					this.SendPropertyChanged("RecipeId");
+					this.OnRecipeIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserId", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int UserId
+		{
+			get
+			{
+				return this._UserId;
+			}
+			set
+			{
+				if ((this._UserId != value))
+				{
+					this.OnUserIdChanging(value);
+					this.SendPropertyChanging();
+					this._UserId = value;
+					this.SendPropertyChanged("UserId");
+					this.OnUserIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Recipe_Recipe_Liker", Storage="_Recipe", ThisKey="RecipeId", OtherKey="RecipeID", IsForeignKey=true)]
+		public Recipe Recipe
+		{
+			get
+			{
+				return this._Recipe.Entity;
+			}
+			set
+			{
+				Recipe previousValue = this._Recipe.Entity;
+				if (((previousValue != value) 
+							|| (this._Recipe.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Recipe.Entity = null;
+						previousValue.Recipe_Likers.Remove(this);
+					}
+					this._Recipe.Entity = value;
+					if ((value != null))
+					{
+						value.Recipe_Likers.Add(this);
+						this._RecipeId = value.RecipeID;
+					}
+					else
+					{
+						this._RecipeId = default(int);
+					}
+					this.SendPropertyChanged("Recipe");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Recipe_Tag")]
+	public partial class Recipe_Tag : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _RecipeID;
+		
+		private string _Tag;
+		
+		private EntityRef<Recipe> _Recipe;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnRecipeIDChanging(int value);
+    partial void OnRecipeIDChanged();
+    partial void OnTagChanging(string value);
+    partial void OnTagChanged();
+    #endregion
+		
+		public Recipe_Tag()
+		{
+			this._Recipe = default(EntityRef<Recipe>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RecipeID", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int RecipeID
+		{
+			get
+			{
+				return this._RecipeID;
+			}
+			set
+			{
+				if ((this._RecipeID != value))
+				{
+					if (this._Recipe.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnRecipeIDChanging(value);
+					this.SendPropertyChanging();
+					this._RecipeID = value;
+					this.SendPropertyChanged("RecipeID");
+					this.OnRecipeIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Tag", DbType="NVarChar(30) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string Tag
+		{
+			get
+			{
+				return this._Tag;
+			}
+			set
+			{
+				if ((this._Tag != value))
+				{
+					this.OnTagChanging(value);
+					this.SendPropertyChanging();
+					this._Tag = value;
+					this.SendPropertyChanged("Tag");
+					this.OnTagChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Recipe_Recipe_Tag", Storage="_Recipe", ThisKey="RecipeID", OtherKey="RecipeID", IsForeignKey=true)]
+		public Recipe Recipe
+		{
+			get
+			{
+				return this._Recipe.Entity;
+			}
+			set
+			{
+				Recipe previousValue = this._Recipe.Entity;
+				if (((previousValue != value) 
+							|| (this._Recipe.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Recipe.Entity = null;
+						previousValue.Recipe_Tags.Remove(this);
+					}
+					this._Recipe.Entity = value;
+					if ((value != null))
+					{
+						value.Recipe_Tags.Add(this);
+						this._RecipeID = value.RecipeID;
+					}
+					else
+					{
+						this._RecipeID = default(int);
+					}
+					this.SendPropertyChanged("Recipe");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.User_Subscriber")]
+	public partial class User_Subscriber : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _UserId;
+		
+		private int _SubscriberId;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnUserIdChanging(int value);
+    partial void OnUserIdChanged();
+    partial void OnSubscriberIdChanging(int value);
+    partial void OnSubscriberIdChanged();
+    #endregion
+		
+		public User_Subscriber()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserId", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int UserId
+		{
+			get
+			{
+				return this._UserId;
+			}
+			set
+			{
+				if ((this._UserId != value))
+				{
+					this.OnUserIdChanging(value);
+					this.SendPropertyChanging();
+					this._UserId = value;
+					this.SendPropertyChanged("UserId");
+					this.OnUserIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SubscriberId", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int SubscriberId
+		{
+			get
+			{
+				return this._SubscriberId;
+			}
+			set
+			{
+				if ((this._SubscriberId != value))
+				{
+					this.OnSubscriberIdChanging(value);
+					this.SendPropertyChanging();
+					this._SubscriberId = value;
+					this.SendPropertyChanged("SubscriberId");
+					this.OnSubscriberIdChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
 		}
 	}
 }

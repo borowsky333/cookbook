@@ -26,22 +26,76 @@ namespace Cookbook.Controllers
         //redirect if not logged in
         public ActionResult Index()
         {
+            ViewBag.UserId = WebSecurity.CurrentUserId;
+
             var recipes = GetRecipes(WebSecurity.CurrentUserId);
-            var recipeDict = new Dictionary<Recipe, List<string>>();
+
+            List<ViewPostModel> postList = new List<ViewPostModel>();
 
             foreach (var recipe in recipes)
             {
+                ViewRecipeModel recipeView = new ViewRecipeModel();
+                recipeView.DateModified = recipe.DateModified;
+                recipeView.FavoriteCount = recipe.FavoriteCount;
+                recipeView.Instructions = recipe.Instructions;
+                recipeView.LikeCount = recipe.LikeCount;
+
                 var ingredients =
                     (from allIngredients in db.Ingredients
                      where allIngredients.RecipeId == recipe.RecipeID
                      select allIngredients.Name).ToList();
-                recipeDict.Add(recipe, ingredients);
+                recipeView.Ingredients = ingredients;
+
+                var tags =
+                    (from allTags in db.Recipe_Tags
+                     where allTags.RecipeID == recipe.RecipeID
+                     select allTags.Tag).ToList();
+                recipeView.Tags = tags;
+
+                ViewPostModel post = new ViewPostModel();
+                post.DateCreated = recipe.DateCreated;
+                post.RecipePost = recipeView;
+                post.Username = (from userprofiles in userDb.UserProfiles
+                                 where userprofiles.UserId == recipe.UserID
+                                 select userprofiles.UserName).FirstOrDefault();
+                post.ImageURL = recipe.ImageUrl;
+                post.Title = recipe.Title;
+                post.PostId = recipe.RecipeID;
+                ViewBag.Username = post.Username;
+                postList.Add(post);
+
             }
 
-            ViewBag.MyRecipes = recipeDict;
-            ViewBag.MyPosts = GetBlogPosts(WebSecurity.CurrentUserId);
+            var blogPosts = GetBlogPosts(WebSecurity.CurrentUserId);
+            foreach (var blog in blogPosts)
+            {
+                ViewBlogModel blogView = new ViewBlogModel();
+                blogView.DateModified = blog.DateModified;
+                blogView.LikeCount = blog.LikeCount;
+                blogView.Post = blog.Post;
 
-            return View();
+                var tags =
+                    (from allTags in db.BlogPost_Tags
+                     where allTags.BlogPostId == blog.BlogPostId
+                     select allTags.Tag).ToList();
+                blogView.Tags = tags;
+
+                ViewPostModel post = new ViewPostModel();
+                post.DateCreated = blog.DateCreated;
+                post.BlogPost = blogView;
+                post.Username = (from userprofiles in userDb.UserProfiles
+                                 where userprofiles.UserId == blog.UserId
+                                 select userprofiles.UserName).FirstOrDefault();
+                post.ImageURL = blog.ImageUrl;
+                post.Title = blog.Title;
+                post.PostId = blog.BlogPostId;
+                ViewBag.Username = post.Username;
+                postList.Add(post);
+            }
+
+            List<ViewPostModel> sortedPosts = postList.OrderByDescending(p => p.DateCreated).ToList();
+
+            return View(sortedPosts);
         }
 
         public ActionResult ViewCookbook(int userId)
