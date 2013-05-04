@@ -1,30 +1,31 @@
 ﻿@model List<Cookbook.Models.ViewPostModel>
 
 <div class="row-fluid">
-    <div class="span4 well" style="text-align: center;">
+    <div class="span4 offset1 well profilePic" style="text-align:center;">
         <img src="~/Content/images/defaultUser.png" />
-        <h2>@Model[0].Username</h2>
+        <h3>@Model[0].Username</h3>
         <!-- username will be the same for all recipes, grab it from the first-->
     </div>
-    <div class="span8">
-        <h3 style="text-align: center;">Posts</h3>
+    <div class="span7">
         @foreach (var post in Model)
         {
             <br />
-            <div class="row-fluid recipeObject">
-                <div class="span4 offset2 recipeLeftSide">
+            <div class="row-fluid recipeOrPost">
+                <div class="span4 offset1">
                     @{
-            string imageUrl = post.ImageURL;
-            if (imageUrl == null)
-            {
-                imageUrl = "http://newyork.cities2night.com/public/article_images/1281.jpg";
-            }
+                        string imageUrl = post.ImageURL;
+                        if (imageUrl == null)
+                        {
+                            imageUrl = "http://newyork.cities2night.com/public/article_images/1281.jpg";
+                        }
                     }
                     <img src=@imageUrl class="recipeImage" />
                     <h4>@post.Username</h4>
                 </div>
-                <div class="span4 recipeRightSide" style="margin-left: 0px;">
+                <div class="span1 divider">
 
+                </div>
+                <div class="span5">
                     <h4 class="recipeTitle">@post.Title</h4>
                     @if (post.RecipePost != null)
                     {
@@ -45,7 +46,5 @@
                 </div>
             </div>
         }
-        <br />
-        
     </div>
 </div>

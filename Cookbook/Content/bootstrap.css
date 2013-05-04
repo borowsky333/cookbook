@@ -6519,3 +6519,7 @@ i[class^="icon-"] {
 .recipeTitle {
     text-align: center;
 }
+
+.profilePic {
+    border-radius: 40px;
+}

@@ -376,8 +376,10 @@
     *margin-left: 11.004728132387708%;
   }
   .row-fluid .offset1:first-child {
-    margin-left: 8.547008547008547%;
-    *margin-left: 8.440625568285142%;
+    margin-left: 4.547008547008547%;
+    *margin-left: 4.440625568285142%;
+    /*margin-left: 8.547008547008547%; //Decreased this to make profile pic look better.
+    *margin-left: 8.440625568285142%;*/
   }
   input,
   textarea,
@@ -459,6 +461,10 @@
 }
 
 @media (min-width: 768px) and (max-width: 979px) {
+   .hero-unit > h1 {
+        font-size: 40px;
+   }
+    
   .row {
     margin-left: -20px;
     *zoom: 1;
@@ -804,6 +810,10 @@
     padding-right: 20px;
     padding-left: 20px;
   }
+
+  .hero-unit > h1 {
+    font-size: 40px;
+   }
   .navbar-fixed-top,
   .navbar-fixed-bottom,
   .navbar-static-top {
@@ -898,6 +908,10 @@
 }
 
 @media (max-width: 480px) {
+  .hero-unit > h1 {
+        font-size: 30px;
+   }
+    
   .nav-collapse {
     -webkit-transform: translate3d(0, 0, 0);
   }
