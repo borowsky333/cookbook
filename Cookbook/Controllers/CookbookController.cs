@@ -411,11 +411,13 @@ namespace Cookbook.Controllers
             return View();
         }
 
-        public ActionResult SendEmail(int userID) //Send notification to user via email.
+        public void SendEmail(int userID) //Send notification to user via email.
         {
             try
             {
-                String email = ""; //Find userID's email address.
+                String email = (from userprofiles in userDb.UserProfiles
+                                                where userprofiles.UserId == userID
+                                                select userprofiles.Email).FirstOrDefault(); //Find userID's email address.
 
                 String[] arrayTO = new String[1];
                 arrayTO[0] = email;
@@ -443,26 +445,26 @@ namespace Cookbook.Controllers
                 AmazonSimpleEmailServiceClient client = new AmazonSimpleEmailServiceClient();
 
                 SendEmailResponse response = client.SendEmail(request);
-                TempData["sendstatus"] = "Sent successfully.";
+                Console.WriteLine("Sent successfully.");
 
             }
             catch (Exception e)
             {
-                TempData["sendstatus"] = e.Message;
+                Console.WriteLine(e.Message);
             }
-
-            return this.RedirectToAction("Index");
         }
 
-        public ActionResult SendSMS(int userID) //Send notification to user via SMS.
+        public void SendSMS(int userID) //Send notification to user via SMS.
         {
-            String userName = ""; //Resolve username from userID
+            String userName = (from userprofiles in userDb.UserProfiles
+                               where userprofiles.UserId == userID
+                               select userprofiles.UserName).FirstOrDefault(); //Resolve username from userID
             AmazonSimpleNotificationServiceClient client = new AmazonSimpleNotificationServiceClient();
             PublishRequest request = new PublishRequest
             {
-                TopicArn = "arn:aws:sns:us-east-1:727060774285:INSERT_USERNAME",
+                TopicArn = "arn:aws:sns:us-east-1:727060774285:" + userName,
                 Subject = "The Cookbook - New Notification",
-                Message = "Hello. You have received a new notification. Visit The Cookbook for more information."
+                Message = "Hello. You have received a new notification. Visit The Cookbook for more information.",
             };
 
             try
@@ -477,15 +479,13 @@ namespace Cookbook.Controllers
                     strings[i] = "Success! Message ID is: " + result.MessageId;
                 }
 
-                TempData["result"] = strings;
+                Console.WriteLine(strings);
 
             }
             catch (Exception e)
             {
-                TempData["error"] = e.Message;
+                Console.WriteLine(e.Message);
             }
-
-            return this.RedirectToAction("Index");
         }
 
     }

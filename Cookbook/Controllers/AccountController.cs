@@ -12,6 +12,10 @@ using Cookbook.Filters;
 using Cookbook.Models;
 using Amazon.Route53;
 using Amazon.Route53.Model;
+using Amazon.SimpleNotificationService;
+using Amazon.SimpleNotificationService.Model;
+using Amazon.SimpleEmail.Model;
+using Amazon.SimpleEmail;
 
 namespace Cookbook.Controllers
 {
@@ -101,6 +105,12 @@ namespace Cookbook.Controllers
 
                     //Create new subdomain here.
 
+                    //Create SNS account for Phone Number (SMS notifications).
+                    CreateSNSAccount(model.UserName, model.PhoneNumber);
+
+                    //Send test email.
+                    SendEmail(model.Email);
+
 
                     return RedirectToAction("Index", "NewsFeed");
                 }
@@ -112,6 +122,114 @@ namespace Cookbook.Controllers
 
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+
+        private void CreateSNSAccount(String userName, String number)
+        {
+            AmazonSimpleNotificationServiceClient client = new AmazonSimpleNotificationServiceClient();
+
+            //Create topic first.
+            CreateTopicRequest request = new CreateTopicRequest
+            {
+                Name = userName
+            };
+
+            try
+            {
+                CreateTopicResponse response = client.CreateTopic(request);
+                CreateTopicResult result = response.CreateTopicResult;
+                String[] strings = new String[1];
+                strings[0] = "Success! Assigned ARN is: " + result.TopicArn + "\n";
+                TempData["result"] = strings;
+            }
+            catch (Exception e)
+            {
+                TempData["error"] = e.Message;
+            }
+
+
+            String arn = "arn:aws:sns:us-east-1:727060774285:" + userName;
+
+            SetTopicAttributesRequest request2 = new SetTopicAttributesRequest
+            {
+                AttributeName = "DisplayName",
+                AttributeValue = "Cookbook",
+                TopicArn = arn
+            };
+
+            try
+            {
+                SetTopicAttributesResponse response = client.SetTopicAttributes(request2);
+                ResponseMetadata result = response.ResponseMetadata;
+                Console.WriteLine(result.RequestId);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
+
+
+            //Add SMS number to topic.
+            SubscribeRequest request3 = new SubscribeRequest
+            {
+                TopicArn = arn,
+                Endpoint = number,
+                Protocol = "sms"
+            };
+
+            try
+            {
+                SubscribeResponse response = client.Subscribe(request3);
+                SubscribeResult result = response.SubscribeResult;
+
+                string resultSubscribe = "Success! Subscription Arn is: " + result.SubscriptionArn + "\n";
+                Console.WriteLine(resultSubscribe);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
+        }
+
+        private void SendEmail(String email) //Send notification to user via email.
+        {
+            try
+            {
+                String[] arrayTO = new String[1];
+                arrayTO[0] = email;
+
+                List<string> listTO = arrayTO.ToList<String>();
+
+                // Construct an object to contain the recipient address.
+                Destination destination = new Destination().WithToAddresses(listTO);
+
+                String FROM = "thecookbooksubscription@gmail.com";
+                String SUBJECT = "Welcome to Cookbook!";
+                String BODY = "Welcome to Cookbook! Thank you so much for joining us. We hope that you will enjoy using our website.";
+
+                // Create the subject and body of the message.
+                Content subject = new Content().WithData(SUBJECT);
+                Content textBody = new Content().WithData(BODY);
+                Body body = new Body().WithText(textBody);
+
+                // Create a message with the specified subject and body.
+                Message message = new Message().WithSubject(subject).WithBody(body);
+
+                // Assemble the email.
+                SendEmailRequest request = new SendEmailRequest().WithSource(FROM).WithDestination(destination).WithMessage(message);
+
+                AmazonSimpleEmailServiceClient client = new AmazonSimpleEmailServiceClient();
+
+                SendEmailResponse response = client.SendEmail(request);
+                Console.WriteLine("Sent successfully.");
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
 
         //
