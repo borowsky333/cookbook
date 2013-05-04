@@ -1,37 +1,39 @@
-﻿<div class="row-fluid">
+﻿@model List<Cookbook.Models.ViewRecipeModel>
+
+<div class="row-fluid">
     <div class="span4 well" style="text-align:center;">
         <img src="~/Content/images/defaultUser.png" />
-        <h2>@ViewBag.UserID</h2>
+        <h2>@Model[0].Username</h2> <!-- username will be the same for all recipes, grab it from the first-->
     </div>
     <div class="span8">
         <h3 style="text-align:center;">Your Recipes</h3>
-        @foreach (var recipe in ViewBag.MyRecipes)
+        @foreach (var recipe in Model)
             {
                 <br />
                 <div class="row-fluid recipeObject">
                     <div class="span4 offset2 recipeLeftSide">
                         @{
-                            string imageUrl = recipe.Key.ImageUrl;
+                            string imageUrl = recipe.ImageURL;
                             if(imageUrl == null)
                             {
                                 imageUrl = "http://newyork.cities2night.com/public/article_images/1281.jpg";
                             }
                         }
                         <img src=@imageUrl class="recipeImage" />
-                        <h4>@recipe.Key.UserID</h4>
+                        <h4>@recipe.Username</h4>
                     </div>
                     <div class="span4 recipeRightSide" style="margin-left: 0px;">
             
-                        <h4 class="recipeTitle">@recipe.Key.Title</h4>
+                        <h4 class="recipeTitle">@recipe.Title</h4>
                         <p><strong>Ingredients:</strong></p>
-                        @foreach (var ingredient in recipe.Value)
+                        @foreach (var ingredient in recipe.Ingredients)
             	        {
                 	        <p>@ingredient</p>
             	        }
 
                         <p><strong>Instructions:</strong></p>
-                        <p>@recipe.Key.Instructions</p>
-                        <p><i>Posted on @recipe.Key.DateCreated</i></p>
+                        <p>@recipe.Instructions</p>
+                        <p><i>Posted on @recipe.DateCreated</i></p>
                     </div>
                 </div>
             }
