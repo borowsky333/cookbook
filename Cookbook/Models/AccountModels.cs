@@ -31,6 +31,8 @@ namespace Cookbook.Models
         //admin vs. regular user
         public string UserType { get; set; }
 
+        public string PhoneNumber { get; set; }
+        public string Email { get; set; }
 
     }
 
@@ -80,6 +82,10 @@ namespace Cookbook.Models
     public class RegisterModel
     {
         [Required]
+        [Display(Name = "Email")]
+        public string Email { get; set; }
+
+        [Required]
         [Display(Name = "User name")]
         public string UserName { get; set; }
 
@@ -93,6 +99,10 @@ namespace Cookbook.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        [Display(Name = "Phone Number", Prompt = "Please type in the format ###-###-####")]
+        public string PhoneNumber { get; set; }
     }
 
     public class ExternalLogin

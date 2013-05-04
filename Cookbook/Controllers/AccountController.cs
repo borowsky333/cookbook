@@ -19,6 +19,8 @@ namespace Cookbook.Controllers
     [InitializeSimpleMembership]
     public class AccountController : Controller
     {
+        private UsersContext userDb = new UsersContext();
+
         //
         // GET: /Account/Login
 
@@ -90,6 +92,12 @@ namespace Cookbook.Controllers
                 {
                     WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
                     WebSecurity.Login(model.UserName, model.Password);
+                    var registeredUser = (from users in userDb.UserProfiles
+                                          where users.UserName == model.UserName
+                                          select users).FirstOrDefault();
+                    registeredUser.Email = model.Email;
+                    registeredUser.PhoneNumber = model.PhoneNumber;
+                    userDb.SaveChanges();
 
                     //Create new subdomain here.
 
