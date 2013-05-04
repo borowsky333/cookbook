@@ -1,59 +1,66 @@
 ﻿<div class="row-fluid">
-    <h3 style="text-align:center;">Recipes</h3>
-    @foreach (var recipe in ViewBag.Recipes)
-    {
-        <div class="row-fluid recipeObject">
-            <div class="span4 offset2 recipeLeftSide">
-                @{
-                    string imageUrl = recipe.Key.ImageUrl;
-                    if(imageUrl == null)
-                    {
-                        imageUrl = "http://newyork.cities2night.com/public/article_images/1281.jpg";
-                    }
-                }
-                <img src=@imageUrl class="recipeImage" />
-                <h4>
-                    <a href="/Cookbook/ViewCookbook/?userId=@recipe.Key.UserID">@@@recipe.Key.UserID</a>
-                </h4> <!-- This needs to be changed to user name -->
-            </div>
-            <div class="span4 recipeRightSide" style="margin-left: 0px;">
-            
-                <h4 class="recipeTitle">@recipe.Key.Title</h4>
-                <p><strong>Ingredients:</strong></p>
-                @foreach (var ingredient in recipe.Value)
-            	{
-                	<p>@ingredient</p>
-            	}
-                <p><strong>Instructions:</strong></p>
-                <p>@recipe.Key.Instructions</p>
-                <p><i>Posted on @recipe.Key.DateCreated</i></p>
-            </div>
-        </div>
-    }
-</div>
-<div class="row-fluid">
-    <h3 style="text-align:center;">Posts</h3>
-    @foreach (var post in ViewBag.Posts)
+    <div class="span8 offset2">
+        <h3 style="text-align:center;">Recipes</h3>
+        @foreach (var recipe in ViewBag.Recipes)
         {
             <br />
-            <div class="row-fluid recipeObject">
-                <div class="span4 offset2 recipeLeftSide">
+            <div class="row-fluid recipeOrPost">
+                <div class="span4 offset1">
                     @{
-                        string imageUrl = post.ImageUrl;
+                        string imageUrl = recipe.Key.ImageUrl;
                         if(imageUrl == null)
                         {
                             imageUrl = "http://newyork.cities2night.com/public/article_images/1281.jpg";
                         }
                     }
                     <img src=@imageUrl class="recipeImage" />
-                    <h4>@@@post.UserId</h4> <!-- This needs to be changed to user name -->
+                    <h4>
+                        <a href="/Cookbook/ViewCookbook/?userId=@recipe.Key.UserID">@@@recipe.Key.UserID</a>
+                    </h4> <!-- This needs to be changed to user name -->
                 </div>
-                <div class="span4 recipeRightSide" style="margin-left: 0px;">
+                <div class="span1 divider">
+
+                </div>
+                <div class="span5">
             
-                    <h4 class="recipeTitle">@post.Title</h4>
-                    <p>@post.Post</p>
-                    <p><i>Posted on @post.DateCreated</i></p>
+                    <h4 class="recipeTitle">@recipe.Key.Title</h4>
+                    <p><strong>Ingredients:</strong></p>
+                    @foreach (var ingredient in recipe.Value)
+            	    {
+                	    <p>@ingredient</p>
+            	    }
+                    <p><strong>Instructions:</strong></p>
+                    <p>@recipe.Key.Instructions</p>
+                    <p><i>Posted on @recipe.Key.DateCreated</i></p>
                 </div>
             </div>
         }
+        <br />
+        <h3 style="text-align:center;">Posts</h3>
+        @foreach (var post in ViewBag.Posts)
+            {
+                <br />
+                <div class="row-fluid recipeOrPost">
+                    <div class="span4 offset1">
+                        @{
+                            string imageUrl = post.ImageUrl;
+                            if(imageUrl == null)
+                            {
+                                imageUrl = "http://newyork.cities2night.com/public/article_images/1281.jpg";
+                            }
+                        }
+                        <img src=@imageUrl class="recipeImage" />
+                        <h4>@@@post.UserId</h4> <!-- This needs to be changed to user name -->
+                    </div>
+                    <div class="span1 divider">
+
+                    </div>
+                    <div class="span5">
+                        <h4 class="recipeTitle">@post.Title</h4>
+                        <p>@post.Post</p>
+                        <p><i>Posted on @post.DateCreated</i></p>
+                    </div>
+                </div>
+            }
+    </div>
 </div>

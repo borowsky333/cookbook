@@ -219,7 +219,7 @@ namespace Cookbook.Controllers
         public ActionResult CreateEmailSubscription (FormCollection collection)
         {
 
-
+            return View();
 
         }
 
