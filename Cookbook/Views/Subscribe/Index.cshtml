@@ -1,0 +1,17 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+
+@if (ViewBag.Message != null)
+{
+    <p>Viewbag.Message</p>
+}
+
+<h4>You are subscribed to:</h4>
+@foreach (var user in ViewBag.SubscribedUsers)
+{
+    <p>
+        @Html.ActionLink((string)user.Value, "ViewCookbook", "Cookbook", new { userId = user.Key }, new { })
+    </p>
+}
