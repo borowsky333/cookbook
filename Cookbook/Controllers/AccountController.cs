@@ -89,11 +89,11 @@ namespace Cookbook.Controllers
                 try
                 {
                     WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
-
-                    //Create new subdomain for username here.
-
-
                     WebSecurity.Login(model.UserName, model.Password);
+
+                    //Create new subdomain here.
+
+
                     return RedirectToAction("Index", "NewsFeed");
                 }
                 catch (MembershipCreateUserException e)
@@ -211,6 +211,16 @@ namespace Cookbook.Controllers
 
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateEmailSubscription (FormCollection collection)
+        {
+
+
+
         }
 
         //

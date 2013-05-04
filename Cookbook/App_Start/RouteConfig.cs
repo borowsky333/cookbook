@@ -18,6 +18,12 @@ namespace Cookbook
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Welcome", action = "Index", id = UrlParameter.Optional }
             );
+
+            routes.MapRoute(
+                name: "ViewCookbook",
+                url: "Cookbook/ViewCookbook/{userId}",
+                defaults: new { controller = "Cookbook", action = "ViewCookbook", userId = UrlParameter.Optional }
+            );
         }
     }
 }

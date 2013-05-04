@@ -1,22 +1,5 @@
-﻿<div class="container">
-    <div class="addPostRecipe">
-        <div class="span4 offset4">
-            <ul class="nav nav-tabs">
-                <li class="active"><a href="#post" data-toggle="tab">Create Post</a></li>
-                <li><a href="#recipe" data-toggle="tab">Create Recipe</a></li>
-            </ul>
-            <div class="tabbable">
-                <div class="tab-content">
-                    <div class="tab-pane active" id="post">
-                        @RenderPage("~/Views/Cookbook/UploadPost.cshtml")
-                    </div>
-                    <div class="tab-pane" id="recipe">
-                        @RenderPage("~/Views/Cookbook/UploadRecipe.cshtml")
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+﻿<div class="row-fluid">
+    <h3 style="text-align:center;">Recipes</h3>
     @foreach (var recipe in ViewBag.Recipes)
     {
         <div class="row-fluid recipeObject">
@@ -29,7 +12,9 @@
                     }
                 }
                 <img src=@imageUrl class="recipeImage" />
-                <h4>@@@recipe.Key.UserID</h4> <!-- This needs to be changed to user name -->
+                <h4>
+                    <a href="/Cookbook/ViewCookbook/?userId=@recipe.Key.UserID">@@@recipe.Key.UserID</a>
+                </h4> <!-- This needs to be changed to user name -->
             </div>
             <div class="span4 recipeRightSide" style="margin-left: 0px;">
             
@@ -45,4 +30,30 @@
             </div>
         </div>
     }
+</div>
+<div class="row-fluid">
+    <h3 style="text-align:center;">Posts</h3>
+    @foreach (var post in ViewBag.Posts)
+        {
+            <br />
+            <div class="row-fluid recipeObject">
+                <div class="span4 offset2 recipeLeftSide">
+                    @{
+                        string imageUrl = post.ImageUrl;
+                        if(imageUrl == null)
+                        {
+                            imageUrl = "http://newyork.cities2night.com/public/article_images/1281.jpg";
+                        }
+                    }
+                    <img src=@imageUrl class="recipeImage" />
+                    <h4>@@@post.UserId</h4> <!-- This needs to be changed to user name -->
+                </div>
+                <div class="span4 recipeRightSide" style="margin-left: 0px;">
+            
+                    <h4 class="recipeTitle">@post.Title</h4>
+                    <p>@post.Post</p>
+                    <p><i>Posted on @post.DateCreated</i></p>
+                </div>
+            </div>
+        }
 </div>

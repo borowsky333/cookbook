@@ -197,6 +197,7 @@
     <Content Include="Content\bootstrap-responsive.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\images\defaultUser.png" />
     <Content Include="Content\images\glyphicons-halflings-white.png" />
     <Content Include="Content\images\glyphicons-halflings.png" />
     <Content Include="favicon.ico" />
@@ -278,6 +279,7 @@
     <Content Include="Views\Welcome\Index.cshtml" />
     <Content Include="Views\Shared\WelcomeLayout.cshtml" />
     <Content Include="Views\Cookbook\ViewCookbook.cshtml" />
+    <None Include="Properties\PublishProfiles\cookbook.pubxml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -295,7 +297,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerPort>1047</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:24078/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

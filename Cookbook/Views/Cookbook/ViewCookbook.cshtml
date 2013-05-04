@@ -1,29 +1,64 @@
-﻿<div>
-    <h1>Recipes</h1>
-    @foreach (var recipe in ViewBag.MyRecipes)
-    {
-        <h4>@recipe.Key.Title</h4>
-        <ol>
-            @foreach (var ingredient in recipe.Value)
+﻿<div class="row-fluid">
+    <div class="span4 well" style="text-align:center;">
+        <img src="~/Content/images/defaultUser.png" />
+        <h2>@ViewBag.UserID</h2>
+    </div>
+    <div class="span8">
+        <h3 style="text-align:center;">Your Recipes</h3>
+        @foreach (var recipe in ViewBag.MyRecipes)
             {
-                <li>@ingredient</li>
+                <br />
+                <div class="row-fluid recipeObject">
+                    <div class="span4 offset2 recipeLeftSide">
+                        @{
+                            string imageUrl = recipe.Key.ImageUrl;
+                            if(imageUrl == null)
+                            {
+                                imageUrl = "http://newyork.cities2night.com/public/article_images/1281.jpg";
+                            }
+                        }
+                        <img src=@imageUrl class="recipeImage" />
+                        <h4>@recipe.Key.UserID</h4>
+                    </div>
+                    <div class="span4 recipeRightSide" style="margin-left: 0px;">
+            
+                        <h4 class="recipeTitle">@recipe.Key.Title</h4>
+                        <p><strong>Ingredients:</strong></p>
+                        @foreach (var ingredient in recipe.Value)
+            	        {
+                	        <p>@ingredient</p>
+            	        }
+
+                        <p><strong>Instructions:</strong></p>
+                        <p>@recipe.Key.Instructions</p>
+                        <p><i>Posted on @recipe.Key.DateCreated</i></p>
+                    </div>
+                </div>
             }
-        </ol>
-        <p><b>Steps:</b> 
-            <br />
-            @recipe.Key.Instructions</p>
-        <i>Posted on: @recipe.Key.DateCreated</i>
-        <hr />
-    }
-    <h1>Blog Posts</h1>
-    @foreach (var post in ViewBag.MyPosts)
-    {
-        <h4>@post.Title</h4>
-        <p><b>The Post: </b>
-            <br />
-            @post.Post
-        </p>
-        <i>Posted on: @post.DateCreated</i>
-        
-    }
+        <br />
+        <h3 style="text-align:center;">Your Posts</h3>
+        @foreach (var post in ViewBag.MyPosts)
+            {
+                <br />
+                <div class="row-fluid recipeObject">
+                    <div class="span4 offset2 recipeLeftSide">
+                        @{
+                            string imageUrl = post.ImageUrl;
+                            if(imageUrl == null)
+                            {
+                                imageUrl = "http://newyork.cities2night.com/public/article_images/1281.jpg";
+                            }
+                        }
+                        <img src=@imageUrl class="recipeImage" />
+                        <h4>@post.UserId</h4>
+                    </div>
+                    <div class="span4 recipeRightSide" style="margin-left: 0px;">
+            
+                        <h4 class="recipeTitle">@post.Title</h4>
+                        <p>@post.Post</p>
+                        <p><i>Posted on @post.DateCreated</i></p>
+                    </div>
+                </div>
+            }
+    </div>
 </div>
