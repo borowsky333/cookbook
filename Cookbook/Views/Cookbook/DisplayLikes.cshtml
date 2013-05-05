@@ -1,0 +1,18 @@
+﻿@{
+    ViewBag.Title = "Likes";
+}
+
+<h4>@ViewBag.LikeCount people like this post</h4>
+
+@if (ViewBag.Likers.Count != 0)
+{
+    <ul>
+        @foreach (var liker in ViewBag.Likers)
+        {
+            <li>
+                @liker
+            </li>        
+        }
+
+    </ul>
+}
