@@ -40,6 +40,11 @@ namespace Cookbook.Controllers
                                   select allRecipes).ToList());
             }
 
+            //add current user's recipes
+            recipes.AddRange((from allRecipes in db.Recipes
+                              where allRecipes.UserID == (int)Membership.GetUser().ProviderUserKey
+                              select allRecipes).ToList());
+
             return recipes;
         }
 
@@ -57,6 +62,10 @@ namespace Cookbook.Controllers
                                 select allPosts).ToList());
             }
 
+            //add current user's posts
+            posts.AddRange((from allPosts in db.BlogPosts
+                            where allPosts.UserId == (int)Membership.GetUser().ProviderUserKey
+                            select allPosts).ToList());
             return posts;
         }
 
