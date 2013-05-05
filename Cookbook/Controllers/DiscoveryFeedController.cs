@@ -22,11 +22,13 @@ namespace Cookbook.Controllers
         {
             var recipeList =
                 (from recipes in db.Recipes
+                 where recipes.DateCreated > DateTime.Now.AddDays(-5)
                  select recipes)
                  .ToList();
 
             var blogPostList =
                 (from posts in db.BlogPosts
+                 where posts.DateCreated > DateTime.Now.AddDays(-5)
                  select posts)
                 .ToList();
 
@@ -49,6 +51,7 @@ namespace Cookbook.Controllers
         {
             BlogPost_Liker newLiker = new BlogPost_Liker();
             newLiker.BlogPostId = postID;
+<<<<<<< HEAD
             newLiker.UserId = WebSecurity.CurrentUserId;
             if (!db.BlogPost_Likers.Contains(newLiker))
             {
@@ -78,6 +81,7 @@ namespace Cookbook.Controllers
         {
             Recipe_Liker newLiker = new Recipe_Liker();
             newLiker.RecipeId = postID;
+
             newLiker.UserId = WebSecurity.CurrentUserId;
             if (!db.Recipe_Likers.Contains(newLiker))
             {
@@ -99,6 +103,7 @@ namespace Cookbook.Controllers
                 CookbookController.SendSMS(userID, likerUserName + " has liked one of your recipes. Come visit Cookbook and check out which recipe " + likerUserName + " liked!");
                 CookbookController.SendEmail(userID, likerUserName + " has liked one of your recipes.", likerUserName + " has liked one of your recipes. Come visit Cookbook and check out which recipe " + likerUserName + " liked!");
             }
+
             return Redirect(Request.UrlReferrer.AbsoluteUri);
         }
     }
