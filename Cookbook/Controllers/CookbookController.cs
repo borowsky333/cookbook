@@ -138,7 +138,7 @@ namespace Cookbook.Controllers
                 post.Title = recipe.Title;
                 post.PostId = recipe.RecipeID;
                 post.UserID = recipe.UserID;
-                if (db.Recipe_Likers.Contains(new Recipe_Liker { UserId = post.UserID, RecipeId = post.PostId }))
+                if (db.Recipe_Likers.Contains(new Recipe_Liker { UserId = WebSecurity.CurrentUserId, RecipeId = post.PostId }))
                 {
                     post.Liked = true;
                 }
@@ -173,7 +173,7 @@ namespace Cookbook.Controllers
                 post.Title = blog.Title;
                 post.PostId = blog.BlogPostId;
                 post.UserID = blog.UserId;
-                if (db.BlogPost_Likers.Contains(new BlogPost_Liker { UserId = post.UserID, BlogPostId = post.PostId }))
+                if (db.BlogPost_Likers.Contains(new BlogPost_Liker { UserId = WebSecurity.CurrentUserId, BlogPostId = post.PostId }))
                 {
                     post.Liked = true;
                 }
@@ -509,16 +509,15 @@ namespace Cookbook.Controllers
             var unliker = (from likes in db.BlogPost_Likers
                            where likes.BlogPostId == postId && likes.UserId == WebSecurity.CurrentUserId
                            select likes).FirstOrDefault();
-            
-                db.BlogPost_Likers.DeleteOnSubmit(unliker);
-                var blog = (from blogs in db.BlogPosts
-                            where blogs.BlogPostId == postId
-                            select blogs).FirstOrDefault();
-                blog.LikeCount--;
 
+            db.BlogPost_Likers.DeleteOnSubmit(unliker);
+            var blog = (from blogs in db.BlogPosts
+                        where blogs.BlogPostId == postId
+                        select blogs).FirstOrDefault();
+            blog.LikeCount--;
 
-                db.SubmitChanges();
-            
+            db.SubmitChanges();
+
             return Redirect(Request.UrlReferrer.AbsoluteUri);
         }
         public ActionResult UnlikeRecipe(int postId)
