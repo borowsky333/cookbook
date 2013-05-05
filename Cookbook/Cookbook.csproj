@@ -283,6 +283,10 @@
     <Content Include="Views\Subscribe\AddSubscriber.cshtml" />
     <Content Include="Views\Subscribe\Index.cshtml" />
     <Content Include="Views\Search\Index.cshtml" />
+    <Content Include="Views\Subscribe\Result.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\Shared\SubscribeRedirect.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

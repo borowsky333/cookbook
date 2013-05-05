@@ -53,6 +53,8 @@ namespace Cookbook.Controllers
                 SubscriberId = userId
             };
 
+            var currentUserId = (int)Membership.GetUser().ProviderUserKey;
+
             
 
             if(db.User_Subscribers.Contains(us))
@@ -64,6 +66,14 @@ namespace Cookbook.Controllers
 
             db.User_Subscribers.InsertOnSubmit(us);
             db.SubmitChanges();
+
+            var userName = (from userprofiles in userDb.UserProfiles
+                            where userprofiles.UserId == currentUserId
+                                 select userprofiles.UserName).FirstOrDefault();
+
+            CookbookController.SendSMS(userId, userName + " has subscribed to your blog. Come greet your new subscriber at The Cookbook!");
+            CookbookController.SendEmail(userId, userName + " has subscribed to your blog.", userName + " has subscribed to your blog. Come greet your new subscriber at The Cookbook!");
+            
 
             ViewBag.Message = "Successfully Subscribed!";
             ViewBag.Color = "Green";
@@ -99,8 +109,5 @@ namespace Cookbook.Controllers
             return View("Result");
 
         }
-
-
-
     }
 }

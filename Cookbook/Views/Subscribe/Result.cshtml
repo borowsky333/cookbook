@@ -1,4 +1,8 @@
-﻿@if (ViewBag.Message != null)
+﻿@{
+    Layout = "~/Views/Shared/SubscribeRedirect.cshtml";
+}
+
+@if (ViewBag.Message != null)
 {
     if (ViewBag.Color == "Red")
     {
@@ -13,4 +17,5 @@
         </div>
     }
     <br />
+    
 }
