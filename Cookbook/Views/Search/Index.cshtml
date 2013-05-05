@@ -1,4 +1,5 @@
-﻿@{
+﻿@model List<Cookbook.Models.ViewPostModel>
+@{
     ViewBag.Title = "Search";
 }
 
@@ -12,6 +13,8 @@
     <div class="tabbable">
         <div class="tab-content">
             <div class="tab-pane active" id="Users">
+                <p>@ViewBag.UserResults.Count users found</p>
+                <br />
                 @foreach (Cookbook.Models.UserProfile user in ViewBag.UserResults)
                 {
                     @Html.ActionLink(user.UserName, "ViewCookbook", "Cookbook", new { userId = user.UserId }, new { });
@@ -20,7 +23,48 @@
                         
             </div>
             <div class="tab-pane" id="Tags">
-                <p>tags</p>
+                @foreach (var post in Model)
+                {
+                    <br />
+                    <div class="row-fluid recipeOrPost">
+                        <div class="span4 offset1">     
+                        @{
+                            string imageUrl = post.ImageURL;
+                            if (imageUrl == null)
+                            {
+                                imageUrl = "http://newyork.cities2night.com/public/article_images/1281.jpg";
+                            }
+                         }
+                            <img src=@imageUrl class="recipeImage" />
+                            <h4>
+                                <a href="/Cookbook/ViewCookbook/?userId=@post.UserID">@@@post.Username</a>
+                            </h4>
+                        </div>
+                        <div class="span1 divider"></div>
+                        <div class="span5">
+
+                            <h4 class="recipeTitle">@post.Title</h4>
+                            @if (post.RecipePost != null)
+                            {
+                                <p><strong>Ingredients:</strong></p>
+                                foreach (var ingredient in post.RecipePost.Ingredients)
+                                {
+                                <p>@ingredient</p>
+                                }
+
+                                <p><strong>Instructions:</strong></p>
+                                <p>@post.RecipePost.Instructions</p>
+                                <p><b>x Likes.</b> <a href="/DiscoveryFeed/LikeRecipe/?postId=@post.PostId">Like</a></p>
+                            }
+                            @if (post.BlogPost != null)
+                            {
+                                <p>@post.BlogPost.Post</p>
+                                <p><b>x Likes.</b> <a href="/DiscoveryFeed/LikeBlog/?postId=@post.PostId">Like</a></p>
+                            }
+                            <p><i>Posted on @post.DateCreated</i></p>
+                        </div>
+                    </div>
+                }
             </div>
         </div>
     </div>
