@@ -43,21 +43,43 @@
             </div>
         }
 
-        <span>
-            @if (ViewBag.Page > 1)
-            {
-                @Html.ActionLink("Previous", "Index", new { page = ViewBag.Page - 1 })
-            }
-            @if (ViewBag.Page > 1 && ViewBag.Page < ViewBag.LastPage)
-            {
-                <span>|</span>
-            }
-            @if (ViewBag.Page < ViewBag.LastPage)
-            {
-                @Html.ActionLink("Next", "Index", new { page = ViewBag.Page + 1 })
-            }
-        </span>
+        @if (Model.Count == 0)
+        {
+            <div class="row-fluid span12 alert alert-block alert-info">
+                <h3>Oh no!!! You have not subscribed to anyone yet! Browse around in the Discover page to find users you can subscribe to.</h3>
+            </div>
+        }
+        else
+        {
+            <div class="row-fluid span4 offset4">
+                <ul class="pager">
+                @if (ViewBag.Page > 1)
+                {
+                        <li class="previous">
+                            @Html.ActionLink("← Newer", "Index", new { page = ViewBag.Page - 1 })
+                        </li>
+                }
+                else
+                {
+                    <li class="previous disabled">
+                            <a href="#">← Newer</a>
+                    </li>
+                }
+                @if (ViewBag.Page < ViewBag.LastPage)
+                {
+                    <li class="next">
+                        @Html.ActionLink("Older →", "Index", new { page = ViewBag.Page + 1 })
+                    </li>
+                }
+                else
+                {
+                    <li class="next disabled">
+                        <a href="#">Older →</a>
+                    </li>
+                }
+                </ul>
+            </div>
+        }
     </div>
- <br />
 </div>
 

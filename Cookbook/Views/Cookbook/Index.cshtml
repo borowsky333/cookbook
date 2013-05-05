@@ -1,19 +1,20 @@
-@model List<Cookbook.Models.ViewPostModel>
+﻿@model List<Cookbook.Models.ViewPostModel>
 
 <div class="row-fluid">
     <div class="span4" style="padding-left: 2em;">
         <div class="addPostRecipe">
             <ul class="nav nav-tabs" style="margin-bottom: 0px;">
-                <li class="active"><a href="#post" data-toggle="tab">Create Post</a></li>
-                <li><a href="#recipe" data-toggle="tab">Create Recipe</a></li>
+                <li class="active"><a href="#post" data-toggle="tab">Create Recipe</a></li>
+                <li><a href="#recipe" data-toggle="tab">Create Post</a></li>
             </ul>
             <div class="tabbable">
                 <div class="tab-content">
                     <div class="tab-pane active" id="post">
-                        @Html.Partial("UploadPost", new Cookbook.Models.UploadBlogPostModel())
+                        @Html.Partial("UploadRecipe", new Cookbook.Models.UploadRecipeModel())
+                        
                     </div>
                     <div class="tab-pane" id="recipe">
-                        @Html.Partial("UploadRecipe", new Cookbook.Models.UploadRecipeModel())
+                        @Html.Partial("UploadPost", new Cookbook.Models.UploadBlogPostModel())
                     </div>
                 </div>
             </div>
@@ -61,21 +62,33 @@
                 </div>
             </div>
         }
-
-        <span>
+        <div class="row-fluid span4 offset4">
+            <ul class="pager">
             @if (ViewBag.Page > 1)
             {
-                @Html.ActionLink("Previous", "Index", new { page = ViewBag.Page - 1 })
+                    <li class="previous">
+                        @Html.ActionLink("← Newer", "Index", new { page = ViewBag.Page - 1 })
+                    </li>
             }
-            @if (ViewBag.Page > 1 && ViewBag.Page < ViewBag.LastPage)
+            else
             {
-                <span>|</span>
+                <li class="previous disabled">
+                        <a href="#">← Newer</a>
+                </li>
             }
             @if (ViewBag.Page < ViewBag.LastPage)
             {
-                @Html.ActionLink("Next", "Index", new { page = ViewBag.Page + 1 })
+                <li class="next">
+                    @Html.ActionLink("Older →", "Index", new { page = ViewBag.Page + 1 })
+                </li>
             }
-        </span>
-
+            else
+            {
+                <li class="next disabled">
+                    <a href="#">Older →</a>
+                </li>
+            }
+            </ul>
+        </div>
     </div>
 </div>
