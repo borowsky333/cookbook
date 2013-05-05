@@ -23,14 +23,12 @@ namespace Cookbook.Controllers
             var recipeList =
                 (from recipes in db.Recipes
                  select recipes)
-                 .Take(30)
                  .ToList();
 
 
             var blogPostList =
                 (from posts in db.BlogPosts
                  select posts)
-                .Take(50)
                 .ToList();
 
             if (page == null || page < 1)
