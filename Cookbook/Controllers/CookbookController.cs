@@ -35,7 +35,7 @@ namespace Cookbook.Controllers
                 page = 1;
             List<ViewPostModel> sortedPosts = GetCombinedPosts(GetRecipes(WebSecurity.CurrentUserId),
                                                                GetBlogPosts(WebSecurity.CurrentUserId),
-                                                               (int)page,ViewBag);
+                                                               (int)page, ViewBag);
 
             return View(sortedPosts);
         }
@@ -140,7 +140,7 @@ namespace Cookbook.Controllers
                 post.Title = recipe.Title;
                 post.PostId = recipe.RecipeID;
                 post.UserID = recipe.UserID;
-                
+
                 postList.Add(post);
 
             }
@@ -168,13 +168,13 @@ namespace Cookbook.Controllers
                 post.Title = blog.Title;
                 post.PostId = blog.BlogPostId;
                 post.UserID = blog.UserId;
-                
+
                 postList.Add(post);
             }
 
-            
+
             int pageLength = 15;
-            int startPage = (page-1)*pageLength;
+            int startPage = (page - 1) * pageLength;
             ViewBag.Page = (int)page;
             ViewBag.LastPage = (int)Math.Ceiling((double)postList.Count() / pageLength);
 
@@ -191,7 +191,7 @@ namespace Cookbook.Controllers
             {
                 return new List<ViewPostModel>();//there are no results in this page, return an empty list
             }
-            
+
         }
 
 
@@ -435,59 +435,62 @@ namespace Cookbook.Controllers
 
         public ActionResult LikeBlog(int postID)
         {
-            var blogPost = (from blogs in db.BlogPosts
-                            where blogs.BlogPostId == postID
-                            select blogs).FirstOrDefault();
-            blogPost.LikeCount++;
-
             BlogPost_Liker newLiker = new BlogPost_Liker();
             newLiker.BlogPostId = postID;
             newLiker.UserId = WebSecurity.CurrentUserId;
             if (!db.BlogPost_Likers.Contains(newLiker))
+            {
                 db.BlogPost_Likers.InsertOnSubmit(newLiker);
 
-            db.SubmitChanges();
+                var blogPost = (from blogs in db.BlogPosts
+                                where blogs.BlogPostId == postID
+                                select blogs).FirstOrDefault();
+                blogPost.LikeCount++;
 
-            var likerUserName = (from userprofiles in userDb.UserProfiles
-                                                 where userprofiles.UserId == newLiker.UserId
-                                                 select userprofiles.UserName).FirstOrDefault();
+                db.SubmitChanges();
 
-            var userID = (from blogs in db.BlogPosts
-                          where blogs.BlogPostId == postID
-                          select blogs.UserId).FirstOrDefault();
-            SendSMS(userID, likerUserName + " has liked one of your posts. Come visit Cookbook and check out which post " + likerUserName + " liked!");
-            SendEmail(userID, likerUserName + " has liked one of your posts.", likerUserName + " has liked one of your posts. Come visit Cookbook and check out which post " + likerUserName + " liked!");
-            
+                var likerUserName = (from userprofiles in userDb.UserProfiles
+                                     where userprofiles.UserId == newLiker.UserId
+                                     select userprofiles.UserName).FirstOrDefault();
+
+                var userID = (from blogs in db.BlogPosts
+                              where blogs.BlogPostId == postID
+                              select blogs.UserId).FirstOrDefault();
+                SendSMS(userID, likerUserName + " has liked one of your posts. Come visit Cookbook and check out which post " + likerUserName + " liked!");
+                SendEmail(userID, likerUserName + " has liked one of your posts.", likerUserName + " has liked one of your posts. Come visit Cookbook and check out which post " + likerUserName + " liked!");
+            }
             return Redirect(Request.UrlReferrer.AbsoluteUri);
         }
 
         public ActionResult LikeRecipe(int postID)
         {
-            var recipe = (from recipes in db.Recipes
-                          where recipes.RecipeID == postID
-                          select recipes).FirstOrDefault();
-            recipe.LikeCount++;
-
             Recipe_Liker newLiker = new Recipe_Liker();
             newLiker.RecipeId = postID;
             newLiker.UserId = WebSecurity.CurrentUserId;
             if (!db.Recipe_Likers.Contains(newLiker))
+            {
                 db.Recipe_Likers.InsertOnSubmit(newLiker);
+                var recipe = (from recipes in db.Recipes
+                              where recipes.RecipeID == postID
+                              select recipes).FirstOrDefault();
+                recipe.LikeCount++;
 
-            db.SubmitChanges();
 
-            var likerUserName = (from userprofiles in userDb.UserProfiles
-                                 where userprofiles.UserId == newLiker.UserId
-                                 select userprofiles.UserName).FirstOrDefault();
+                db.SubmitChanges();
 
-            var userID = (from recipes in db.Recipes
-                          where recipes.RecipeID == postID
-                          select recipes.UserID).FirstOrDefault();
+                var likerUserName = (from userprofiles in userDb.UserProfiles
+                                     where userprofiles.UserId == newLiker.UserId
+                                     select userprofiles.UserName).FirstOrDefault();
 
-            SendSMS(userID, likerUserName + " has liked one of your recipes. Come visit Cookbook and check out which recipe " + likerUserName + " liked!");
-            SendEmail(userID, likerUserName + " has liked one of your recipes.", likerUserName + " has liked one of your recipes. Come visit Cookbook and check out which recipe " + likerUserName + " liked!");
-            
+                var userID = (from recipes in db.Recipes
+                              where recipes.RecipeID == postID
+                              select recipes.UserID).FirstOrDefault();
+
+                SendSMS(userID, likerUserName + " has liked one of your recipes. Come visit Cookbook and check out which recipe " + likerUserName + " liked!");
+                SendEmail(userID, likerUserName + " has liked one of your recipes.", likerUserName + " has liked one of your recipes. Come visit Cookbook and check out which recipe " + likerUserName + " liked!");
+            }
             return Redirect(Request.UrlReferrer.AbsoluteUri);
+
         }
 
         public ActionResult Report(int id)
@@ -502,7 +505,7 @@ namespace Cookbook.Controllers
                 String email = (from userprofiles in userDb.UserProfiles
                                 where userprofiles.UserId == userID
                                 select userprofiles.Email).FirstOrDefault(); ; //Find userID's email address.
-                
+
                 if (inputSubject == "")
                 {
                     inputSubject = "The Cookbook - New Notification Waiting For You";

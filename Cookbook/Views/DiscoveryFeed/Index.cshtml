@@ -1,19 +1,19 @@
 ﻿@model List<Cookbook.Models.ViewPostModel>
 <div class="row-fluid">
     <div class="span8 offset2">
-    <h3 style="text-align: center;">Discovery Feed</h3>
-    @foreach (var post in Model)
-    {
-        <br />
-        <div class="row-fluid recipeOrPost">
-            <div class="span4 offset1">
-                @{
-                    string imageUrl = post.ImageURL;
-                    if (imageUrl == null)
-                    {
-                        imageUrl = "http://newyork.cities2night.com/public/article_images/1281.jpg";
+        <h3 style="text-align: center;">Discovery Feed</h3>
+        @foreach (var post in Model)
+        {
+            <br />
+            <div class="row-fluid recipeOrPost">
+                <div class="span4 offset1">
+                    @{
+            string imageUrl = post.ImageURL;
+            if (imageUrl == null)
+            {
+                imageUrl = "http://newyork.cities2night.com/public/article_images/1281.jpg";
+            }
                     }
-                 }
                     <img src=@imageUrl class="recipeImage" />
                     <h4>
                         <a href="/Cookbook/ViewCookbook/?userId=@post.UserID">@@@post.Username</a>
@@ -33,12 +33,12 @@
 
                         <p><strong>Instructions:</strong></p>
                         <p>@post.RecipePost.Instructions</p>
-                        <p><b>x Likes.</b> <a href="/DiscoveryFeed/LikeRecipe/?postId=@post.PostId">Like</a></p>
+                        <p><b>@post.RecipePost.LikeCount Likes. </b><a href="/Cookbook/LikeRecipe/?postId=@post.PostId">Like</a></p>
                     }
                     @if (post.BlogPost != null)
                     {
                         <p>@post.BlogPost.Post</p>
-                        <p><b>x Likes.</b> <a href="/DiscoveryFeed/LikeBlog/?postId=@post.PostId">Like</a></p>
+                        <p><b>@post.BlogPost.LikeCount Likes. </b><a href="/Cookbook/LikeBlog/?postId=@post.PostId">Like</a></p>
                     }
                     <p><i>Posted on @post.DateCreated</i></p>
                 </div>
@@ -46,30 +46,30 @@
         }
         <div class="row-fluid span4 offset4">
             <ul class="pager">
-            @if (ViewBag.Page > 1)
-            {
+                @if (ViewBag.Page > 1)
+                {
                     <li class="previous">
                         @Html.ActionLink("← Newer", "Index", new { page = ViewBag.Page - 1 })
                     </li>
-            }
-            else
-            {
-                <li class="previous disabled">
+                }
+                else
+                {
+                    <li class="previous disabled">
                         <a href="#">← Newer</a>
-                </li>
-            }
-            @if (ViewBag.Page < ViewBag.LastPage)
-            {
-                <li class="next">
-                    @Html.ActionLink("Older →", "Index", new { page = ViewBag.Page + 1 })
-                </li>
-            }
-            else
-            {
-                <li class="next disabled">
-                    <a href="#">Older →</a>
-                </li>
-            }
+                    </li>
+                }
+                @if (ViewBag.Page < ViewBag.LastPage)
+                {
+                    <li class="next">
+                        @Html.ActionLink("Older →", "Index", new { page = ViewBag.Page + 1 })
+                    </li>
+                }
+                else
+                {
+                    <li class="next disabled">
+                        <a href="#">Older →</a>
+                    </li>
+                }
             </ul>
         </div>
     </div>
