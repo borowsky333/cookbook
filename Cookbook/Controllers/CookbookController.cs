@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -26,22 +26,76 @@ namespace Cookbook.Controllers
         //redirect if not logged in
         public ActionResult Index()
         {
+            ViewBag.UserId = WebSecurity.CurrentUserId;
+
             var recipes = GetRecipes(WebSecurity.CurrentUserId);
-            var recipeDict = new Dictionary<Recipe, List<string>>();
+
+            List<ViewPostModel> postList = new List<ViewPostModel>();
 
             foreach (var recipe in recipes)
             {
+                ViewRecipeModel recipeView = new ViewRecipeModel();
+                recipeView.DateModified = recipe.DateModified;
+                recipeView.FavoriteCount = recipe.FavoriteCount;
+                recipeView.Instructions = recipe.Instructions;
+                recipeView.LikeCount = recipe.LikeCount;
+
                 var ingredients =
                     (from allIngredients in db.Ingredients
                      where allIngredients.RecipeId == recipe.RecipeID
                      select allIngredients.Name).ToList();
-                recipeDict.Add(recipe, ingredients);
+                recipeView.Ingredients = ingredients;
+
+                var tags =
+                    (from allTags in db.Recipe_Tags
+                     where allTags.RecipeID == recipe.RecipeID
+                     select allTags.Tag).ToList();
+                recipeView.Tags = tags;
+
+                ViewPostModel post = new ViewPostModel();
+                post.DateCreated = recipe.DateCreated;
+                post.RecipePost = recipeView;
+                post.Username = (from userprofiles in userDb.UserProfiles
+                                 where userprofiles.UserId == recipe.UserID
+                                 select userprofiles.UserName).FirstOrDefault();
+                post.ImageURL = recipe.ImageUrl;
+                post.Title = recipe.Title;
+                post.PostId = recipe.RecipeID;
+                ViewBag.Username = post.Username;
+                postList.Add(post);
+
             }
 
-            ViewBag.MyRecipes = recipeDict;
-            ViewBag.MyPosts = GetBlogPosts(WebSecurity.CurrentUserId);
+            var blogPosts = GetBlogPosts(WebSecurity.CurrentUserId);
+            foreach (var blog in blogPosts)
+            {
+                ViewBlogModel blogView = new ViewBlogModel();
+                blogView.DateModified = blog.DateModified;
+                blogView.LikeCount = blog.LikeCount;
+                blogView.Post = blog.Post;
 
-            return View();
+                var tags =
+                    (from allTags in db.BlogPost_Tags
+                     where allTags.BlogPostId == blog.BlogPostId
+                     select allTags.Tag).ToList();
+                blogView.Tags = tags;
+
+                ViewPostModel post = new ViewPostModel();
+                post.DateCreated = blog.DateCreated;
+                post.BlogPost = blogView;
+                post.Username = (from userprofiles in userDb.UserProfiles
+                                 where userprofiles.UserId == blog.UserId
+                                 select userprofiles.UserName).FirstOrDefault();
+                post.ImageURL = blog.ImageUrl;
+                post.Title = blog.Title;
+                post.PostId = blog.BlogPostId;
+                ViewBag.Username = post.Username;
+                postList.Add(post);
+            }
+
+            List<ViewPostModel> sortedPosts = postList.OrderByDescending(p => p.DateCreated).ToList();
+
+            return View(sortedPosts);
         }
 
         public ActionResult ViewCookbook(int userId)
@@ -404,7 +458,8 @@ namespace Cookbook.Controllers
             BlogPost_Liker newLiker = new BlogPost_Liker();
             newLiker.BlogPostId = postID;
             newLiker.UserId = WebSecurity.CurrentUserId;
-            db.BlogPost_Likers.InsertOnSubmit(newLiker);
+            if (!db.BlogPost_Likers.Contains(newLiker))
+                db.BlogPost_Likers.InsertOnSubmit(newLiker);
 
             db.SubmitChanges();
            
@@ -422,7 +477,8 @@ namespace Cookbook.Controllers
             Recipe_Liker newLiker = new Recipe_Liker();
             newLiker.RecipeId = postID;
             newLiker.UserId = WebSecurity.CurrentUserId;
-            db.Recipe_Likers.InsertOnSubmit(newLiker);
+            if (!db.Recipe_Likers.Contains(newLiker))
+                db.Recipe_Likers.InsertOnSubmit(newLiker);
 
             db.SubmitChanges();
             return Redirect(Request.UrlReferrer.AbsoluteUri);
@@ -433,13 +489,11 @@ namespace Cookbook.Controllers
             return View();
         }
 
-        public void SendEmail(int userID) //Send notification to user via email.
+        public ActionResult SendEmail(int userID) //Send notification to user via email.
         {
             try
             {
-                String email = (from userprofiles in userDb.UserProfiles
-                                                where userprofiles.UserId == userID
-                                                select userprofiles.Email).FirstOrDefault(); //Find userID's email address.
+                String email = ""; //Find userID's email address.
 
                 String[] arrayTO = new String[1];
                 arrayTO[0] = email;
@@ -467,26 +521,26 @@ namespace Cookbook.Controllers
                 AmazonSimpleEmailServiceClient client = new AmazonSimpleEmailServiceClient();
 
                 SendEmailResponse response = client.SendEmail(request);
-                Console.WriteLine("Sent successfully.");
+                TempData["sendstatus"] = "Sent successfully.";
 
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                TempData["sendstatus"] = e.Message;
             }
+
+            return this.RedirectToAction("Index");
         }
 
-        public void SendSMS(int userID) //Send notification to user via SMS.
+        public ActionResult SendSMS(int userID) //Send notification to user via SMS.
         {
-            String userName = (from userprofiles in userDb.UserProfiles
-                               where userprofiles.UserId == userID
-                               select userprofiles.UserName).FirstOrDefault(); //Resolve username from userID
+            String userName = ""; //Resolve username from userID
             AmazonSimpleNotificationServiceClient client = new AmazonSimpleNotificationServiceClient();
             PublishRequest request = new PublishRequest
             {
-                TopicArn = "arn:aws:sns:us-east-1:727060774285:" + userName,
+                TopicArn = "arn:aws:sns:us-east-1:727060774285:INSERT_USERNAME",
                 Subject = "The Cookbook - New Notification",
-                Message = "Hello. You have received a new notification. Visit The Cookbook for more information.",
+                Message = "Hello. You have received a new notification. Visit The Cookbook for more information."
             };
 
             try
@@ -501,13 +555,15 @@ namespace Cookbook.Controllers
                     strings[i] = "Success! Message ID is: " + result.MessageId;
                 }
 
-                Console.WriteLine(strings);
+                TempData["result"] = strings;
 
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                TempData["error"] = e.Message;
             }
+
+            return this.RedirectToAction("Index");
         }
 
     }

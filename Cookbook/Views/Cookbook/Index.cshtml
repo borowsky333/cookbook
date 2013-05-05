@@ -1,3 +1,5 @@
+@model List<Cookbook.Models.ViewPostModel>
+
 <div class="row-fluid">
     <div class="span4" style="padding-left: 2em;">
         <div class="addPostRecipe">
@@ -8,75 +10,56 @@
             <div class="tabbable">
                 <div class="tab-content">
                     <div class="tab-pane active" id="post">
-                        @RenderPage("~/Views/Cookbook/UploadPost.cshtml")
+                        @Html.Partial("UploadPost", new Cookbook.Models.UploadBlogPostModel())
                     </div>
                     <div class="tab-pane" id="recipe">
-                        @RenderPage("~/Views/Cookbook/UploadRecipe.cshtml")
+                        @Html.Partial("UploadRecipe", new Cookbook.Models.UploadRecipeModel())
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="span7">
-        <h3 style="text-align:center;">Your Recipes</h3>
-        @foreach (var recipe in ViewBag.MyRecipes)
-            {
-                <br />
-                <div class="row-fluid recipeOrPost">
-                    <div class="span4 offset1">
-                        @{
-                            string imageUrl = recipe.Key.ImageUrl;
-                            if(imageUrl == null)
-                            {
-                                imageUrl = "http://newyork.cities2night.com/public/article_images/1281.jpg";
-                            }
+        @foreach (var post in Model)
+        {
+            <br />
+            <div class="row-fluid recipeOrPost">
+                <div class="span4 offset1">
+                    @{
+                        string imageUrl = post.ImageURL;
+                        if (imageUrl == null)
+                        {
+                            imageUrl = "http://newyork.cities2night.com/public/article_images/1281.jpg";
                         }
-                        <img src=@imageUrl class="recipeImage" />
-                        <h4>@@@User.Identity.Name</h4> <!-- This needs to be changed to user name -->
-                    </div>
-                    <div class="span1 divider">
+                    }
+                    <img src=@imageUrl class="recipeImage" />
+                </div>
+                <div class="span1 divider">
 
-                    </div>
-                    <div class="span5">
-                        <h4 class="recipeTitle">@recipe.Key.Title</h4>
+                </div>
+                <div class="span5">
+                    <h4 class="recipeTitle">@post.Title</h4>
+                    @if (post.RecipePost != null)
+                    {
                         <p><strong>Ingredients:</strong></p>
-                        @foreach (var ingredient in recipe.Value)
-            	        {
-                	        <p>@ingredient</p>
-            	        }
+                        foreach (var ingredient in post.RecipePost.Ingredients)
+                        {
+                            <p>@ingredient</p>
+                        }
 
                         <p><strong>Instructions:</strong></p>
-                        <p>@recipe.Key.Instructions</p>
-                        <p><i>Posted on @recipe.Key.DateCreated</i></p>
-                    </div>
-                </div>
-            }
-        <br />
-        <h3 style="text-align:center;">Your Posts</h3>
-        @foreach (var post in ViewBag.MyPosts)
-            {
-                <br />
-                <div class="row-fluid recipeOrPost">
-                    <div class="span4 offset1">
-                        @{
-                            string imageUrl = post.ImageUrl;
-                            if(imageUrl == null)
-                            {
-                                imageUrl = "http://newyork.cities2night.com/public/article_images/1281.jpg";
-                            }
-                        }
-                        <img src=@imageUrl class="recipeImage" />
-                        <h4>@@@User.Identity.Name</h4> <!-- This needs to be changed to user name -->
-                    </div>
-                    <div class="span1 divider">
+                        <p>@post.RecipePost.Instructions</p>
+                        <p><b>x Likes. </b><a href="/Cookbook/LikeRecipe/?postId=@post.PostId">Like</a></p>
+                    }
+                    @if (post.BlogPost != null)
+                    {
+                        <p>@post.BlogPost.Post</p>
+                        <p><b>x Likes. </b><a href="/Cookbook/LikeBlog/?postId=@post.PostId">Like</a></p>
+                    }
+                    <p><i>Posted on @post.DateCreated</i></p>
 
-                    </div>
-                    <div class="span5">
-                        <h4 class="recipeTitle">@post.Title</h4>
-                        <p>@post.Post</p>
-                        <p><i>Posted on @post.DateCreated</i></p>
-                    </div>
                 </div>
-            }
+            </div>
+        }
     </div>
 </div>
