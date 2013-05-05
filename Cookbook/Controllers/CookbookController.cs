@@ -20,7 +20,7 @@ namespace Cookbook.Controllers
     public class CookbookController : Controller
     {
         private CookbookDBModelsDataContext db = new CookbookDBModelsDataContext();
-        private UsersContext userDb = new UsersContext();
+        private static UsersContext userDb = new UsersContext();
         private AmazonS3 s3client = new AmazonS3Client();
 
 
@@ -448,11 +448,15 @@ namespace Cookbook.Controllers
 
             db.SubmitChanges();
 
+            var likerUserName = (from userprofiles in userDb.UserProfiles
+                                                 where userprofiles.UserId == newLiker.UserId
+                                                 select userprofiles.UserName).FirstOrDefault();
+
             var userID = (from blogs in db.BlogPosts
                           where blogs.BlogPostId == postID
                           select blogs.UserId).FirstOrDefault();
-            SendSMS(userID);
-            SendEmail(userID);
+            SendSMS(userID, likerUserName + " has liked one of your posts. Come visit Cookbook and check out which post " + likerUserName + " liked!");
+            SendEmail(userID, likerUserName + " has liked one of your posts.", likerUserName + " has liked one of your posts. Come visit Cookbook and check out which post " + likerUserName + " liked!");
             
             return Redirect(Request.UrlReferrer.AbsoluteUri);
         }
@@ -472,12 +476,17 @@ namespace Cookbook.Controllers
 
             db.SubmitChanges();
 
+            var likerUserName = (from userprofiles in userDb.UserProfiles
+                                 where userprofiles.UserId == newLiker.UserId
+                                 select userprofiles.UserName).FirstOrDefault();
+
             var userID = (from recipes in db.Recipes
                           where recipes.RecipeID == postID
                           select recipes.UserID).FirstOrDefault();
-            SendSMS(userID);
-            SendEmail(userID);
 
+            SendSMS(userID, likerUserName + " has liked one of your recipes. Come visit Cookbook and check out which recipe " + likerUserName + " liked!");
+            SendEmail(userID, likerUserName + " has liked one of your recipes.", likerUserName + " has liked one of your recipes. Come visit Cookbook and check out which recipe " + likerUserName + " liked!");
+            
             return Redirect(Request.UrlReferrer.AbsoluteUri);
         }
 
@@ -486,13 +495,23 @@ namespace Cookbook.Controllers
             return View();
         }
 
-        private void SendEmail(int userID) //Send notification to user via email.
+        public static void SendEmail(int userID, string inputSubject, string inputBody) //Send notification to user via email.
         {
             try
             {
                 String email = (from userprofiles in userDb.UserProfiles
                                 where userprofiles.UserId == userID
                                 select userprofiles.Email).FirstOrDefault(); ; //Find userID's email address.
+                
+                if (inputSubject == "")
+                {
+                    inputSubject = "The Cookbook - New Notification Waiting For You";
+                }
+
+                if (inputBody == "")
+                {
+                    inputBody = "You have received a new notification. Visit The Cookbook for more information.";
+                }
 
                 String[] arrayTO = new String[1];
                 arrayTO[0] = email;
@@ -503,8 +522,8 @@ namespace Cookbook.Controllers
                 Destination destination = new Destination().WithToAddresses(listTO);
 
                 String FROM = "thecookbooksubscription@gmail.com";
-                String SUBJECT = "The Cookbook - New Notification Waiting For You";
-                String BODY = "You have received a new notification. Visit The Cookbook for more information.";
+                String SUBJECT = inputSubject;
+                String BODY = inputBody;
 
                 // Create the subject and body of the message.
                 Content subject = new Content().WithData(SUBJECT);
@@ -520,27 +539,30 @@ namespace Cookbook.Controllers
                 AmazonSimpleEmailServiceClient client = new AmazonSimpleEmailServiceClient();
 
                 SendEmailResponse response = client.SendEmail(request);
-                TempData["sendstatus"] = "Sent successfully.";
+                Console.WriteLine("Sent successfully.");
 
             }
             catch (Exception e)
             {
-                TempData["sendstatus"] = e.Message;
+                Console.WriteLine(e.Message);
             }
 
         }
 
-        private void SendSMS(int userID) //Send notification to user via SMS.
+        public static void SendSMS(int userID, string inputBody) //Send notification to user via SMS.
         {
             String userName = (from userprofiles in userDb.UserProfiles
                                where userprofiles.UserId == userID
                                select userprofiles.UserName).FirstOrDefault(); //Resolve username from userID
+
+            if (inputBody == "")
+                inputBody = "Hello. You have received a new notification. Visit The Cookbook for more information.";
+
             AmazonSimpleNotificationServiceClient client = new AmazonSimpleNotificationServiceClient();
             PublishRequest request = new PublishRequest
             {
                 TopicArn = "arn:aws:sns:us-east-1:727060774285:" + userName,
-                Subject = "The Cookbook - New Notification",
-                Message = "Hello. You have received a new notification. Visit The Cookbook for more information."
+                Message = inputBody
             };
 
             try
@@ -555,12 +577,12 @@ namespace Cookbook.Controllers
                     strings[i] = "Success! Message ID is: " + result.MessageId;
                 }
 
-                TempData["result"] = strings;
+                Console.WriteLine(strings[0]); ;
 
             }
             catch (Exception e)
             {
-                TempData["error"] = e.Message;
+                Console.WriteLine(e.Message);
             }
         }
 

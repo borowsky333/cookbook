@@ -265,9 +265,7 @@
     <Content Include="Views\Cookbook\UploadPost.cshtml" />
     <Content Include="Views\DiscoveryFeed\Index.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Search\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
@@ -284,6 +282,7 @@
     <None Include="Properties\PublishProfiles\cookbook.pubxml" />
     <Content Include="Views\Subscribe\AddSubscriber.cshtml" />
     <Content Include="Views\Subscribe\Index.cshtml" />
+    <Content Include="Views\Search\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
