@@ -33,12 +33,12 @@
 
                         <p><strong>Instructions:</strong></p>
                         <p>@post.RecipePost.Instructions</p>
-                        <p><b>@post.RecipePost.LikeCount Likes. </b><a href="/Cookbook/LikeRecipe/?postId=@post.PostId">Like</a></p>
+                        <p><b><a href="/Cookbook/DisplayRecipeLikes/?postId=@post.PostId">@post.RecipePost.LikeCount Likes. </a></b><a href="/Cookbook/LikeRecipe/?postId=@post.PostId">Like</a></p>
                     }
                     @if (post.BlogPost != null)
                     {
                         <p>@post.BlogPost.Post</p>
-                        <p><b>@post.BlogPost.LikeCount Likes. </b><a href="/Cookbook/LikeBlog/?postId=@post.PostId">Like</a></p>
+                        <p><b><a href="/Cookbook/DisplayBlogLikes/?postId=@post.PostId">@post.BlogPost.LikeCount Likes. </a></b><a href="/Cookbook/LikeBlog/?postId=@post.PostId">Like</a></p>
                     }
 
                     <p><i>Posted on @post.DateCreated</i></p>

@@ -490,7 +490,34 @@ namespace Cookbook.Controllers
                 SendEmail(userID, likerUserName + " has liked one of your recipes.", likerUserName + " has liked one of your recipes. Come visit Cookbook and check out which recipe " + likerUserName + " liked!");
             }
             return Redirect(Request.UrlReferrer.AbsoluteUri);
+        }
 
+        public ActionResult DisplayBlogLikes(int postId)
+        {
+            var likerIds = (from bloglikers in db.BlogPost_Likers
+                            where bloglikers.BlogPostId == postId
+                            select bloglikers.UserId).ToList();
+
+            var likerUsernames = (from users in userDb.UserProfiles
+                                  where likerIds.Contains(users.UserId)
+                                  select users.UserName).ToList();
+            ViewBag.Likers = likerUsernames;
+            ViewBag.LikeCount = likerUsernames.Count;
+            return View("DisplayLikes");
+        }
+        public ActionResult DisplayRecipeLikes(int postId)
+        {
+            var likerIds = (from recipelikers in db.Recipe_Likers
+                            where recipelikers.RecipeId == postId
+                            select recipelikers.UserId).ToList();
+
+            var likerUsernames = (from users in userDb.UserProfiles
+                                  where likerIds.Contains(users.UserId)
+                                  select users.UserName).ToList();
+            ViewBag.Likers = likerUsernames;
+            ViewBag.LikeCount = likerUsernames.Count;
+
+            return View("DisplayLikes");
         }
 
         public ActionResult Report(int id)
