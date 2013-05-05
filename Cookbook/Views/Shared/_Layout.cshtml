@@ -35,9 +35,8 @@
 					            <a href="/Cookbook">My Cookbook</a>
 				  	        </li>
 				        </ul>
-                        <form id="frmsearch" action="/Search" method="get" >
-                            <input id="q" name="q" value="@q" style="width:275px;" />
-                            <input id="submit" name="submit" type="submit" value="search" />
+                        <form id="searchbar" class="navbar-search pull-left" action="/Search" method="get" >
+                            <input type="text" class="search-query span3" placeholder="Search for a tag or username." id="q" name="q" value="@q" />
                         </form>
 			            <ul class="nav pull-right">
 				            <li class='divider-vertical'></li> 
