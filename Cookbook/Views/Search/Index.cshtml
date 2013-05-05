@@ -1,3 +1,27 @@
-﻿<div class="row-fluid">
-    <h3 style="text-align:center;">Search Results:</h3>
+@{
+    ViewBag.Title = "Search";
+}
+
+<h2>Search</h2>
+
+<div class="SearchResults">
+    <ul class="nav nav-tabs" style="margin-bottom: 0px;">
+        <li class="active"><a href="#Users" data-toggle="tab">Users</a></li>
+        <li><a href="#Tags" data-toggle="tab">tags</a></li>
+    </ul>
+    <div class="tabbable">
+        <div class="tab-content">
+            <div class="tab-pane active" id="Users">
+                @foreach (Cookbook.Models.UserProfile user in ViewBag.UserResults)
+                {
+                    @Html.ActionLink(user.UserName, "ViewCookbook", "Cookbook", new { userId = user.UserId }, new { });
+                    <br />
+                }
+                        
+            </div>
+            <div class="tab-pane" id="Tags">
+                <p>tags</p>
+            </div>
+        </div>
+    </div>
 </div>
