@@ -51,7 +51,6 @@ namespace Cookbook.Controllers
         {
             BlogPost_Liker newLiker = new BlogPost_Liker();
             newLiker.BlogPostId = postID;
-<<<<<<< HEAD
             newLiker.UserId = WebSecurity.CurrentUserId;
             if (!db.BlogPost_Likers.Contains(newLiker))
             {
