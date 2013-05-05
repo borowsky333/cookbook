@@ -46,12 +46,30 @@
 
                         <p><strong>Instructions:</strong></p>
                         <p>@post.RecipePost.Instructions</p>
-                        <p><b><a href="/Cookbook/DisplayRecipeLikes/?postId=@post.PostId">@post.RecipePost.LikeCount Likes. </a></b><a href="/Cookbook/LikeRecipe/?postId=@post.PostId">Like</a></p>
+                        <p><b><a href="/Cookbook/DisplayRecipeLikes/?postId=@post.PostId">@post.RecipePost.LikeCount Likes. </a></b>
+                            @if (post.Liked == false)
+                            {
+                                <a href="/Cookbook/LikeRecipe/?postId=@post.PostId">Like</a>
+                            }
+                            else 
+                            {
+                                <a href="/Cookbook/UnlikeRecipe/?postId=@post.PostId">Unlike</a>
+                            }
+                        </p>
                     }
                     @if (post.BlogPost != null)
                     {
                         <p>@post.BlogPost.Post</p>
-                        <p><b><a href="/Cookbook/DisplayBlogLikes/?postId=@post.PostId">@post.BlogPost.LikeCount Likes. </a></b><a href="/Cookbook/LikeBlog/?postId=@post.PostId">Like</a></p>
+                        <p><b><a href="/Cookbook/DisplayBlogLikes/?postId=@post.PostId">@post.BlogPost.LikeCount Likes. </a></b>
+                            @if (post.Liked == false)
+                            {
+                                <a href="/Cookbook/LikeBlog/?postId=@post.PostId">Like</a>
+                            }
+                            else
+                            {
+                                <a href="/Cookbook/UnlikeBlog/?postId=@post.PostId">Unlike</a>
+                            }
+                        </p>
                     }
                     <p><i>Posted on @post.DateCreated</i></p>
 

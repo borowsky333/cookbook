@@ -16,6 +16,7 @@ namespace Cookbook.Models
         public string Title { get; set; }
         public int UserID { get; set; }
         public int PostId { get; set; }
+        public bool Liked { get; set; }
     }
 
     public class ViewBlogModel

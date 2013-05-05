@@ -23,8 +23,6 @@ namespace Cookbook.Controllers
         private static UsersContext userDb = new UsersContext();
         private AmazonS3 s3client = new AmazonS3Client();
 
-
-
         public ActionResult Index(Nullable<int> page)
         {
             ViewBag.UserId = WebSecurity.CurrentUserId;
@@ -140,7 +138,14 @@ namespace Cookbook.Controllers
                 post.Title = recipe.Title;
                 post.PostId = recipe.RecipeID;
                 post.UserID = recipe.UserID;
-
+                if (db.Recipe_Likers.Contains(new Recipe_Liker { UserId = post.UserID, RecipeId = post.PostId }))
+                {
+                    post.Liked = true;
+                }
+                else
+                {
+                    post.Liked = false;
+                }
                 postList.Add(post);
 
             }
@@ -168,7 +173,14 @@ namespace Cookbook.Controllers
                 post.Title = blog.Title;
                 post.PostId = blog.BlogPostId;
                 post.UserID = blog.UserId;
-
+                if (db.BlogPost_Likers.Contains(new BlogPost_Liker { UserId = post.UserID, BlogPostId = post.PostId }))
+                {
+                    post.Liked = true;
+                }
+                else
+                {
+                    post.Liked = false;
+                }
                 postList.Add(post);
             }
 
@@ -492,6 +504,40 @@ namespace Cookbook.Controllers
             return Redirect(Request.UrlReferrer.AbsoluteUri);
         }
 
+        public ActionResult UnlikeBlog(int postId)
+        {
+            var unliker = (from likes in db.BlogPost_Likers
+                           where likes.BlogPostId == postId && likes.UserId == WebSecurity.CurrentUserId
+                           select likes).FirstOrDefault();
+            
+                db.BlogPost_Likers.DeleteOnSubmit(unliker);
+                var blog = (from blogs in db.BlogPosts
+                            where blogs.BlogPostId == postId
+                            select blogs).FirstOrDefault();
+                blog.LikeCount--;
+
+
+                db.SubmitChanges();
+            
+            return Redirect(Request.UrlReferrer.AbsoluteUri);
+        }
+        public ActionResult UnlikeRecipe(int postId)
+        {
+            var unliker = (from likes in db.Recipe_Likers
+                           where likes.RecipeId == postId && likes.UserId == WebSecurity.CurrentUserId
+                           select likes).FirstOrDefault();
+            db.Recipe_Likers.DeleteOnSubmit(unliker);
+            var recipe = (from recipes in db.Recipes
+                          where recipes.RecipeID == postId
+                          select recipes).FirstOrDefault();
+            recipe.LikeCount--;
+
+
+            db.SubmitChanges();
+
+            return Redirect(Request.UrlReferrer.AbsoluteUri);
+        }
+
         public ActionResult DisplayBlogLikes(int postId)
         {
             var likerIds = (from bloglikers in db.BlogPost_Likers
@@ -505,6 +551,7 @@ namespace Cookbook.Controllers
             ViewBag.LikeCount = likerUsernames.Count;
             return View("DisplayLikes");
         }
+
         public ActionResult DisplayRecipeLikes(int postId)
         {
             var likerIds = (from recipelikers in db.Recipe_Likers
