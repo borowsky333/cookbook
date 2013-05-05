@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@{
+    string q="";
+}
+
+<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="utf-8" />
@@ -31,8 +35,9 @@
 					            <a href="/Cookbook">My Cookbook</a>
 				  	        </li>
 				        </ul>
-                        <form class="navbar-search pull-left" action="/Search" >
-                            <input type="text" class="search-query span3" placeholder="Search for a tag or username." />
+                        <form id="frmsearch" action="/Search" method="get" >
+                            <input id="q" name="q" value="@q" style="width:275px;" />
+                            <input id="submit" name="submit" type="submit" value="search" />
                         </form>
 			            <ul class="nav pull-right">
 				            <li class='divider-vertical'></li> 

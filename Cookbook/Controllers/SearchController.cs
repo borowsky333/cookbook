@@ -12,17 +12,20 @@ namespace Cookbook.Controllers
         private CookbookDBModelsDataContext db = new CookbookDBModelsDataContext();
         private UsersContext userDb = new UsersContext();
 
-        public ActionResult SearchUsers(string query)
+       
+        public ActionResult Index(string q)
         {
+
             //Search Tags
             List<UserProfile> UserResults = (from allUsers in userDb.UserProfiles
-                                        where allUsers.UserName.Contains(query)
-                                        select allUsers).ToList();
+                                             where allUsers.UserName.Contains(q)
+                                             select allUsers).ToList();
 
+            
             UserProfile exactMatch = UserResults.Find(delegate(UserProfile up)
                                     {
                                         return string.Equals(up.UserName,
-                                                             query,
+                                                             q,
                                                              StringComparison.OrdinalIgnoreCase);
                                     });
 
@@ -34,13 +37,14 @@ namespace Cookbook.Controllers
 
             ViewBag.UserResults = UserResults;
             
+            /*
             //Search Users
             List<Recipe> TagResults = (from recipes in db.Recipes
                                     where recipes.Recipe_Tags.Contains(new Recipe_Tag { Tag = query }, new TagComparer())
                                     select recipes).ToList();
 
             ViewBag.TagResults = TagResults;
-
+            */
             return View();
         }
 
