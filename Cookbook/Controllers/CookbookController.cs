@@ -462,7 +462,12 @@ namespace Cookbook.Controllers
                 db.BlogPost_Likers.InsertOnSubmit(newLiker);
 
             db.SubmitChanges();
-           
+
+            var userID = (from blogs in db.BlogPosts
+                          where blogs.BlogPostId == postID
+                          select blogs.UserId).FirstOrDefault();
+            SendSMS(userID);
+            SendEmail(userID);
             
             return Redirect(Request.UrlReferrer.AbsoluteUri);
         }
@@ -481,6 +486,13 @@ namespace Cookbook.Controllers
                 db.Recipe_Likers.InsertOnSubmit(newLiker);
 
             db.SubmitChanges();
+
+            var userID = (from recipes in db.Recipes
+                          where recipes.RecipeID == postID
+                          select recipes.UserID).FirstOrDefault();
+            SendSMS(userID);
+            SendEmail(userID);
+
             return Redirect(Request.UrlReferrer.AbsoluteUri);
         }
 
@@ -489,11 +501,13 @@ namespace Cookbook.Controllers
             return View();
         }
 
-        public ActionResult SendEmail(int userID) //Send notification to user via email.
+        private void SendEmail(int userID) //Send notification to user via email.
         {
             try
             {
-                String email = ""; //Find userID's email address.
+                String email = (from userprofiles in userDb.UserProfiles
+                                where userprofiles.UserId == userID
+                                select userprofiles.Email).FirstOrDefault(); ; //Find userID's email address.
 
                 String[] arrayTO = new String[1];
                 arrayTO[0] = email;
@@ -529,16 +543,17 @@ namespace Cookbook.Controllers
                 TempData["sendstatus"] = e.Message;
             }
 
-            return this.RedirectToAction("Index");
         }
 
-        public ActionResult SendSMS(int userID) //Send notification to user via SMS.
+        private void SendSMS(int userID) //Send notification to user via SMS.
         {
-            String userName = ""; //Resolve username from userID
+            String userName = (from userprofiles in userDb.UserProfiles
+                               where userprofiles.UserId == userID
+                               select userprofiles.UserName).FirstOrDefault(); //Resolve username from userID
             AmazonSimpleNotificationServiceClient client = new AmazonSimpleNotificationServiceClient();
             PublishRequest request = new PublishRequest
             {
-                TopicArn = "arn:aws:sns:us-east-1:727060774285:INSERT_USERNAME",
+                TopicArn = "arn:aws:sns:us-east-1:727060774285:" + userName,
                 Subject = "The Cookbook - New Notification",
                 Message = "Hello. You have received a new notification. Visit The Cookbook for more information."
             };
@@ -562,8 +577,6 @@ namespace Cookbook.Controllers
             {
                 TempData["error"] = e.Message;
             }
-
-            return this.RedirectToAction("Index");
         }
 
     }
