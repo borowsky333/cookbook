@@ -16,7 +16,7 @@ namespace Cookbook.Controllers
         public ActionResult Index(string q)
         {
 
-            //Search Tags
+            //Search Users
             List<UserProfile> UserResults = (from allUsers in userDb.UserProfiles
                                              where allUsers.UserName.Contains(q)
                                              select allUsers).ToList();
@@ -37,15 +37,20 @@ namespace Cookbook.Controllers
 
             ViewBag.UserResults = UserResults;
             
-            /*
-            //Search Users
-            List<Recipe> TagResults = (from recipes in db.Recipes
-                                    where recipes.Recipe_Tags.Contains(new Recipe_Tag { Tag = query }, new TagComparer())
+            
+            //Search Recipes
+            List<Recipe> recipeResults = (from recipes in db.Recipes
+                                    where recipes.Title.Contains(q)//Recipe_Tags.Contains(new Recipe_Tag { Tag = q })
                                     select recipes).ToList();
 
-            ViewBag.TagResults = TagResults;
-            */
-            return View();
+            List<BlogPost> postResults = (from posts in db.BlogPosts
+                                          where posts.Title.Contains(q)
+                                          select posts).ToList();
+
+            //Will only return 15 results until paging is implemented for search results
+            var combinedResults = CookbookController.GetCombinedPosts(recipeResults, postResults, 1, ViewBag);
+            
+            return View(combinedResults);
         }
 
     }
