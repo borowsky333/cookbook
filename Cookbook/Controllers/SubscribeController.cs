@@ -41,8 +41,9 @@ namespace Cookbook.Controllers
         {
             if (userId == (int)Membership.GetUser().ProviderUserKey)
             {
-                ViewBag.Message = "You cannot follow yourself";
-                return View();
+                ViewBag.Message = "You cannot follow yourself.";
+                ViewBag.Color = "Red"; //Background color to display...
+                return View("Result");
             }
 
 
@@ -56,16 +57,18 @@ namespace Cookbook.Controllers
 
             if(db.User_Subscribers.Contains(us))
             {
-                ViewBag.Message = "You were already following this user";
-                return View();
+                ViewBag.Message = "You were already following this user.";
+                ViewBag.Color = "Red";
+                return View("Result");
             }
 
             db.User_Subscribers.InsertOnSubmit(us);
             db.SubmitChanges();
 
-            ViewBag.Message = "Subscribed";
+            ViewBag.Message = "Successfully Subscribed!";
+            ViewBag.Color = "Green";
 
-            return RedirectToAction("Index");
+            return View("Result");
         }
 
         //[HttpPost]
@@ -79,8 +82,9 @@ namespace Cookbook.Controllers
 
             if (!db.User_Subscribers.Contains(us))
             {
-                ViewBag.Message = "You weren't following this user";
-                return View();
+                ViewBag.Message = "You weren't following this user.";
+                ViewBag.Color = "Red";
+                return View("Result");
             }
 
             db.ExecuteQuery<Object>("DELETE FROM User_Subscriber " +
@@ -90,8 +94,9 @@ namespace Cookbook.Controllers
             
             db.SubmitChanges();
 
-            ViewBag.Message = "Unsubscribed";
-            return RedirectToAction("Index");
+            ViewBag.Message = "Successfully Unsubscribed!";
+            ViewBag.Color = "Green";
+            return View("Result");
 
         }
 
