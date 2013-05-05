@@ -86,7 +86,7 @@ namespace Cookbook.Models
         public string Email { get; set; }
 
         [Required]
-        [Display(Name = "User name")]
+        [Display(Name = "User Name")]
         public string UserName { get; set; }
 
         [Required]
@@ -96,12 +96,12 @@ namespace Cookbook.Models
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
+        [Display(Name = "Confirm Password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
         [Required]
-        [Display(Name = "Phone Number", Prompt = "Please type in the format ###-###-####")]
+        [Display(Name = "Phone Number (Format: #-###-###-####)", Prompt = "Please type in the format #-###-###-####")]
         public string PhoneNumber { get; set; }
     }
 
