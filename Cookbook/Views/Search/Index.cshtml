@@ -13,7 +13,7 @@
     <div class="tabbable">
         <div class="tab-content">
             <div class="tab-pane active" id="Users">
-                <p>@ViewBag.UserResults.Count users found</p>
+                <h4>@ViewBag.UserResults.Count users found</h4>
                 <br />
                 @foreach (Cookbook.Models.UserProfile user in ViewBag.UserResults)
                 {
@@ -23,6 +23,7 @@
                         
             </div>
             <div class="tab-pane" id="Tags">
+                <h4>@Model.Count recipes found</h4>
                 @foreach (var post in Model)
                 {
                     <br />
