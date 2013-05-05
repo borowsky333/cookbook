@@ -42,34 +42,45 @@ namespace Cookbook.Controllers
 
         public ActionResult ViewCookbook(int userId, Nullable<int> page)
         {
-            //if the user id is the logged in user's, redirect to index
-            if (userId == (int)Membership.GetUser().ProviderUserKey)
+            try
             {
-                return RedirectToAction("Index");
+                //if the user id is the logged in user's, redirect to index
+                if (userId == (int)Membership.GetUser().ProviderUserKey)
+                {
+                    return RedirectToAction("Index");
+                }
+
+                User_Subscriber us = new User_Subscriber
+                {
+                    UserId = (int)Membership.GetUser().ProviderUserKey,
+                    SubscriberId = userId
+                };
+
+                if (db.User_Subscribers.Contains(us))
+                {
+                    ViewBag.IsSubscribed = true;
+                }
+                else
+                {
+                    ViewBag.IsSubscribed = false;
+                }
+
+                ViewBag.UserId = userId;
+                ViewBag.Username = (from allUsers in userDb.UserProfiles
+                                    where allUsers.UserId == userId
+                                    select allUsers.UserName).First();
+
+                if (page == null || page < 1)
+                    page = 1;
+                var sortedPosts = GetCombinedPosts(GetRecipes(userId), GetBlogPosts(userId), (int)page, ViewBag);
+
+                return View(sortedPosts);
             }
-
-            User_Subscriber us = new User_Subscriber
+            catch (InvalidOperationException e)
             {
-                UserId = (int)Membership.GetUser().ProviderUserKey,
-                SubscriberId = userId
-            };
-
-            if (db.User_Subscribers.Contains(us))
-            {
-                ViewBag.IsSubscribed = true;
+                ViewBag.Error = "Error retrieving user profile";
+                return View("Error");
             }
-            else
-            {
-                ViewBag.IsSubscribed = false;
-            }
-
-            ViewBag.UserId = userId;
-
-            if (page == null || page < 1)
-                page = 1;
-            var sortedPosts = GetCombinedPosts(GetRecipes(userId), GetBlogPosts(userId), (int)page, ViewBag);
-
-            return View(sortedPosts);
         }
 
 
@@ -128,7 +139,8 @@ namespace Cookbook.Controllers
                 post.ImageURL = recipe.ImageUrl;
                 post.Title = recipe.Title;
                 post.PostId = recipe.RecipeID;
-                ViewBag.Username = post.Username;
+                post.UserID = recipe.UserID;
+                
                 postList.Add(post);
 
             }
@@ -155,7 +167,8 @@ namespace Cookbook.Controllers
                 post.ImageURL = blog.ImageUrl;
                 post.Title = blog.Title;
                 post.PostId = blog.BlogPostId;
-                ViewBag.Username = post.Username;
+                post.UserID = blog.UserId;
+                
                 postList.Add(post);
             }
 
