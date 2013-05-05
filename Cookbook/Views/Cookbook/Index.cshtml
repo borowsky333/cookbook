@@ -61,5 +61,21 @@
                 </div>
             </div>
         }
+
+        <span>
+            @if (ViewBag.Page > 1)
+            {
+                @Html.ActionLink("Previous", "Index", new { page = ViewBag.Page - 1 })
+            }
+            @if (ViewBag.Page > 1 && ViewBag.Page < ViewBag.LastPage)
+            {
+                <span>|</span>
+            }
+            @if (ViewBag.Page < ViewBag.LastPage)
+            {
+                @Html.ActionLink("Next", "Index", new { page = ViewBag.Page + 1 })
+            }
+        </span>
+
     </div>
 </div>

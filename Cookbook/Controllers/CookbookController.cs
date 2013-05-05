@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -23,12 +23,79 @@ namespace Cookbook.Controllers
         private UsersContext userDb = new UsersContext();
         private AmazonS3 s3client = new AmazonS3Client();
 
-        //redirect if not logged in
-        public ActionResult Index()
+
+
+        public ActionResult Index(Nullable<int> page)
         {
             ViewBag.UserId = WebSecurity.CurrentUserId;
 
             var recipes = GetRecipes(WebSecurity.CurrentUserId);
+
+            if (page == null || page < 1)
+                page = 1;
+            List<ViewPostModel> sortedPosts = GetCombinedPosts(GetRecipes(WebSecurity.CurrentUserId),
+                                                               GetBlogPosts(WebSecurity.CurrentUserId),
+                                                               (int)page,ViewBag);
+
+            return View(sortedPosts);
+        }
+
+        public ActionResult ViewCookbook(int userId, Nullable<int> page)
+        {
+            //if the user id is the logged in user's, redirect to index
+            if (userId == (int)Membership.GetUser().ProviderUserKey)
+            {
+                return RedirectToAction("Index");
+            }
+
+            User_Subscriber us = new User_Subscriber
+            {
+                UserId = (int)Membership.GetUser().ProviderUserKey,
+                SubscriberId = userId
+            };
+
+            if (db.User_Subscribers.Contains(us))
+            {
+                ViewBag.IsSubscribed = true;
+            }
+            else
+            {
+                ViewBag.IsSubscribed = false;
+            }
+
+            ViewBag.UserId = userId;
+
+            if (page == null || page < 1)
+                page = 1;
+            var sortedPosts = GetCombinedPosts(GetRecipes(userId), GetBlogPosts(userId), (int)page, ViewBag);
+
+            return View(sortedPosts);
+        }
+
+
+        public List<Recipe> GetRecipes(int userId)
+        {
+            var recipes = (from allRecipes in db.Recipes
+                           where allRecipes.UserID == userId
+                           select allRecipes).ToList();
+            return recipes;
+        }
+
+        public List<BlogPost> GetBlogPosts(int userId)
+        {
+            var posts = (from allPosts in db.BlogPosts
+                         where allPosts.UserId == userId
+                         select allPosts).ToList();
+            return posts;
+        }
+
+
+        public static List<ViewPostModel> GetCombinedPosts(List<Recipe> recipes, List<BlogPost> blogPosts,
+                                                           int page, dynamic ViewBag)
+        {
+
+            CookbookDBModelsDataContext db = new CookbookDBModelsDataContext();
+            UsersContext userDb = new UsersContext();
 
             List<ViewPostModel> postList = new List<ViewPostModel>();
 
@@ -66,7 +133,6 @@ namespace Cookbook.Controllers
 
             }
 
-            var blogPosts = GetBlogPosts(WebSecurity.CurrentUserId);
             foreach (var blog in blogPosts)
             {
                 ViewBlogModel blogView = new ViewBlogModel();
@@ -93,122 +159,28 @@ namespace Cookbook.Controllers
                 postList.Add(post);
             }
 
-            List<ViewPostModel> sortedPosts = postList.OrderByDescending(p => p.DateCreated).ToList();
+            
+            int pageLength = 15;
+            int startPage = (page-1)*pageLength;
+            ViewBag.Page = (int)page;
+            ViewBag.LastPage = (int)Math.Ceiling((double)postList.Count() / pageLength);
 
-            return View(sortedPosts);
-        }
-
-        public ActionResult ViewCookbook(int userId)
-        {
-            //if the user id is the logged in user's, redirect to index
-            if (userId == (int)Membership.GetUser().ProviderUserKey)
+            if (startPage < postList.Count)
             {
-                return RedirectToAction("Index");
-            }
+                if (startPage + pageLength - 1 >= postList.Count)
+                {
+                    pageLength = postList.Count - startPage;
+                }
 
-            User_Subscriber us = new User_Subscriber
-            {
-                UserId = (int)Membership.GetUser().ProviderUserKey,
-                SubscriberId = userId
-            };
-
-            if (db.User_Subscribers.Contains(us))
-            {
-                ViewBag.IsSubscribed = true;
+                return postList.OrderByDescending(p => p.DateCreated).ToList().GetRange(startPage, pageLength);
             }
             else
             {
-                ViewBag.IsSubscribed = false;
+                return new List<ViewPostModel>();//there are no results in this page, return an empty list
             }
-
-            ViewBag.UserId = userId;
-
-            var recipes = GetRecipes(userId);
-
-            List<ViewPostModel> postList = new List<ViewPostModel>();
-
-            foreach (var recipe in recipes)
-            {
-                ViewRecipeModel recipeView = new ViewRecipeModel();
-                recipeView.DateModified = recipe.DateModified;
-                recipeView.FavoriteCount = recipe.FavoriteCount;
-                recipeView.Instructions = recipe.Instructions;
-                recipeView.LikeCount = recipe.LikeCount;
-
-                var ingredients =
-                    (from allIngredients in db.Ingredients
-                     where allIngredients.RecipeId == recipe.RecipeID
-                     select allIngredients.Name).ToList();
-                recipeView.Ingredients = ingredients;
-
-                var tags =
-                    (from allTags in db.Recipe_Tags
-                     where allTags.RecipeID == recipe.RecipeID
-                     select allTags.Tag).ToList();
-                recipeView.Tags = tags;
-
-                ViewPostModel post = new ViewPostModel();
-                post.DateCreated = recipe.DateCreated;
-                post.RecipePost = recipeView;
-                post.Username = (from userprofiles in userDb.UserProfiles
-                     where userprofiles.UserId == recipe.UserID
-                     select userprofiles.UserName).FirstOrDefault();
-                post.ImageURL = recipe.ImageUrl;
-                post.Title = recipe.Title;
-                post.PostId = recipe.RecipeID;
-                ViewBag.Username = post.Username;
-                postList.Add(post);
-
-            }
-
-            var blogPosts = GetBlogPosts(userId);
-            foreach (var blog in blogPosts)
-            {
-                ViewBlogModel blogView = new ViewBlogModel();
-                blogView.DateModified = blog.DateModified;
-                blogView.LikeCount = blog.LikeCount;
-                blogView.Post = blog.Post;
-
-                var tags =
-                    (from allTags in db.BlogPost_Tags
-                     where allTags.BlogPostId == blog.BlogPostId
-                     select allTags.Tag).ToList();
-                blogView.Tags = tags;
-
-                ViewPostModel post = new ViewPostModel();
-                post.DateCreated = blog.DateCreated;
-                post.BlogPost = blogView;
-                post.Username = (from userprofiles in userDb.UserProfiles
-                                 where userprofiles.UserId == blog.UserId
-                                 select userprofiles.UserName).FirstOrDefault();
-                post.ImageURL = blog.ImageUrl;
-                post.Title = blog.Title;
-                post.PostId = blog.BlogPostId;
-                ViewBag.Username = post.Username;
-                postList.Add(post);
-            }
-
-            List<ViewPostModel> sortedPosts = postList.OrderByDescending(p => p.DateCreated).ToList();
-
-            return View(sortedPosts);
+            
         }
 
-
-        public List<Recipe> GetRecipes(int userId)
-        {
-            var recipes = (from allRecipes in db.Recipes
-                           where allRecipes.UserID == userId
-                           select allRecipes).Take(30).ToList();
-            return recipes;
-        }
-
-        public List<BlogPost> GetBlogPosts(int userId)
-        {
-            var posts = (from allPosts in db.BlogPosts
-                         where allPosts.UserId == userId
-                         select allPosts).Take(30).ToList();
-            return posts;
-        }
 
         public ActionResult UploadRecipe()
         {

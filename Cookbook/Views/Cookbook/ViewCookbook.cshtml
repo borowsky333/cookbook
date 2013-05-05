@@ -58,5 +58,19 @@
                 </div>
             </div>
         }
+        <span>
+        @if (ViewBag.Page > 1)
+        {
+            @Html.ActionLink("Previous", "ViewCookbook", new { page = ViewBag.Page - 1, userId = ViewBag.UserId }, new { })
+        }
+        @if (ViewBag.Page > 1 && ViewBag.Page < ViewBag.LastPage)
+        {
+            <span>|</span>
+        }
+        @if (ViewBag.Page < ViewBag.LastPage)
+        {
+            @Html.ActionLink("Next", "ViewCookbook", new { page = ViewBag.Page + 1 , userId = ViewBag.UserId }, new { })
+        }
+    </span>
     </div>
 </div>
