@@ -18,6 +18,11 @@ namespace Cookbook.Controllers
         private CookbookDBModelsDataContext db = new CookbookDBModelsDataContext();
         private UsersContext userDb = new UsersContext();
 
+        /// <summary>
+        /// Displays recipes/blog posts from the past 5 days.
+        /// </summary>
+        /// <param name="page">The current page number</param>
+        /// <returns>The discovery feed</returns>
         public ActionResult Index(Nullable<int> page)
         {
             var recipeList =

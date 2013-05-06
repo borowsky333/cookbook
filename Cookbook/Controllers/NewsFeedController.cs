@@ -9,11 +9,17 @@ using WebMatrix.WebData;
 
 namespace Cookbook.Controllers
 {
+    [Authorize]
     public class NewsFeedController : Controller
     {
         private CookbookDBModelsDataContext db = new CookbookDBModelsDataContext();
         private UsersContext userDb = new UsersContext();
 
+        /// <summary>
+        /// Displays the recipes/blog posts from user's the logged in user is subscribed to.
+        /// </summary>
+        /// <param name="page">The current page number</param>
+        /// <returns>The news feed.</returns>
         public ActionResult Index(Nullable<int> page)
         {
             if (page == null || page < 1)
@@ -25,7 +31,10 @@ namespace Cookbook.Controllers
         }
         
 
-
+        /// <summary>
+        /// Retrieves recipes from the user's subscribed list.
+        /// </summary>
+        /// <returns>List of recipes from the user's subscribed list.</returns>
         public List<Recipe> GetRecipes()
         {
             var subscribedUserIds = (from subscribers in db.User_Subscribers
@@ -48,6 +57,10 @@ namespace Cookbook.Controllers
             return recipes;
         }
 
+        /// <summary>
+        /// Retrieves blogposts from the user's subscribed list.
+        /// </summary>
+        /// <returns>List of blogposts from the user's subscribed list.</returns>
         public List<BlogPost> GetBlogPosts()
         {
             var subscribedUserIds = (from subscribers in db.User_Subscribers

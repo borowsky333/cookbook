@@ -13,6 +13,10 @@ namespace Cookbook.Controllers
         private CookbookDBModelsDataContext db = new CookbookDBModelsDataContext();
         private UsersContext userDb = new UsersContext();
 
+        /// <summary>
+        /// Retrieves the list of users the logged in user is subscribed to
+        /// </summary>
+        /// <returns>A page listing the users subscribed to</returns>
         public ActionResult Index()
         {
             var subscribedUserIds = (from subscribers in db.User_Subscribers
@@ -33,10 +37,11 @@ namespace Cookbook.Controllers
             return View();
         }
 
-        
-
-
-        //[HttpPost]
+        /// <summary>
+        /// Subscribes the logged in user to another user.
+        /// </summary>
+        /// <param name="userId">The user to subscribe to</param>
+        /// <returns>The result page.</returns>
         public ActionResult AddSubscriber(int userId)
         {
             if (userId == (int)Membership.GetUser().ProviderUserKey)
@@ -81,7 +86,11 @@ namespace Cookbook.Controllers
             return View("Result");
         }
 
-        //[HttpPost]
+        /// <summary>
+        /// Removes a user from logged in user's subscriptions.
+        /// </summary>
+        /// <param name="userId">The subscription to remove</param>
+        /// <returns>The result page</returns>
         public ActionResult RemoveSubscriber(int userId)
         {
             User_Subscriber us = new User_Subscriber

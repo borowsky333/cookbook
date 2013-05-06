@@ -23,6 +23,11 @@ namespace Cookbook.Controllers
         private static UsersContext userDb = new UsersContext();
         private AmazonS3 s3client = new AmazonS3Client();
 
+        /// <summary>
+        /// Returns user's own cookbook.
+        /// </summary>
+        /// <param name="page">The page number the user currently is viewing</param>
+        /// <returns></returns>
         public ActionResult Index(Nullable<int> page)
         {
             ViewBag.UserId = WebSecurity.CurrentUserId;
@@ -38,6 +43,12 @@ namespace Cookbook.Controllers
             return View(sortedPosts);
         }
 
+        /// <summary>
+        /// View another user's cookbook
+        /// </summary>
+        /// <param name="userId">The user you're looking at</param>
+        /// <param name="page">Current page number</param>
+        /// <returns></returns>
         public ActionResult ViewCookbook(int userId, Nullable<int> page)
         {
             try
@@ -81,7 +92,11 @@ namespace Cookbook.Controllers
             }
         }
 
-
+        /// <summary>
+        /// Grabs all recipes from a single user
+        /// </summary>
+        /// <param name="userId">the user to retrieve recipes from</param>
+        /// <returns></returns>
         public List<Recipe> GetRecipes(int userId)
         {
             var recipes = (from allRecipes in db.Recipes
@@ -90,6 +105,11 @@ namespace Cookbook.Controllers
             return recipes;
         }
 
+        /// <summary>
+        /// Grabs all blog posts from a single user
+        /// </summary>
+        /// <param name="userId">the user to retrieve blog posts from</param>
+        /// <returns></returns>
         public List<BlogPost> GetBlogPosts(int userId)
         {
             var posts = (from allPosts in db.BlogPosts
@@ -99,6 +119,14 @@ namespace Cookbook.Controllers
         }
 
 
+        /// <summary>
+        /// Retrieves a list of post view models (both recipes and blogs) and orders them by date (newest first).
+        /// </summary>
+        /// <param name="recipes">The recipes to create view models for</param>
+        /// <param name="blogPosts">The blog posts to create view models for</param>
+        /// <param name="page">The current page number</param>
+        /// <param name="ViewBag"></param>
+        /// <returns>Date ordered list of recipes/blogs</returns>
         public static List<ViewPostModel> GetCombinedPosts(List<Recipe> recipes, List<BlogPost> blogPosts,
                                                            int page, dynamic ViewBag)
         {
@@ -206,13 +234,21 @@ namespace Cookbook.Controllers
 
         }
 
-
+        /// <summary>
+        /// Upload recipe page
+        /// </summary>
+        /// <returns></returns>
         public ActionResult UploadRecipe()
         {
             return View();
         }
 
-
+        /// <summary>
+        /// Enters uploaded recipe into database
+        /// </summary>
+        /// <param name="newRecipe">The user-uploaded recipe</param>
+        /// <param name="file">The image</param>
+        /// <returns>Redirects to user's cookbook</returns>
         [HttpPost]
         public ActionResult UploadRecipe(UploadRecipeModel newRecipe, HttpPostedFileBase file)
         {
@@ -274,18 +310,6 @@ namespace Cookbook.Controllers
                     return View("Error");
                 }
 
-                //store the image info in the database
-                /*Image dbImage = new Image
-                {
-                    DateCreated = DateTime.Now,
-                    UserId = (int)Membership.GetUser().ProviderUserKey,
-                    DateModified = DateTime.Now,
-                    ImageDescription = "",
-                    ImageTitle = file.FileName,
-                    ImageUrl = "https://s3.amazonaws.com/Cookbook_Images/" + imageKey
-                };
-                db.Images.InsertOnSubmit(dbImage);*/
-
                 string imageUrl = "https://s3.amazonaws.com/Cookbook_Images/" + imageKey;
                 object[] param = { };
                 db.ExecuteQuery<Object>(@"UPDATE Recipe " +
@@ -328,12 +352,21 @@ namespace Cookbook.Controllers
             return View();
         }
 
-
+        /// <summary>
+        /// Retrieves blog post upload page
+        /// </summary>
+        /// <returns></returns>
         public ActionResult UploadPost()
         {
             return View();
         }
 
+        /// <summary>
+        /// Inserts uploaded blog post into the database.
+        /// </summary>
+        /// <param name="newPost">The blog post being uploaded</param>
+        /// <param name="file">The image to attach.</param>
+        /// <returns>Redirects to user's cookbook</returns>
         [HttpPost]
         public ActionResult UploadPost(UploadBlogPostModel newPost, HttpPostedFileBase file)
         {
@@ -425,14 +458,42 @@ namespace Cookbook.Controllers
             return View();
         }
 
-        //-----------------
-        //SOCIAL
-        //-----------------
-
-        //add another user's recipe to your cookbook
-        public ActionResult FavoriteRecipe(Recipe recipe)
+        /// <summary>
+        /// Favorites another user's recipe
+        /// </summary>
+        /// <param name="recipeId">The recipe to favorite</param>
+        /// <returns>Refreshes the page.</returns>
+        public ActionResult FavoriteRecipe(int recipeId)
         {
-            return View();
+            Recipe_Favoriter newFavoriter = new Recipe_Favoriter();
+            newFavoriter.RecipeId = recipeId;
+            newFavoriter.UserId = WebSecurity.CurrentUserId;
+            if (!db.Recipe_Favoriters.Contains(newFavoriter))
+            {
+                db.Recipe_Favoriters.InsertOnSubmit(newFavoriter);
+                var recipe = (from recipes in db.Recipes
+                              where recipes.RecipeID == recipeId
+                              select recipes).FirstOrDefault();
+                recipe.FavoriteCount++;
+
+
+                db.SubmitChanges();
+
+                var favoriterUserName = (from userprofiles in userDb.UserProfiles
+                                         where userprofiles.UserId == newFavoriter.UserId
+                                     select userprofiles.UserName).FirstOrDefault();
+
+                var userID = (from recipes in db.Recipes
+                              where recipes.RecipeID == recipeId
+                              select recipes.UserID).FirstOrDefault();
+
+                SendSMS(userID, favoriterUserName + " has favorited one of your recipes. Come visit Cookbook and check out which recipe "
+                    + favoriterUserName + " favorited!");
+                SendEmail(userID, favoriterUserName + " has favorited one of your recipes.", favoriterUserName +
+                    " has favorited one of your recipes. Come visit Cookbook and check out which recipe " +
+                    favoriterUserName + " favorited!");
+            }
+            return Redirect(Request.UrlReferrer.AbsoluteUri);
         }
 
         public ActionResult AddComment(int postID, int commentID)
@@ -445,6 +506,11 @@ namespace Cookbook.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Likes a user's blog post.
+        /// </summary>
+        /// <param name="postID">The blog post to like</param>
+        /// <returns>Refreshes the page.</returns>
         public ActionResult LikeBlog(int postID)
         {
             BlogPost_Liker newLiker = new BlogPost_Liker();
@@ -474,6 +540,11 @@ namespace Cookbook.Controllers
             return Redirect(Request.UrlReferrer.AbsoluteUri);
         }
 
+        /// <summary>
+        /// Likes a user's recipe.
+        /// </summary>
+        /// <param name="postID">The recipe to like</param>
+        /// <returns>Refreshes the page.</returns>
         public ActionResult LikeRecipe(int postID)
         {
             Recipe_Liker newLiker = new Recipe_Liker();
@@ -504,6 +575,11 @@ namespace Cookbook.Controllers
             return Redirect(Request.UrlReferrer.AbsoluteUri);
         }
 
+        /// <summary>
+        /// Unlikes a user's blog post.
+        /// </summary>
+        /// <param name="postID">The blog post to unlike</param>
+        /// <returns>Refreshes the page.</returns>
         public ActionResult UnlikeBlog(int postId)
         {
             var unliker = (from likes in db.BlogPost_Likers
@@ -520,6 +596,12 @@ namespace Cookbook.Controllers
 
             return Redirect(Request.UrlReferrer.AbsoluteUri);
         }
+
+        /// <summary>
+        /// Unlikes a user's recipe.
+        /// </summary>
+        /// <param name="postID">The recipe to unlike</param>
+        /// <returns>Refreshes the page.</returns>
         public ActionResult UnlikeRecipe(int postId)
         {
             var unliker = (from likes in db.Recipe_Likers
@@ -537,6 +619,11 @@ namespace Cookbook.Controllers
             return Redirect(Request.UrlReferrer.AbsoluteUri);
         }
 
+        /// <summary>
+        /// Retrieves who has liked the blog.
+        /// </summary>
+        /// <param name="postId">The blog post</param>
+        /// <returns>Page displaying the likers</returns>
         public ActionResult DisplayBlogLikes(int postId)
         {
             var likerIds = (from bloglikers in db.BlogPost_Likers
@@ -551,6 +638,11 @@ namespace Cookbook.Controllers
             return View("DisplayLikes");
         }
 
+        /// <summary>
+        /// Retrieves who has liked the recipe.
+        /// </summary>
+        /// <param name="postId">The recipe post</param>
+        /// <returns>Page displaying the likers</returns>
         public ActionResult DisplayRecipeLikes(int postId)
         {
             var likerIds = (from recipelikers in db.Recipe_Likers
@@ -571,6 +663,12 @@ namespace Cookbook.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Uses SES to send an email to a user.
+        /// </summary>
+        /// <param name="userID">The user being sent the email</param>
+        /// <param name="inputSubject">The subject of the email</param>
+        /// <param name="inputBody">The body of the email</param>
         public static void SendEmail(int userID, string inputSubject, string inputBody) //Send notification to user via email.
         {
             try
@@ -625,7 +723,12 @@ namespace Cookbook.Controllers
 
         }
 
-        public static void SendSMS(int userID, string inputBody) //Send notification to user via SMS.
+        /// <summary>
+        /// Uses SNS to send an SMS to a user.
+        /// </summary>
+        /// <param name="userID">The user being sent an SMS</param>
+        /// <param name="inputBody">The body of the SMS</param>
+        public static void SendSMS(int userID, string inputBody)
         {
             String userName = (from userprofiles in userDb.UserProfiles
                                where userprofiles.UserId == userID

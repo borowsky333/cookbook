@@ -8,6 +8,10 @@ namespace Cookbook.Controllers
 {
     public class WelcomeController : Controller
     {
+        /// <summary>
+        /// Displays the welcome page if not logged in. Displays the newsfeed otherwise.
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
             if (User.Identity.IsAuthenticated)

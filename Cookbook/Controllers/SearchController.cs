@@ -12,7 +12,11 @@ namespace Cookbook.Controllers
         private CookbookDBModelsDataContext db = new CookbookDBModelsDataContext();
         private UsersContext userDb = new UsersContext();
 
-       
+       /// <summary>
+       /// Searches for users/tags that match the search term.
+       /// </summary>
+       /// <param name="q">The search term</param>
+       /// <returns>Page displaying results</returns>
         public ActionResult Index(string q)
         {
 

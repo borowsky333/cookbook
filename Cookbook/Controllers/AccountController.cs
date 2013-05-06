@@ -25,9 +25,11 @@ namespace Cookbook.Controllers
     {
         private UsersContext userDb = new UsersContext();
 
-        //
-        // GET: /Account/Login
-
+        /// <summary>
+        /// Displays the login page.
+        /// </summary>
+        /// <param name="returnUrl">Where to return after login</param>
+        /// <returns>The login page</returns>
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
@@ -35,9 +37,12 @@ namespace Cookbook.Controllers
             return View();
         }
 
-        //
-        // POST: /Account/Login
-
+        /// <summary>
+        /// Logs in the user.
+        /// </summary>
+        /// <param name="model">The user's login information</param>
+        /// <param name="returnUrl">Where to return after login</param>
+        /// <returns>The page dictated by the returnUrl</returns>
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -53,6 +58,10 @@ namespace Cookbook.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Logs the user off.
+        /// </summary>
+        /// <returns>Returns user to welcome screen.</returns>
         public ActionResult LogOff()
         {
             WebSecurity.Logout();
@@ -60,30 +69,22 @@ namespace Cookbook.Controllers
             return RedirectToAction("Index", "Welcome");
         }
 
-        //
-        // POST: /Account/LogOff
-
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult LogOff()
-        //{
-        //    WebSecurity.Logout();
-
-        //    return RedirectToAction("Index", "NewsFeed");
-        //}
-
-        //
-        // GET: /Account/Register
-
+        /// <summary>
+        /// Retrieves register page.
+        /// </summary>
+        /// <returns>The register page</returns>
         [AllowAnonymous]
         public ActionResult Register()
         {
             return View();
         }
 
-        //
-        // POST: /Account/Register
 
+        /// <summary>
+        /// Registers the user in our system.
+        /// </summary>
+        /// <param name="model">The user's registration information.</param>
+        /// <returns>Redirects user to their newsfeed.</returns>
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -124,6 +125,11 @@ namespace Cookbook.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Creates a user account for SNS
+        /// </summary>
+        /// <param name="userName">The user to create a SNS account for</param>
+        /// <param name="number">The user's phone number</param>
         private void CreateSNSAccount(String userName, String number)
         {
             AmazonSimpleNotificationServiceClient client = new AmazonSimpleNotificationServiceClient();
@@ -193,6 +199,10 @@ namespace Cookbook.Controllers
 
         }
 
+        /// <summary>
+        /// Uses SES to send an email to a user.
+        /// </summary>
+        /// <param name="email">The email.</param>
         private void SendEmail(String email) //Send notification to user via email.
         {
             try

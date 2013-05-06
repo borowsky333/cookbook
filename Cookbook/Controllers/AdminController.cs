@@ -6,6 +6,9 @@ using System.Web.Mvc;
 
 namespace Cookbook.Controllers
 {
+    /// <summary>
+    /// NOT IMPLEMENTED
+    /// </summary>
     public class AdminController : Controller
     {
         
