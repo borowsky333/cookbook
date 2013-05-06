@@ -545,6 +545,17 @@ namespace Cookbook.Controllers
 
             return View();
         }
+        public ActionResult DisplayRecipeFavorites()
+        {
+            var favoriteIds = (from recipefavs in db.Recipe_Favoriters
+                                where recipefavs.UserId == WebSecurity.CurrentUserId
+                                select recipefavs.RecipeId).ToList();
+
+            var favoriteTitles = (from recipes in db.Recipes
+                                  where favoriteIds.Contains(recipes.RecipeID)
+                                      select recipes.Title).ToList();
+            return PartialView(favoriteTitles);
+        }
 
         public ActionResult AddComment(int postID, int commentID)
         {

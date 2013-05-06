@@ -1,0 +1,18 @@
+﻿@model List<string>
+    <h4>My Favorites:</h4>
+
+<ul class="nav nav-list" style="height: 100%">
+    @if(Model.Count !=0)
+    {
+    foreach (var recipe in Model)
+    {
+        <li>
+            @recipe
+        </li>
+    }
+    }
+    else
+    {
+        <b>You have not favorited any recipes yet. </b>
+    }
+</ul>

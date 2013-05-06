@@ -1,10 +1,14 @@
 ﻿@model List<Cookbook.Models.ViewPostModel>
 <div class="row-fluid">
-    <div class="span8 offset2">
-        <h3 style="text-align: center;">Discovery Feed</h3>
+    <h3 style="text-align: center;">Discovery Feed</h3>
+</div>
+<div class="row-fluid">
+    <div class="span3 sidebar-nav well" style="border-radius: 40px;">
+        @{Html.RenderAction("DisplayRecipeFavorites", "Cookbook");}
+    </div>
+    <div class="span6">
         @foreach (var post in Model)
         {
-            <br />
             <div class="row-fluid recipeOrPost">
                 <div class="span4 offset1">
                     @{
@@ -71,6 +75,8 @@
                     <p><i>Posted on @post.DateCreated</i></p>
                 </div>
             </div>
+            <br />
+            
         }
         <div class="row-fluid span4 offset4">
             <ul class="pager">
