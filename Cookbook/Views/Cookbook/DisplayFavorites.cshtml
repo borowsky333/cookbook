@@ -1,0 +1,18 @@
+﻿@{
+    ViewBag.Title = "Favorites";
+}
+
+<h4>@ViewBag.FavoriteCount people like this post</h4>
+
+@if (ViewBag.Favoriters.Count != 0)
+{
+    <ul>
+        @foreach (var favoriter in ViewBag.Favoriters)
+        {
+            <li>
+                @favoriter
+            </li>        
+        }
+
+    </ul>
+}

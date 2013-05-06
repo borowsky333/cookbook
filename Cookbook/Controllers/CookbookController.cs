@@ -174,6 +174,14 @@ namespace Cookbook.Controllers
                 {
                     post.Liked = false;
                 }
+                if (db.Recipe_Favoriters.Contains(new Recipe_Favoriter { UserId = WebSecurity.CurrentUserId, RecipeId = post.PostId }))
+                {
+                    post.RecipePost.Favorited = true;
+                }
+                else
+                {
+                    post.RecipePost.Favorited = false;
+                }
                 postList.Add(post);
 
             }
@@ -461,18 +469,18 @@ namespace Cookbook.Controllers
         /// <summary>
         /// Favorites another user's recipe
         /// </summary>
-        /// <param name="recipeId">The recipe to favorite</param>
+        /// <param name="postId">The recipe to favorite</param>
         /// <returns>Refreshes the page.</returns>
-        public ActionResult FavoriteRecipe(int recipeId)
+        public ActionResult FavoriteRecipe(int postId)
         {
             Recipe_Favoriter newFavoriter = new Recipe_Favoriter();
-            newFavoriter.RecipeId = recipeId;
+            newFavoriter.RecipeId = postId;
             newFavoriter.UserId = WebSecurity.CurrentUserId;
             if (!db.Recipe_Favoriters.Contains(newFavoriter))
             {
                 db.Recipe_Favoriters.InsertOnSubmit(newFavoriter);
                 var recipe = (from recipes in db.Recipes
-                              where recipes.RecipeID == recipeId
+                              where recipes.RecipeID == postId
                               select recipes).FirstOrDefault();
                 recipe.FavoriteCount++;
 
@@ -484,7 +492,7 @@ namespace Cookbook.Controllers
                                      select userprofiles.UserName).FirstOrDefault();
 
                 var userID = (from recipes in db.Recipes
-                              where recipes.RecipeID == recipeId
+                              where recipes.RecipeID == postId
                               select recipes.UserID).FirstOrDefault();
 
                 SendSMS(userID, favoriterUserName + " has favorited one of your recipes. Come visit Cookbook and check out which recipe "
@@ -494,6 +502,48 @@ namespace Cookbook.Controllers
                     favoriterUserName + " favorited!");
             }
             return Redirect(Request.UrlReferrer.AbsoluteUri);
+        }
+
+        /// <summary>
+        /// Unfavorites another user's recipe
+        /// </summary>
+        /// <param name="recipeId">The recipe to unfavorite</param>
+        /// <returns>Refreshes the page.</returns>
+        public ActionResult UnfavoriteRecipe(int postId)
+        {
+            var unfavoriter = (from favorites in db.Recipe_Favoriters
+                               where favorites.RecipeId == postId && favorites.UserId == WebSecurity.CurrentUserId
+                               select favorites).FirstOrDefault();
+            db.Recipe_Favoriters.DeleteOnSubmit(unfavoriter);
+            var recipe = (from recipes in db.Recipes
+                          where recipes.RecipeID == postId
+                          select recipes).FirstOrDefault();
+            recipe.FavoriteCount--;
+
+
+            db.SubmitChanges();
+
+            return Redirect(Request.UrlReferrer.AbsoluteUri);
+        }
+
+        /// <summary>
+        /// Retrieves who has favorited the recipe.
+        /// </summary>
+        /// <param name="postId">The recipe post</param>
+        /// <returns>Page displaying the favoriters</returns>
+        public ActionResult DisplayFavorites(int postId)
+        {
+            var favoriterIds = (from recipefavs in db.Recipe_Favoriters
+                                where recipefavs.RecipeId == postId
+                                select recipefavs.UserId).ToList();
+
+            var favoriterUsernames = (from users in userDb.UserProfiles
+                                  where favoriterIds.Contains(users.UserId)
+                                  select users.UserName).ToList();
+            ViewBag.Favoriters = favoriterUsernames;
+            ViewBag.FavoriteCount = favoriterUsernames.Count;
+
+            return View();
         }
 
         public ActionResult AddComment(int postID, int commentID)

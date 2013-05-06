@@ -2,192 +2,192 @@
 <ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11.75, 19.375" name="CookbookDBModels">
   <DataContextMoniker Name="/CookbookDBModelsDataContext" />
   <nestedChildShapes>
-    <classShape Id="d2ea002d-6fc1-44e0-89d1-88e2cef2c85a" absoluteBounds="6.75, 12.375, 2, 2.3478011067708344">
+    <classShape Id="2dc385eb-b6c9-47a2-bd93-775f22ac3fd1" absoluteBounds="6.75, 12.375, 2, 2.3478011067708344">
       <DataClassMoniker Name="/CookbookDBModelsDataContext/BlogPost" />
       <nestedChildShapes>
-        <elementListCompartment Id="73518734-94f7-4fa2-8a6d-8e3a6e1d72a7" absoluteBounds="6.765, 12.835, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="db724ca3-6957-4340-98bf-fd03a3a758d9" absoluteBounds="6.765, 12.835, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="ef056f1c-d8f4-48fa-a413-e63ad22bb347" absoluteBounds="9.5, 8.75, 2, 1.1939925130208344">
+    <classShape Id="b129c1dc-13fa-4cf7-a080-1fc67ff2d5d4" absoluteBounds="9.5, 8.75, 2, 1.1939925130208344">
       <DataClassMoniker Name="/CookbookDBModelsDataContext/BlogPost_Comment" />
       <nestedChildShapes>
-        <elementListCompartment Id="7b373483-b93d-4668-a01a-b72d81a1f69e" absoluteBounds="9.515, 9.21, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="88b7fdef-b611-4238-999b-d62a40a16d17" absoluteBounds="9.515, 9.21, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="2e2ceb5d-c0c6-4a71-87f5-3686f2100ee9" absoluteBounds="9.5, 6.125, 2, 1.1939925130208344">
+    <classShape Id="20a825f3-b5bf-4d4f-9c66-9b7ce73d6246" absoluteBounds="9.5, 6.125, 2, 1.1939925130208344">
       <DataClassMoniker Name="/CookbookDBModelsDataContext/BlogPost_Image" />
       <nestedChildShapes>
-        <elementListCompartment Id="23b2f616-2daf-40e2-8a21-75294ccbc64c" absoluteBounds="9.515, 6.585, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="b5c4e478-3bfa-4fac-9ab9-d4c5d7e334e4" absoluteBounds="9.515, 6.585, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="ea892bf6-9a31-4636-9aa4-befaab582d89" absoluteBounds="9.5, 15.875, 2, 1.1939925130208344">
+    <classShape Id="851bab61-3daf-4c58-a5ce-6890b1296338" absoluteBounds="9.5, 15.875, 2, 1.1939925130208344">
       <DataClassMoniker Name="/CookbookDBModelsDataContext/BlogPost_Liker" />
       <nestedChildShapes>
-        <elementListCompartment Id="00393180-165a-45ec-adfa-c5beb58a49c4" absoluteBounds="9.515, 16.335, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="ae159acc-2de0-4bce-9723-9d1dcb119351" absoluteBounds="9.515, 16.335, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="3fe4d00f-3a2d-4cb6-b643-8366c6df3ea7" absoluteBounds="9.5, 17.875, 2, 1.1939925130208309">
+    <classShape Id="fecf9542-923d-431b-9310-3e16bf0a9cec" absoluteBounds="9.5, 17.875, 2, 1.1939925130208309">
       <DataClassMoniker Name="/CookbookDBModelsDataContext/BlogPost_Tag" />
       <nestedChildShapes>
-        <elementListCompartment Id="08da4db8-5e7f-4e72-9609-f191168577a2" absoluteBounds="9.515, 18.335, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="23dacf19-cc8e-48aa-bbd3-88320ee53520" absoluteBounds="9.515, 18.335, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="c2ae35c5-b13e-4496-a8f5-f12a46bb22ef" absoluteBounds="0.75, 4, 2, 1.5785953776041666">
+    <classShape Id="eb7e3dbf-cb4c-438e-8c21-b3374bf663f8" absoluteBounds="0.75, 4, 2, 1.5785953776041666">
       <DataClassMoniker Name="/CookbookDBModelsDataContext/Comment" />
       <nestedChildShapes>
-        <elementListCompartment Id="a4ed2ab1-fea1-4a10-ac32-82ac1cd71e40" absoluteBounds="0.765, 4.46, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="0a6dddf4-fe8c-4f00-b1cf-9d50f40bac63" absoluteBounds="0.765, 4.46, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="e49a53a8-ce35-46bd-ab2d-09ef65062b96" absoluteBounds="3.75, 0.75, 2, 2.1554996744791666">
+    <classShape Id="f6b2cc44-f8fe-444a-9d69-76ff6e1256b8" absoluteBounds="3.75, 0.75, 2, 2.1554996744791666">
       <DataClassMoniker Name="/CookbookDBModelsDataContext/Image" />
       <nestedChildShapes>
-        <elementListCompartment Id="db0adc50-b8a8-492a-9dde-0636a9ac1482" absoluteBounds="3.765, 1.21, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="00f9c470-6617-45c6-981f-8357cb20a9ae" absoluteBounds="3.765, 1.21, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="e7a8ce76-67a1-4c03-855a-68543be983c5" absoluteBounds="3.5, 14, 2, 1.3862939453124987">
+    <classShape Id="e68d8adf-92ad-4d01-ab7b-797b8a9c7eca" absoluteBounds="3.5, 14, 2, 1.3862939453124987">
       <DataClassMoniker Name="/CookbookDBModelsDataContext/Ingredient" />
       <nestedChildShapes>
-        <elementListCompartment Id="efa7def7-1bb5-48c4-9328-61c6d7484923" absoluteBounds="3.515, 14.46, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="7b931bac-83f5-4fc0-8d59-27bc6fca2448" absoluteBounds="3.515, 14.46, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="f40c1997-39e1-4af0-b4a5-38de9c26a4bb" absoluteBounds="0.75, 6.5, 2, 2.5401025390624987">
+    <classShape Id="0d041a4f-72ec-4ebd-ad74-c0da7b626e99" absoluteBounds="0.75, 6.5, 2, 2.5401025390624987">
       <DataClassMoniker Name="/CookbookDBModelsDataContext/Recipe" />
       <nestedChildShapes>
-        <elementListCompartment Id="226c8f32-b1b4-42dd-9bf2-4a1e63697931" absoluteBounds="0.765, 6.96, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="dc3c0ca0-f517-4422-a9bc-6587f396eb13" absoluteBounds="0.765, 6.96, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="da946804-1cd6-4f1a-84c9-baf2d701e058" absoluteBounds="3.5, 4.25, 2, 1.1939925130208335">
+    <classShape Id="968c8e52-af3e-40fe-a3bc-96ceba3c0ecb" absoluteBounds="3.5, 4.25, 2, 1.1939925130208335">
       <DataClassMoniker Name="/CookbookDBModelsDataContext/Recipe_Comment" />
       <nestedChildShapes>
-        <elementListCompartment Id="51371f88-2d7d-4c12-a668-ebc331b23667" absoluteBounds="3.515, 4.71, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="b729b583-fa3f-4764-ace0-dfe5ca28d358" absoluteBounds="3.515, 4.71, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="169a56a7-e418-428e-ac77-94f5ddafa4c2" absoluteBounds="3.5, 6.125, 2, 1.1939925130208344">
+    <classShape Id="0ad8577a-0e6e-4ac6-abcb-b32aafce0ba9" absoluteBounds="3.5, 6.125, 2, 1.1939925130208344">
       <DataClassMoniker Name="/CookbookDBModelsDataContext/Recipe_Favoriter" />
       <nestedChildShapes>
-        <elementListCompartment Id="0ec3f106-862d-4542-ba50-fbd187221b03" absoluteBounds="3.515, 6.585, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="b2377eeb-7eb7-4232-b612-3a878f537420" absoluteBounds="3.515, 6.585, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="6d6e3f06-5704-4fbe-b033-8446e644a746" absoluteBounds="6.5, 7.25, 2, 1.1939925130208318">
+    <classShape Id="9d0d1523-caf6-4f8c-8935-a95586bc5e7b" absoluteBounds="6.5, 7.25, 2, 1.1939925130208318">
       <DataClassMoniker Name="/CookbookDBModelsDataContext/Recipe_Image" />
       <nestedChildShapes>
-        <elementListCompartment Id="7f538a67-5b01-47dc-8df0-810b04dbe7b8" absoluteBounds="6.515, 7.71, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="4b31ef41-f183-4d94-b912-153d5b710c92" absoluteBounds="6.515, 7.71, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="2e19d335-1c59-46d2-9e1f-e435bd9638a6" absoluteBounds="3.5, 10, 2, 1.1939925130208344">
+    <classShape Id="e70e6d74-265b-47b2-9413-882f033ca6cb" absoluteBounds="3.5, 10, 2, 1.1939925130208344">
       <DataClassMoniker Name="/CookbookDBModelsDataContext/Recipe_Liker" />
       <nestedChildShapes>
-        <elementListCompartment Id="dbda8ea1-2752-43d8-a1da-432e9c558954" absoluteBounds="3.515, 10.46, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="3a85c3ea-5f5f-4eb5-8c6d-a66acfa4d8b9" absoluteBounds="3.515, 10.46, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="2b5fbb41-57f7-446f-9d39-94fce8b5cdc0" absoluteBounds="3.5, 12, 2, 1.1939925130208344">
+    <classShape Id="12d9ef19-6428-458e-9f9b-74b6a2dd57c6" absoluteBounds="3.5, 12, 2, 1.1939925130208344">
       <DataClassMoniker Name="/CookbookDBModelsDataContext/Recipe_Tag" />
       <nestedChildShapes>
-        <elementListCompartment Id="ef2d5d2d-9737-4bad-885c-3fabd0004772" absoluteBounds="3.515, 12.46, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="14f9cfee-a2f1-4f35-8fdf-65a5c6f0ca7c" absoluteBounds="3.515, 12.46, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="1bb11118-0ea4-4acf-8d22-bca624605958" absoluteBounds="6.75, 1.625, 2, 1.1939925130208335">
+    <classShape Id="02b08f6d-fb49-4752-8ff5-6ee3271c77b2" absoluteBounds="6.75, 1.625, 2, 1.1939925130208335">
       <DataClassMoniker Name="/CookbookDBModelsDataContext/User_Subscriber" />
       <nestedChildShapes>
-        <elementListCompartment Id="90538e7e-31a8-4c37-8440-f8c344d7cbc9" absoluteBounds="6.765, 2.085, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="4dd4eea8-9fdf-4225-9ba6-651efa37476f" absoluteBounds="6.765, 2.085, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
     <associationConnector edgePoints="[(7.75 : 12.375); (7.75 : 9.34699625651042); (8.57291666666667 : 9.34699625651042 : JumpStart); (8.73958333333333 : 9.34699625651042 : JumpEnd); (9.5 : 9.34699625651042)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/CookbookDBModelsDataContext/BlogPost/BlogPost_BlogPost_Comment" />
       <nodes>
-        <classShapeMoniker Id="d2ea002d-6fc1-44e0-89d1-88e2cef2c85a" />
-        <classShapeMoniker Id="ef056f1c-d8f4-48fa-a413-e63ad22bb347" />
+        <classShapeMoniker Id="2dc385eb-b6c9-47a2-bd93-775f22ac3fd1" />
+        <classShapeMoniker Id="b129c1dc-13fa-4cf7-a080-1fc67ff2d5d4" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(8.65625 : 12.375); (8.65625 : 6.65625); (9.5 : 6.65625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/CookbookDBModelsDataContext/BlogPost/BlogPost_BlogPost_Image" />
       <nodes>
-        <classShapeMoniker Id="d2ea002d-6fc1-44e0-89d1-88e2cef2c85a" />
-        <classShapeMoniker Id="2e2ceb5d-c0c6-4a71-87f5-3686f2100ee9" />
+        <classShapeMoniker Id="2dc385eb-b6c9-47a2-bd93-775f22ac3fd1" />
+        <classShapeMoniker Id="20a825f3-b5bf-4d4f-9c66-9b7ce73d6246" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(7.75 : 14.7228011067708); (7.75 : 16.4719962565104); (8.19791916666667 : 16.4719962565104 : JumpStart); (8.36458583333333 : 16.4719962565104 : JumpEnd); (9.5 : 16.4719962565104)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/CookbookDBModelsDataContext/BlogPost/BlogPost_BlogPost_Liker" />
       <nodes>
-        <classShapeMoniker Id="d2ea002d-6fc1-44e0-89d1-88e2cef2c85a" />
-        <classShapeMoniker Id="ea892bf6-9a31-4636-9aa4-befaab582d89" />
+        <classShapeMoniker Id="2dc385eb-b6c9-47a2-bd93-775f22ac3fd1" />
+        <classShapeMoniker Id="851bab61-3daf-4c58-a5ce-6890b1296338" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(8.2812525 : 14.7228011067708); (8.2812525 : 18.4719962565104); (9.5 : 18.4719962565104)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/CookbookDBModelsDataContext/BlogPost/BlogPost_BlogPost_Tag" />
       <nodes>
-        <classShapeMoniker Id="d2ea002d-6fc1-44e0-89d1-88e2cef2c85a" />
-        <classShapeMoniker Id="3fe4d00f-3a2d-4cb6-b643-8366c6df3ea7" />
+        <classShapeMoniker Id="2dc385eb-b6c9-47a2-bd93-775f22ac3fd1" />
+        <classShapeMoniker Id="fecf9542-923d-431b-9310-3e16bf0a9cec" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(2.75 : 5.57859537760417); (3.125 : 5.95359537760417); (3.125 : 9.01724612825521); (8.57291666666667 : 9.01724612825521 : JumpStart); (8.73958333333333 : 9.01724612825521 : JumpEnd); (9.5 : 9.01724612825521)]" fixedFrom="NotFixed" fixedTo="Algorithm">
       <AssociationMoniker Name="/CookbookDBModelsDataContext/Comment/Comment_BlogPost_Comment" />
       <nodes>
-        <classShapeMoniker Id="c2ae35c5-b13e-4496-a8f5-f12a46bb22ef" />
-        <classShapeMoniker Id="ef056f1c-d8f4-48fa-a413-e63ad22bb347" />
+        <classShapeMoniker Id="eb7e3dbf-cb4c-438e-8c21-b3374bf663f8" />
+        <classShapeMoniker Id="b129c1dc-13fa-4cf7-a080-1fc67ff2d5d4" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(5.75 : 1.15625); (10.5 : 1.15625); (10.5 : 6.125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/CookbookDBModelsDataContext/Image/Image_BlogPost_Image" />
       <nodes>
-        <classShapeMoniker Id="e49a53a8-ce35-46bd-ab2d-09ef65062b96" />
-        <classShapeMoniker Id="2e2ceb5d-c0c6-4a71-87f5-3686f2100ee9" />
+        <classShapeMoniker Id="f6b2cc44-f8fe-444a-9d69-76ff6e1256b8" />
+        <classShapeMoniker Id="20a825f3-b5bf-4d4f-9c66-9b7ce73d6246" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(1.75 : 9.0401025390625); (1.75 : 14.6931469726562); (3.5 : 14.6931469726562)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/CookbookDBModelsDataContext/Recipe/Recipe_Ingredient" />
       <nodes>
-        <classShapeMoniker Id="f40c1997-39e1-4af0-b4a5-38de9c26a4bb" />
-        <classShapeMoniker Id="e7a8ce76-67a1-4c03-855a-68543be983c5" />
+        <classShapeMoniker Id="0d041a4f-72ec-4ebd-ad74-c0da7b626e99" />
+        <classShapeMoniker Id="e68d8adf-92ad-4d01-ab7b-797b8a9c7eca" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(2.75 : 4.84699625651042); (3.5 : 4.84699625651042)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/CookbookDBModelsDataContext/Comment/Comment_Recipe_Comment" />
       <nodes>
-        <classShapeMoniker Id="c2ae35c5-b13e-4496-a8f5-f12a46bb22ef" />
-        <classShapeMoniker Id="da946804-1cd6-4f1a-84c9-baf2d701e058" />
+        <classShapeMoniker Id="eb7e3dbf-cb4c-438e-8c21-b3374bf663f8" />
+        <classShapeMoniker Id="968c8e52-af3e-40fe-a3bc-96ceba3c0ecb" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(2.75 : 6.56307592307692); (3.06607443490112 : 6.2470014881758 : JumpStart); (3.18392556509888 : 6.12915035797804 : JumpEnd); (3.3125 : 6.00057592307692); (3.3125 : 5.17674638476563); (3.5 : 5.17674638476563)]" fixedFrom="NotFixed" fixedTo="Algorithm">
       <AssociationMoniker Name="/CookbookDBModelsDataContext/Recipe/Recipe_Recipe_Comment" />
       <nodes>
-        <classShapeMoniker Id="f40c1997-39e1-4af0-b4a5-38de9c26a4bb" />
-        <classShapeMoniker Id="da946804-1cd6-4f1a-84c9-baf2d701e058" />
+        <classShapeMoniker Id="0d041a4f-72ec-4ebd-ad74-c0da7b626e99" />
+        <classShapeMoniker Id="968c8e52-af3e-40fe-a3bc-96ceba3c0ecb" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(2.75 : 6.97228671804888); (3.04166666666667 : 6.97228671804888 : JumpStart); (3.20833333333333 : 6.97228671804888 : JumpEnd); (3.5 : 6.97228671804888)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/CookbookDBModelsDataContext/Recipe/Recipe_Recipe_Favoriter" />
       <nodes>
-        <classShapeMoniker Id="f40c1997-39e1-4af0-b4a5-38de9c26a4bb" />
-        <classShapeMoniker Id="169a56a7-e418-428e-ac77-94f5ddafa4c2" />
+        <classShapeMoniker Id="0d041a4f-72ec-4ebd-ad74-c0da7b626e99" />
+        <classShapeMoniker Id="0ad8577a-0e6e-4ac6-abcb-b32aafce0ba9" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(5.65625 : 2.90549967447917); (5.65625 : 7.91274251302083); (6.5 : 7.91274251302083)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/CookbookDBModelsDataContext/Image/Image_Recipe_Image" />
       <nodes>
-        <classShapeMoniker Id="e49a53a8-ce35-46bd-ab2d-09ef65062b96" />
-        <classShapeMoniker Id="6d6e3f06-5704-4fbe-b033-8446e644a746" />
+        <classShapeMoniker Id="f6b2cc44-f8fe-444a-9d69-76ff6e1256b8" />
+        <classShapeMoniker Id="9d0d1523-caf6-4f8c-8935-a95586bc5e7b" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(2.75 : 7.58461751302083); (3.04166666666667 : 7.58461751302083 : JumpStart); (3.20833333333333 : 7.58461751302083 : JumpEnd); (5.57291666666667 : 7.58461751302083 : JumpStart); (5.73958333333333 : 7.58461751302083 : JumpEnd); (6.5 : 7.58461751302083)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/CookbookDBModelsDataContext/Recipe/Recipe_Recipe_Image" />
       <nodes>
-        <classShapeMoniker Id="f40c1997-39e1-4af0-b4a5-38de9c26a4bb" />
-        <classShapeMoniker Id="6d6e3f06-5704-4fbe-b033-8446e644a746" />
+        <classShapeMoniker Id="0d041a4f-72ec-4ebd-ad74-c0da7b626e99" />
+        <classShapeMoniker Id="9d0d1523-caf6-4f8c-8935-a95586bc5e7b" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(2.2812525 : 9.0401025390625); (2.2812525 : 10.5969962565104); (3.5 : 10.5969962565104)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/CookbookDBModelsDataContext/Recipe/Recipe_Recipe_Liker" />
       <nodes>
-        <classShapeMoniker Id="f40c1997-39e1-4af0-b4a5-38de9c26a4bb" />
-        <classShapeMoniker Id="2e19d335-1c59-46d2-9e1f-e435bd9638a6" />
+        <classShapeMoniker Id="0d041a4f-72ec-4ebd-ad74-c0da7b626e99" />
+        <classShapeMoniker Id="e70e6d74-265b-47b2-9413-882f033ca6cb" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(1.2187475 : 9.0401025390625); (1.2187475 : 12.5969962565104); (1.66666666666667 : 12.5969962565104 : JumpStart); (1.83333333333333 : 12.5969962565104 : JumpEnd); (3.5 : 12.5969962565104)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/CookbookDBModelsDataContext/Recipe/Recipe_Recipe_Tag" />
       <nodes>
-        <classShapeMoniker Id="f40c1997-39e1-4af0-b4a5-38de9c26a4bb" />
-        <classShapeMoniker Id="2b5fbb41-57f7-446f-9d39-94fce8b5cdc0" />
+        <classShapeMoniker Id="0d041a4f-72ec-4ebd-ad74-c0da7b626e99" />
+        <classShapeMoniker Id="12d9ef19-6428-458e-9f9b-74b6a2dd57c6" />
       </nodes>
     </associationConnector>
   </nestedChildShapes>

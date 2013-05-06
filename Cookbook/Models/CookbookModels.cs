@@ -44,6 +44,7 @@ namespace Cookbook.Models
         public int FavoriteCount { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }
+        public bool Favorited { get; set; }
         
     }
 

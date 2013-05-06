@@ -288,6 +288,7 @@
     </Content>
     <Content Include="Views\Shared\SubscribeRedirect.cshtml" />
     <Content Include="Views\Cookbook\DisplayLikes.cshtml" />
+    <Content Include="Views\Cookbook\DisplayFavorites.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -43,6 +43,16 @@
                                 <a href="/Cookbook/UnlikeRecipe/?postId=@post.PostId">Unlike</a>
                             }
                         </p>
+                        <p><b><a href="/Cookbook/DisplayFavorites/?postId=@post.PostId">@post.RecipePost.FavoriteCount favorites.</a></b>
+                            @if (post.RecipePost.Favorited == false)
+                            {
+                                <a href="/Cookbook/FavoriteRecipe/?postId=@post.PostId">Favorite</a>
+                            }
+                            else
+                            {
+                                <a href="/Cookbook/UnfavoriteRecipe/?postId=@post.PostId">Unfavorite</a>
+                            }
+                        </p>
                     }
                     @if (post.BlogPost != null)
                     {

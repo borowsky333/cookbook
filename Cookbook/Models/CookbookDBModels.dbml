@@ -106,8 +106,8 @@
   </Table>
   <Table Name="dbo.Recipe_Favoriter" Member="Recipe_Favoriters">
     <Type Name="Recipe_Favoriter">
-      <Column Name="RecipeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="UserId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RecipeId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="UserId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Association Name="Recipe_Recipe_Favoriter" Member="Recipe" ThisKey="RecipeId" OtherKey="RecipeID" Type="Recipe" IsForeignKey="true" />
     </Type>
   </Table>

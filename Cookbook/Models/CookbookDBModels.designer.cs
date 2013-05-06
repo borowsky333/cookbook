@@ -51,6 +51,9 @@ namespace Cookbook.Models
     partial void InsertRecipe(Recipe instance);
     partial void UpdateRecipe(Recipe instance);
     partial void DeleteRecipe(Recipe instance);
+    partial void InsertRecipe_Favoriter(Recipe_Favoriter instance);
+    partial void UpdateRecipe_Favoriter(Recipe_Favoriter instance);
+    partial void DeleteRecipe_Favoriter(Recipe_Favoriter instance);
     partial void InsertRecipe_Liker(Recipe_Liker instance);
     partial void UpdateRecipe_Liker(Recipe_Liker instance);
     partial void DeleteRecipe_Liker(Recipe_Liker instance);
@@ -1360,6 +1363,8 @@ namespace Cookbook.Models
 		
 		private EntitySet<Ingredient> _Ingredients;
 		
+		private EntitySet<Recipe_Favoriter> _Recipe_Favoriters;
+		
 		private EntitySet<Recipe_Liker> _Recipe_Likers;
 		
 		private EntitySet<Recipe_Tag> _Recipe_Tags;
@@ -1391,6 +1396,7 @@ namespace Cookbook.Models
 		public Recipe()
 		{
 			this._Ingredients = new EntitySet<Ingredient>(new Action<Ingredient>(this.attach_Ingredients), new Action<Ingredient>(this.detach_Ingredients));
+			this._Recipe_Favoriters = new EntitySet<Recipe_Favoriter>(new Action<Recipe_Favoriter>(this.attach_Recipe_Favoriters), new Action<Recipe_Favoriter>(this.detach_Recipe_Favoriters));
 			this._Recipe_Likers = new EntitySet<Recipe_Liker>(new Action<Recipe_Liker>(this.attach_Recipe_Likers), new Action<Recipe_Liker>(this.detach_Recipe_Likers));
 			this._Recipe_Tags = new EntitySet<Recipe_Tag>(new Action<Recipe_Tag>(this.attach_Recipe_Tags), new Action<Recipe_Tag>(this.detach_Recipe_Tags));
 			OnCreated();
@@ -1589,6 +1595,19 @@ namespace Cookbook.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Recipe_Recipe_Favoriter", Storage="_Recipe_Favoriters", ThisKey="RecipeID", OtherKey="RecipeId")]
+		public EntitySet<Recipe_Favoriter> Recipe_Favoriters
+		{
+			get
+			{
+				return this._Recipe_Favoriters;
+			}
+			set
+			{
+				this._Recipe_Favoriters.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Recipe_Recipe_Liker", Storage="_Recipe_Likers", ThisKey="RecipeID", OtherKey="RecipeId")]
 		public EntitySet<Recipe_Liker> Recipe_Likers
 		{
@@ -1642,6 +1661,18 @@ namespace Cookbook.Models
 		}
 		
 		private void detach_Ingredients(Ingredient entity)
+		{
+			this.SendPropertyChanging();
+			entity.Recipe = null;
+		}
+		
+		private void attach_Recipe_Favoriters(Recipe_Favoriter entity)
+		{
+			this.SendPropertyChanging();
+			entity.Recipe = this;
+		}
+		
+		private void detach_Recipe_Favoriters(Recipe_Favoriter entity)
 		{
 			this.SendPropertyChanging();
 			entity.Recipe = null;
@@ -1718,18 +1749,34 @@ namespace Cookbook.Models
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Recipe_Favoriter")]
-	public partial class Recipe_Favoriter
+	public partial class Recipe_Favoriter : INotifyPropertyChanging, INotifyPropertyChanged
 	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private int _RecipeId;
 		
 		private int _UserId;
 		
+		private EntityRef<Recipe> _Recipe;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnRecipeIdChanging(int value);
+    partial void OnRecipeIdChanged();
+    partial void OnUserIdChanging(int value);
+    partial void OnUserIdChanged();
+    #endregion
+		
 		public Recipe_Favoriter()
 		{
+			this._Recipe = default(EntityRef<Recipe>);
+			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RecipeId", DbType="Int NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RecipeId", DbType="Int NOT NULL", IsPrimaryKey=true)]
 		public int RecipeId
 		{
 			get
@@ -1740,12 +1787,20 @@ namespace Cookbook.Models
 			{
 				if ((this._RecipeId != value))
 				{
+					if (this._Recipe.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnRecipeIdChanging(value);
+					this.SendPropertyChanging();
 					this._RecipeId = value;
+					this.SendPropertyChanged("RecipeId");
+					this.OnRecipeIdChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserId", DbType="Int NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserId", DbType="Int NOT NULL", IsPrimaryKey=true)]
 		public int UserId
 		{
 			get
@@ -1756,8 +1811,66 @@ namespace Cookbook.Models
 			{
 				if ((this._UserId != value))
 				{
+					this.OnUserIdChanging(value);
+					this.SendPropertyChanging();
 					this._UserId = value;
+					this.SendPropertyChanged("UserId");
+					this.OnUserIdChanged();
 				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Recipe_Recipe_Favoriter", Storage="_Recipe", ThisKey="RecipeId", OtherKey="RecipeID", IsForeignKey=true)]
+		public Recipe Recipe
+		{
+			get
+			{
+				return this._Recipe.Entity;
+			}
+			set
+			{
+				Recipe previousValue = this._Recipe.Entity;
+				if (((previousValue != value) 
+							|| (this._Recipe.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Recipe.Entity = null;
+						previousValue.Recipe_Favoriters.Remove(this);
+					}
+					this._Recipe.Entity = value;
+					if ((value != null))
+					{
+						value.Recipe_Favoriters.Add(this);
+						this._RecipeId = value.RecipeID;
+					}
+					else
+					{
+						this._RecipeId = default(int);
+					}
+					this.SendPropertyChanged("Recipe");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}
