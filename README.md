@@ -6,6 +6,7 @@ http://thecookbook.tk
 ## What is Cookbook?
 
 Cookbook is a social network that lets users post and view recipes. All of the content in Cookbook is user generated. Cookbook is a .NET web application powered by Amazon AWS technologies.
+It works on desktop and mobile devices that have support for HTML5.
 
 ## Why use Cookbook?
 
